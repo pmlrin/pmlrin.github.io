@@ -72,24 +72,6 @@
       </tags>
   </entry>
   <entry>
-    <title>LaTeX-Test</title>
-    <url>/2024/07/29/LaTeX-Test/</url>
-    <content><![CDATA[<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mstyle mathsize="2.488em"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></munderover><mo>=</mo><mfrac><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow><mn>2</mn></mfrac></mstyle></mrow><annotation encoding="application/x-tex">\Huge\sum_{i=1}^{+\infty}=\dfrac{+\infty}{2}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:7.966703780000001em;vertical-align:-3.39806492em;"></span><span class="mop op-limits sizing reset-size6 size11"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.836269638263666em;"><span style="top:-3.2222182797427648em;margin-left:0em;"><span class="pstrut" style="height:4.4879999999999995em;"></span><span class="sizing reset-size11 size10 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-4.488005em;"><span class="pstrut" style="height:4.4879999999999995em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-5.738005em;margin-left:0em;"><span class="pstrut" style="height:4.4879999999999995em;"></span><span class="sizing reset-size11 size10 mtight"><span class="mord mtight"><span class="mord mtight">+</span><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3657817202572347em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel sizing reset-size6 size11">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:4.84246904em;vertical-align:-1.706768em;"></span><span class="mord sizing reset-size6 size11"><span class="mopen nulldelimiter sizing reset-size11 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.2603300000000002em;"><span style="top:-3.8019999999999996em;"><span class="pstrut" style="height:4.4879999999999995em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-4.718em;"><span class="pstrut" style="height:4.4879999999999995em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-5.165em;"><span class="pstrut" style="height:4.4879999999999995em;"></span><span class="mord"><span class="mord">+</span><span class="mord">∞</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size11 size6"></span></span></span></span></span></span></p>
-<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mstyle mathsize="2.488em"><mtext>主</mtext><mo>=</mo><mn>6</mn></mstyle></mrow><annotation encoding="application/x-tex">\Huge\text{主}=6
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.7001250399999999em;vertical-align:0em;"></span><span class="mord text sizing reset-size6 size11"><span class="mord cjk_fallback">主</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel sizing reset-size6 size11">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.6033667200000001em;vertical-align:0em;"></span><span class="mord sizing reset-size6 size11">6</span></span></span></span></span></p>
-<span id="more"></span>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> _yz</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line">	<span class="type">const</span> ll N=<span class="number">200000</span><span class="number">+10</span>;</span><br><span class="line">	<span class="keyword">struct</span> <span class="title class_">point</span>&#123;ll x,y,n,t;&#125;p[N];</span><br><span class="line">	ll n,ans=<span class="number">0</span>;</span><br><span class="line">	multiset&lt;point&gt;s;</span><br><span class="line">	<span class="type">bool</span> <span class="keyword">operator</span>&lt;(point a,point b)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(a.x==b.x) <span class="keyword">return</span> a.y&lt;b.y;</span><br><span class="line">		<span class="keyword">return</span> a.x&lt;b.x;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(point a,point b)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(a.y==b.y) <span class="keyword">return</span> a.x&gt;b.x;</span><br><span class="line">		<span class="keyword">return</span> a.y&gt;b.y;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		ll opt,a,b,c;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>,&amp;n);</span><br><span class="line">		<span class="keyword">for</span>(ll i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">&quot;%lld%lld%lld%lld&quot;</span>,&amp;opt,&amp;b,&amp;a,&amp;c);</span><br><span class="line">			p[i]=(point)&#123;a+b,b-a,c,opt&#125;;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">sort</span>(p<span class="number">+1</span>,p+n<span class="number">+1</span>,cmp);</span><br><span class="line">		<span class="keyword">for</span>(ll i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(p[i].t==<span class="number">2</span>) s.<span class="built_in">insert</span>(p[i]);</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">while</span>(p[i].n)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="keyword">auto</span> it=s.<span class="built_in">lower_bound</span>(p[i]);</span><br><span class="line">					<span class="keyword">if</span>(it==s.<span class="built_in">end</span>()) <span class="keyword">break</span>;</span><br><span class="line">					point now=(*it);</span><br><span class="line">					ll add=<span class="built_in">min</span>(now.n,p[i].n);</span><br><span class="line">					p[i].n-=add; now.n-=add; ans+=add;</span><br><span class="line">					s.<span class="built_in">erase</span>(it);</span><br><span class="line">					<span class="keyword">if</span>(now.n&gt;=<span class="number">1</span>) s.<span class="built_in">insert</span>(now);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>,ans);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	_yz::<span class="built_in">main</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img data-src="https://cdn.jsdelivr.net/gh/Yurchiu/PicGo/20240325_202902.jpg" alt="" /></p>
-]]></content>
-      <categories>
-        <category>LaTeX</category>
-      </categories>
-      <tags>
-        <tag>LaTeX</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hello World</title>
     <url>/2024/07/29/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -108,6 +90,24 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>LaTeX-Test</title>
+    <url>/2024/07/29/LaTeX-Test/</url>
+    <content><![CDATA[<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mstyle mathsize="2.488em"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></munderover><mo>=</mo><mfrac><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow><mn>2</mn></mfrac></mstyle></mrow><annotation encoding="application/x-tex">\Huge\sum_{i=1}^{+\infty}=\dfrac{+\infty}{2}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:7.966703780000001em;vertical-align:-3.39806492em;"></span><span class="mop op-limits sizing reset-size6 size11"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.836269638263666em;"><span style="top:-3.2222182797427648em;margin-left:0em;"><span class="pstrut" style="height:4.4879999999999995em;"></span><span class="sizing reset-size11 size10 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-4.488005em;"><span class="pstrut" style="height:4.4879999999999995em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-5.738005em;margin-left:0em;"><span class="pstrut" style="height:4.4879999999999995em;"></span><span class="sizing reset-size11 size10 mtight"><span class="mord mtight"><span class="mord mtight">+</span><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3657817202572347em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel sizing reset-size6 size11">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:4.84246904em;vertical-align:-1.706768em;"></span><span class="mord sizing reset-size6 size11"><span class="mopen nulldelimiter sizing reset-size11 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.2603300000000002em;"><span style="top:-3.8019999999999996em;"><span class="pstrut" style="height:4.4879999999999995em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-4.718em;"><span class="pstrut" style="height:4.4879999999999995em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-5.165em;"><span class="pstrut" style="height:4.4879999999999995em;"></span><span class="mord"><span class="mord">+</span><span class="mord">∞</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size11 size6"></span></span></span></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mstyle mathsize="2.488em"><mtext>主</mtext><mo>=</mo><mn>6</mn></mstyle></mrow><annotation encoding="application/x-tex">\Huge\text{主}=6
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.7001250399999999em;vertical-align:0em;"></span><span class="mord text sizing reset-size6 size11"><span class="mord cjk_fallback">主</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel sizing reset-size6 size11">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.6033667200000001em;vertical-align:0em;"></span><span class="mord sizing reset-size6 size11">6</span></span></span></span></span></p>
+<span id="more"></span>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> _yz</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line">	<span class="type">const</span> ll N=<span class="number">200000</span><span class="number">+10</span>;</span><br><span class="line">	<span class="keyword">struct</span> <span class="title class_">point</span>&#123;ll x,y,n,t;&#125;p[N];</span><br><span class="line">	ll n,ans=<span class="number">0</span>;</span><br><span class="line">	multiset&lt;point&gt;s;</span><br><span class="line">	<span class="type">bool</span> <span class="keyword">operator</span>&lt;(point a,point b)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(a.x==b.x) <span class="keyword">return</span> a.y&lt;b.y;</span><br><span class="line">		<span class="keyword">return</span> a.x&lt;b.x;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(point a,point b)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(a.y==b.y) <span class="keyword">return</span> a.x&gt;b.x;</span><br><span class="line">		<span class="keyword">return</span> a.y&gt;b.y;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		ll opt,a,b,c;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>,&amp;n);</span><br><span class="line">		<span class="keyword">for</span>(ll i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">&quot;%lld%lld%lld%lld&quot;</span>,&amp;opt,&amp;b,&amp;a,&amp;c);</span><br><span class="line">			p[i]=(point)&#123;a+b,b-a,c,opt&#125;;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">sort</span>(p<span class="number">+1</span>,p+n<span class="number">+1</span>,cmp);</span><br><span class="line">		<span class="keyword">for</span>(ll i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(p[i].t==<span class="number">2</span>) s.<span class="built_in">insert</span>(p[i]);</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">while</span>(p[i].n)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="keyword">auto</span> it=s.<span class="built_in">lower_bound</span>(p[i]);</span><br><span class="line">					<span class="keyword">if</span>(it==s.<span class="built_in">end</span>()) <span class="keyword">break</span>;</span><br><span class="line">					point now=(*it);</span><br><span class="line">					ll add=<span class="built_in">min</span>(now.n,p[i].n);</span><br><span class="line">					p[i].n-=add; now.n-=add; ans+=add;</span><br><span class="line">					s.<span class="built_in">erase</span>(it);</span><br><span class="line">					<span class="keyword">if</span>(now.n&gt;=<span class="number">1</span>) s.<span class="built_in">insert</span>(now);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>,ans);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	_yz::<span class="built_in">main</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://cdn.jsdelivr.net/gh/Yurchiu/PicGo/20240325_202902.jpg" alt="" /></p>
+]]></content>
+      <categories>
+        <category>LaTeX</category>
+      </categories>
+      <tags>
+        <tag>LaTeX</tag>
+      </tags>
   </entry>
   <entry>
     <title>【解析几何】准线与焦点</title>
@@ -424,44 +424,6 @@ s-65,47,-65,47z M834 80H400000v40H845z'/></svg></span></span></span><span class=
       </tags>
   </entry>
   <entry>
-    <title>欢迎</title>
-    <url>/2019/08/19/%E6%AC%A2%E8%BF%8E/</url>
-    <content><![CDATA[<p>欢迎来到 Yurchiu 的博客！希望我们能相互交流，共同进步～</p>
-<span id="more"></span>
-<!-- https://cdn.jsdelivr.net/gh/yz-hs/PicGo/newyear-welcome.jpg -->
-<h1 id="欢迎-dalao-来访"><a class="markdownIt-Anchor" href="#欢迎-dalao-来访"></a> 欢迎 Dalao 来访</h1>
-<h2 id="why-blog"><a class="markdownIt-Anchor" href="#why-blog"></a> Why Blog</h2>
-<div class="alert alert-info">Why Blog“三段论”来自 yelog，并非原创。</div>
-喜欢写 Blog 的人，会经历三个阶段。
-<blockquote>
-<p>第一阶段，刚接触 Blog，觉得很新鲜，试着选择一个免费空间来写。</p>
-</blockquote>
-<blockquote>
-<p>第二阶段，发现免费空间限制太多，就自己购买域名和空间，搭建独立博客。</p>
-</blockquote>
-<blockquote>
-<p>第三阶段，觉得独立博客的管理太麻烦，最好在保留控制权的前提下，让别人来管，自己只负责写文章。</p>
-</blockquote>
-<p>我们每个人的在网络上产生的数据越来越多，这些信息是我们在互联网上存在过的痕迹，值得我们认真对待。但是它们被分散分布在各个网站上。很多时候我们很难将它们聚合在一起，而且各个网站的信息排布方式也没有办法自由控制，所以我们需要一个可以由自己主宰的空间——博客。</p>
-<p>通过博客，我们可以记录自己的生活和成长的轨迹。它不像 Twitter 那样碎片化，也不像 Facebook 那样关系化，它是私人的空间。</p>
-<h1 id="网站指南"><a class="markdownIt-Anchor" href="#网站指南"></a> 网站指南</h1>
-<h2 id="侧边栏"><a class="markdownIt-Anchor" href="#侧边栏"></a> 侧边栏</h2>
-<ul>
-<li>说说：一些简短的话，不至于发新文章，以说说形式发布。</li>
-<li>留言：有什么想法、建议、吐槽、Bug 反馈，可以留言！</li>
-<li>链接：一些友链，以及有用的网站。</li>
-</ul>
-<h2 id="已知-bug"><a class="markdownIt-Anchor" href="#已知-bug"></a> 已知 Bug</h2>
-<ul>
-<li>本主题或多或少有一些无法解决的 Bug。</li>
-<li>题解的 CODE 会不可避免地被 HACK！Dalao 们若发现错误 / 不明确的地方请提出您宝贵的意见。</li>
-</ul>
-<h2 id="其他"><a class="markdownIt-Anchor" href="#其他"></a> 其他</h2>
-<p>本站域名不再更换（AFO 了），请直接访问 <a href="https://Yurchiu.github.io">https://Yurchiu.github.io</a>。</p>
-<p>更换记录：<code>yz-hs.github.io</code> -&gt; <code>orzyz.tk</code> -&gt; <code>yz-hs.tk</code> -&gt; <code>cieu.tk</code> -&gt; <code>yz-hs.github.io</code> -&gt; <code>Yurchiu.github.io</code>。</p>
-]]></content>
-  </entry>
-  <entry>
     <title>《幽默报 11》</title>
     <url>/2024/08/02/%E3%80%8A%E5%B9%BD%E9%BB%98%E6%8A%A5%2011%E3%80%8B/</url>
     <content><![CDATA[<p>这玩意出到第十一期，在座的各位都有责任。往期幽默报：<a href="https://yz-hs.github.io/categories/%E6%B0%B4/%E5%B9%BD%E9%BB%98%E6%8A%A5/">https://yz-hs.github.io/categories/水/幽默报/</a>。</p>
@@ -580,5 +542,43 @@ s-65,47,-65,47z M834 80H400000v40H845z'/></svg></span></span></span><span class=
       <tags>
         <tag>幽默报</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>欢迎</title>
+    <url>/2019/08/19/%E6%AC%A2%E8%BF%8E/</url>
+    <content><![CDATA[<p>欢迎来到 Yurchiu 的博客！希望我们能相互交流，共同进步～</p>
+<span id="more"></span>
+<!-- https://cdn.jsdelivr.net/gh/yz-hs/PicGo/newyear-welcome.jpg -->
+<h1 id="欢迎-dalao-来访"><a class="markdownIt-Anchor" href="#欢迎-dalao-来访"></a> 欢迎 Dalao 来访</h1>
+<h2 id="why-blog"><a class="markdownIt-Anchor" href="#why-blog"></a> Why Blog</h2>
+<div class="alert alert-info">Why Blog“三段论”来自 yelog，并非原创。</div>
+喜欢写 Blog 的人，会经历三个阶段。
+<blockquote>
+<p>第一阶段，刚接触 Blog，觉得很新鲜，试着选择一个免费空间来写。</p>
+</blockquote>
+<blockquote>
+<p>第二阶段，发现免费空间限制太多，就自己购买域名和空间，搭建独立博客。</p>
+</blockquote>
+<blockquote>
+<p>第三阶段，觉得独立博客的管理太麻烦，最好在保留控制权的前提下，让别人来管，自己只负责写文章。</p>
+</blockquote>
+<p>我们每个人的在网络上产生的数据越来越多，这些信息是我们在互联网上存在过的痕迹，值得我们认真对待。但是它们被分散分布在各个网站上。很多时候我们很难将它们聚合在一起，而且各个网站的信息排布方式也没有办法自由控制，所以我们需要一个可以由自己主宰的空间——博客。</p>
+<p>通过博客，我们可以记录自己的生活和成长的轨迹。它不像 Twitter 那样碎片化，也不像 Facebook 那样关系化，它是私人的空间。</p>
+<h1 id="网站指南"><a class="markdownIt-Anchor" href="#网站指南"></a> 网站指南</h1>
+<h2 id="侧边栏"><a class="markdownIt-Anchor" href="#侧边栏"></a> 侧边栏</h2>
+<ul>
+<li>说说：一些简短的话，不至于发新文章，以说说形式发布。</li>
+<li>留言：有什么想法、建议、吐槽、Bug 反馈，可以留言！</li>
+<li>链接：一些友链，以及有用的网站。</li>
+</ul>
+<h2 id="已知-bug"><a class="markdownIt-Anchor" href="#已知-bug"></a> 已知 Bug</h2>
+<ul>
+<li>本主题或多或少有一些无法解决的 Bug。</li>
+<li>题解的 CODE 会不可避免地被 HACK！Dalao 们若发现错误 / 不明确的地方请提出您宝贵的意见。</li>
+</ul>
+<h2 id="其他"><a class="markdownIt-Anchor" href="#其他"></a> 其他</h2>
+<p>本站域名不再更换（AFO 了），请直接访问 <a href="https://Yurchiu.github.io">https://Yurchiu.github.io</a>。</p>
+<p>更换记录：<code>yz-hs.github.io</code> -&gt; <code>orzyz.tk</code> -&gt; <code>yz-hs.tk</code> -&gt; <code>cieu.tk</code> -&gt; <code>yz-hs.github.io</code> -&gt; <code>Yurchiu.github.io</code>。</p>
+]]></content>
   </entry>
 </search>
