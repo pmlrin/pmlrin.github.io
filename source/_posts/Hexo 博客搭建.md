@@ -1,13 +1,12 @@
 ---
 title: Hexo 博客搭建
-mathjax: true
 date: 2019-10-03 18:28:18
 tags: 
  - Hexo
 categories: 
  - Hexo
-bgimg: https://cdn.jsdelivr.net/gh/Yurchiu/PicGo/mobileqq_card_pic_1699031751455.jpg
-height: 20em
+author:
+ - Pomelorin
 ---
 
 # 1. 安装 git & Node.js

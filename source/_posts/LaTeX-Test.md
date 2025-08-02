@@ -6,6 +6,8 @@ tags:
 categories:
   - LaTeX
 password: "123456"
+author:
+ - Pomelorin
 ---
 
 $$

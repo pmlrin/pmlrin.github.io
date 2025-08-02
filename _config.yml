@@ -7,7 +7,7 @@ title: Pomelorin
 subtitle: 'Per aspera ad astra. 循此苦旅，以达天际。'
 description: '欢迎来到本博客！希望我们能相互交流，共同进步～'
 keywords:
-author: Pomelorin
+author: "Pomelorin & Cool-breeze"
 language: zh-CN
 timezone: ''
 
@@ -111,3 +111,13 @@ search:
   field: post
   content: true
   format: html
+
+# Security
+encrypt: # hexo-blog-encrypt
+  abstract: 本文被加密了，请点击“阅读全文”后输入密码查看。
+  message: Password here.
+  tags:
+    - {name: diary, password: WF#$#%$AFga23t2wef}
+  theme: shrink
+  wrong_pass_message: 抱歉, 这个密码看着不太对, 请再试试.
+  wrong_hash_message: 抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.
