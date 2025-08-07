@@ -1284,16 +1284,7 @@ pre code {
 .github-corner :hover .octo-arm {
   animation: octocat-wave 560ms ease-in-out;
 }
-.github-corner .octo-arm {
-  transition: all 0.3s ease;
-}
-.github-corner .octo-body {
-  transition: all 0.3s ease;
-}
 .github-corner svg {
-  position: fixed;
-  top: 0;
-  left: 0;
   color: #fff;
   fill: var(--theme-color);
   position: absolute;
@@ -1366,7 +1357,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #d06cff;
+  background: #ddffde;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2266,6 +2257,24 @@ pre code {
 .post-block:last-of-type .post-eof {
   display: none;
 }
+.post-copyright ul {
+  list-style: none;
+  overflow: hidden;
+  padding: 0.5em 1em;
+  position: relative;
+  background: var(--card-bg-color);
+  border-left: 3px solid #ff2a2a;
+  margin: 1em 0 0;
+}
+.post-copyright ul::after {
+  content: '\f25e';
+  font-family: 'Font Awesome 6 Brands';
+  font-size: 200px;
+  opacity: 0.1;
+  position: absolute;
+  right: -50px;
+  top: -150px;
+}
 .post-tags {
   margin-top: 40px;
   text-align: left;
@@ -3026,4 +3035,34 @@ details >summary {
   .post-meta-item {
     margin: 0 8px;
   }
+}
+.quote-wrapper {
+  margin-top: 20px;
+  padding: 0 10px;
+  border-radius: 7px;
+  background-color: #f1e9d2;
+}
+#hitokoto::before,
+#hitokoto::after {
+  border: none;
+}
+#hitokoto {
+  color: #555;
+  margin: 30px 0;
+}
+.hi-inner {
+  padding: 0 8px;
+}
+body {
+  background-image: linear-gradient(to right, #eee 1px, transparent 1px), linear-gradient(to bottom, #eee 1px, transparent 1px);
+  background-size: 30px 30px;
+  background-position: center center;
+}
+hr {
+  background-image: repeating-linear-gradient(-45deg, #bebebe, #bebebe 4px, transparent 4px, transparent 8px);
+}
+.blockquote-center::before,
+.blockquote-center::after {
+  border-color: #aaa !important;
+  border-width: 2px !important;
 }
