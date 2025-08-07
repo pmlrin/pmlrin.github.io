@@ -1357,7 +1357,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #ddffde;
+  background: #50e36a;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2987,6 +2987,7 @@ details >summary {
 }
 .post-sticky-flag {
   color: #808080;
+  padding-right: 6px;
 }
 .site-author-image {
   transition: 0.8s !important;
