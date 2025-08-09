@@ -1375,7 +1375,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #fffffe;
+  background: #cf42ff;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2656,6 +2656,13 @@ mark.search-keyword {
   color: #ff2a2a;
   font-weight: bold;
 }
+mjx-container[jax='CHTML'][display='true'],
+.has-jax {
+  overflow: auto hidden;
+}
+mjx-container[display='true'] + br {
+  display: none;
+}
 .use-motion .animated {
   animation-fill-mode: none;
   visibility: inherit;
@@ -2917,6 +2924,27 @@ header.header {
 }
 .hbe-input-label-shrink::after {
   top: 85% !important;
+}
+right {
+  display: block;
+  width: 100%;
+  text-align: right;
+}
+center {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+pr {
+  color: #ffa0a0;
+}
+cb {
+  color: #cc43e3;
+}
+cp {
+  background: linear-gradient(to right, #ffa0a0, #cc43e3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 shady,
 blur,
