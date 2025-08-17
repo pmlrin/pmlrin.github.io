@@ -1375,7 +1375,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #284209;
+  background: #4b7a3d;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3028,8 +3028,26 @@ details >summary {
   background: #eee;
   text-align: center;
   padding: 6px;
-  border-style: none;
+  border: none;
   cursor: pointer;
+  user-select: none;
+}
+figure.highlight {
+  box-shadow: none;
+  border: solid 2px #ddd;
+  margin: 0;
+}
+details {
+  overflow: hidden;
+  interpolate-size: allow-keywords;
+}
+details::details-content {
+  height: 0;
+  transition: height 1s, content-visibility 1s;
+  transition-behavior: allow-discrete;
+}
+details[open]::details-content {
+  height: auto;
 }
 .post-sticky-flag {
   color: #808080;
@@ -3039,7 +3057,6 @@ details >summary {
   transition: 0.8s !important;
 }
 .site-author-image:hover {
-  box-shadow: 0 3px 10px #888;
   transform: rotate(720deg) !important;
 }
 .github-corner svg {
