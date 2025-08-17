@@ -373,7 +373,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-08-17 00:26:24" itemprop="dateModified" datetime="2025-08-17T00:26:24+08:00">2025-08-17</time>
+      <time title="修改时间：2025-08-17 17:01:04" itemprop="dateModified" datetime="2025-08-17T17:01:04+08:00">2025-08-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -496,7 +496,7 @@ class="math inline">\((1,1),(1,2),⋯,(1,n)\)</span>。外区域的扇区同样�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-08-10 05:38:58" itemprop="dateModified" datetime="2025-08-10T05:38:58+08:00">2025-08-10</time>
+      <time title="修改时间：2025-08-17 18:56:01" itemprop="dateModified" datetime="2025-08-17T18:56:01+08:00">2025-08-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -531,7 +531,34 @@ class="math inline">\((1,1),(1,2),⋯,(1,n)\)</span>。外区域的扇区同样�
     
     
     <div class="post-body" itemprop="articleBody">
-          
+          <h1 id="e">E</h1>
+<p><span class="math inline">\(T\)</span> 组询问，给两个数 <span
+class="math inline">\(a,b\)</span>，询问 <span
+class="math inline">\(|a^2-b^2|\)</span> 的值在集合 <span
+class="math inline">\(C\)</span> 中为第几小，<span
+class="math inline">\(C=\{|x^2-y^2|\mid x,y\in
+N^*,x\not=y\}\)</span>。例如 <span class="math inline">\(3,5,7,8,9\in
+C\)</span>，且为前五小。</p>
+<p><span
+class="math inline">\(1≤T≤10^4,1≤a,b≤10^9,a\not=b\)</span>。</p>
+<details>
+<summary>
+点击查看题解
+</summary>
+<p>设 <span class="math inline">\(a&gt;b\)</span>。<span
+class="math inline">\(a^2-b^2=(a+b)(a-b)\)</span>。则 <span
+class="math inline">\(a+b\)</span> 和 <span
+class="math inline">\(a-b\)</span> 同奇偶。可推出 <span
+class="math inline">\(a^2-b^2\bmod 4 \not=2\)</span>。</p>
+<p>又 <span class="math inline">\(\forall m_1\ge 1,\exist x_1,y_1\in
+N^*\)</span>，满足 <span class="math inline">\(x_1-y_1=m_1\)</span>；
+<span class="math inline">\(\forall m_2\ge 3,\exist x_2,y_2\in
+N^*\)</span>，满足 <span
+class="math inline">\(x_2+y_2=m_2\)</span>。</p>
+<p>则 <span class="math inline">\(C=\{n\mid
+n\ge3,n\not=4,n\bmod4\not=2\}\)</span>。据此可计算排名。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T, a, b;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">        a = <span class="built_in">abs</span>(a * a - b * b);</span><br><span class="line">        <span class="keyword">if</span> (a == <span class="number">3</span>)</span><br><span class="line">            cout &lt;&lt; <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (a % <span class="number">4</span> == <span class="number">0</span>)</span><br><span class="line">            cout &lt;&lt; (a / <span class="number">4</span> - <span class="number">1</span>) * <span class="number">3</span> + <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (a % <span class="number">4</span> == <span class="number">1</span>)</span><br><span class="line">            cout &lt;&lt; (a / <span class="number">4</span> - <span class="number">1</span>) * <span class="number">3</span> + <span class="number">2</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (a % <span class="number">4</span> == <span class="number">3</span>)</span><br><span class="line">            cout &lt;&lt; (a / <span class="number">4</span> - <span class="number">1</span>) * <span class="number">3</span> + <span class="number">3</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
 
       
     </div>
