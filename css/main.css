@@ -1375,7 +1375,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #4b7a3d;
+  background: #a385ff;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2924,6 +2924,9 @@ header.header {
 }
 .hbe-input-label-shrink::after {
   top: 85% !important;
+}
+.pagination {
+  border-top: 0;
 }
 right {
   display: block;

@@ -53,7 +53,8 @@ Why Blog“三段论”来自 yelog，并非原创。
 <p>把数组 <span class="math inline">\(\{a_n\}\)</span>
 分为三段，使得在三段内同时出现的数字数量最大。输出最大值以及左右指针（即分割方法）。</p>
 <p><span class="math inline">\(3\le n\le150000,1\le
-a_i\le10^6\)</span></p>
+a_i\le10^6\)</span>。</p>
+<span id="more"></span>
 <details>
 <summary>
 点击查看题解
@@ -101,7 +102,7 @@ class="math inline">\(m\)</span>
 class="math inline">\((1,1),(1,2),⋯,(1,n)\)</span>。外区域的扇区同样标记为
 <span class="math inline">\((2,1),(2,2),⋯,(2,m)\)</span>。</p>
 <p>有 <span class="math inline">\(q\)</span>
-个询问，是否可以从一个扇区移动到另一个扇区。测试</p>
+个询问，是否可以从一个扇区移动到另一个扇区。</p>
 <p><span class="math inline">\(1≤n,m≤10^{18},1≤q≤10^4\)</span>。</p>
 <span id="more"></span>
 <p><img data-src="https://cdn.jsdelivr.net/gh/pmlrin/PicGo/6072b0bf04570fd72bf039db029596e05fd992a6.png" /></p>
