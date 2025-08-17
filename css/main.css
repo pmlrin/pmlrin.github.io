@@ -1375,7 +1375,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #f49494;
+  background: #142bab;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3038,7 +3038,6 @@ details >summary {
 figure.highlight {
   box-shadow: none;
   border: solid 2px #ddd;
-  margin: 0;
 }
 details {
   overflow: hidden;
