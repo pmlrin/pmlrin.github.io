@@ -1375,7 +1375,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #ffe8ff;
+  background: #ff61fc;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2979,7 +2979,7 @@ invsb {
 invsb:hover {
   opacity: 1;
 }
-small {
+tiny {
   font-size: 8px;
   font-weight: 500;
 }

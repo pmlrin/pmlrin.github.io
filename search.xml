@@ -366,7 +366,7 @@ href="https://zh.moegirl.org.cn/">萌娘百科</a>。</p>
 <hr>
 <p>就算<tag>风</tag>吹散了<tag>冰雪</tag>，<tag>想念</tag>也会<tag>留存</tag>下来。</p>
 <p>你可以加<tag>不止三个</tag>标签。不过太长会<tag style="background: orange">溢出</tag>。</p>
-<p>温馨提示：提示点什么好呢<small>真的没有可提示的,,,</small></p>
+<p>温馨提示：提示点什么好呢<tiny>真的没有可提示的,,,</tiny></p>
 <hr>
 <!--滚动方向 direction 4个值 up down left right  默认从右向左-->
 <p><marquee direction="up">我向上滚动</marquee></p>
