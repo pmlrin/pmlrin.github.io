@@ -73,7 +73,7 @@ class="math inline">\(nm+l\)</span>。</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">400000</span> + <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line">ll n, a[N], minn, maxx, cur = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    minn = a[<span class="number">1</span>];</span><br><span class="line">    maxx = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        minn = <span class="built_in">min</span>(minn, a[i]);</span><br><span class="line">        a[n + i] = a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= <span class="number">2</span> * n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (a[i] == minn) &#123;</span><br><span class="line">            maxx = <span class="built_in">max</span>(maxx, cur);</span><br><span class="line">            cur = <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span></span><br><span class="line">            cur++;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; minn * n + maxx &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
 <h1 id="problem-b"><pr>Problem B</pr></h1>
-<p>给定一个大小为 <span class="math inline">\(n×n\)</span>
+<p>给定一个大小为 <span class="math inline">\(n\times n\)</span>
 的网格图，其中有 <span class="math inline">\(m\)</span>
 个网格上设有障碍物。你需要在网格边界上的点（非边角点非障碍物）上放若干个棋子。之后，每个棋子单位时间向对边边界移动
 <span class="math inline">\(1\)</span>
@@ -126,13 +126,13 @@ class="math inline">\(nm+l\)</span>。</p>
 <td style="text-align: center;">2</td>
 </tr>
 <tr>
+<td style="text-align: center;">0</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
+<td style="text-align: center;">0</td>
 </tr>
 <tr>
 <td style="text-align: center;">2</td>
@@ -156,7 +156,7 @@ class="math inline">\(nm+l\)</span>。</p>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
+<td style="text-align: center;">0</td>
 <td style="text-align: center;">2</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;"></td>
@@ -1931,8 +1931,8 @@ class="uri">https://www.luogu.com.cn/problem/P4878</a>。</p>
         <category>模板</category>
       </categories>
       <tags>
-        <tag>最短路</tag>
         <tag>OI</tag>
+        <tag>最短路</tag>
         <tag>差分约束</tag>
       </tags>
   </entry>
