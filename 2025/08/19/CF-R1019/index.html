@@ -30,9 +30,10 @@
 <meta property="og:description" content="Problem A 正整数范围内，长度为 \(n\) 的漂亮序列 \(x\) 的定义：存在与之长度相等、元素互不相同的序列 \(y\)，使得 \(\forall\text{ }i,j\in[1,n],x_iy_i&#x3D;x_jy_j\)。给一个长度为 \(n\) 的正整数序列 \(a\)，求最长的子序列 \(a&#39;\)，使 \(a&#39;\) 为漂亮序列。\(t\) 组数据。 \(1≤">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-08-19T15:00:22.000Z">
-<meta property="article:modified_time" content="2025-08-19T15:37:19.897Z">
+<meta property="article:modified_time" content="2025-08-20T04:22:08.732Z">
 <meta property="article:author" content="Pomelorin &amp; Cool-breeze">
 <meta property="article:tag" content="思维题">
+<meta property="article:tag" content="前缀和">
 <meta name="twitter:card" content="summary">
 
 
@@ -130,7 +131,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-tags"><a href="/tags.html" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">28</span></a></li><li class="menu-item menu-item-categories"><a href="/categories.html" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">12</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">19</span></a></li><li class="menu-item menu-item-about"><a href="/pages/about.html" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-chat"><a href="/pages/chat.html" rel="section"><i class="fa fa-comment fa-fw"></i>留言</a></li><li class="menu-item menu-item-links"><a href="/pages/links.html" rel="section"><i class="fa fa-link fa-fw"></i>链接</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-tags"><a href="/tags.html" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">31</span></a></li><li class="menu-item menu-item-categories"><a href="/categories.html" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">20</span></a></li><li class="menu-item menu-item-about"><a href="/pages/about.html" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-chat"><a href="/pages/chat.html" rel="section"><i class="fa fa-comment fa-fw"></i>留言</a></li><li class="menu-item menu-item-links"><a href="/pages/links.html" rel="section"><i class="fa fa-link fa-fw"></i>链接</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -181,7 +182,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#problem-a"><span class="nav-text">Problem A</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#problem-b"><span class="nav-text">Problem B</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#problem-a"><span class="nav-text">Problem A</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#problem-b"><span class="nav-text">Problem B</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#problem-c"><span class="nav-text">Problem C</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -200,18 +201,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories.html">
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags.html">
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -268,9 +269,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2025-08-19 23:00:22 / 修改时间：23:37:19" itemprop="dateCreated datePublished" datetime="2025-08-19T23:00:22+08:00">2025-08-19</time>
+      <time title="创建时间：2025-08-19 23:00:22" itemprop="dateCreated datePublished" datetime="2025-08-19T23:00:22+08:00">2025-08-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-20 12:22:08" itemprop="dateModified" datetime="2025-08-20T12:22:08+08:00">2025-08-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -355,6 +362,53 @@ class="math inline">\(s\)</span>。有两种操作：把手指放在另一个按
 0，可以将 <span class="math inline">\(s\)</span> 开头插入一个
 0，方便统计切换次数，以判断可以减少几步操作。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">150</span> + <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line">ll n, b[N], ans, cur, cha;</span><br><span class="line">string s;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        cin &gt;&gt; n &gt;&gt; s;</span><br><span class="line">        s = <span class="string">&#x27;0&#x27;</span> + s;</span><br><span class="line">        ans = cha = <span class="number">0</span>;</span><br><span class="line">        cur = <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            ans += <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (s[i] != cur) &#123;</span><br><span class="line">                ans += <span class="number">1</span>;</span><br><span class="line">                cha += <span class="number">1</span>;</span><br><span class="line">                cur = s[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (cha &gt;= <span class="number">3</span>)</span><br><span class="line">            ans -= <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (cha == <span class="number">2</span>) &#123;</span><br><span class="line">            ans -= <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ans -= <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; ans - <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="problem-c"><pr>Problem C</pr></h1>
+<p>定义长度为 <span class="math inline">\(m\)</span>
+的数列的中位数是数列中第 <span class="math inline">\(\lceil m/2
+\rceil\)</span> 小的数。现在给一个长度为 <span
+class="math inline">\(n\)</span> 的正整数数列 <span
+class="math inline">\(a\)</span> 和正整数 <span
+class="math inline">\(k\)</span>，询问能否将数列分成三个连续的子数列
+<span class="math inline">\(a_{1\sim l-1},a_{l\sim r},a_{r+1\sim
+n}\)</span>，这三个子数列的中位数分别为 <span
+class="math inline">\(q_1,q_2,q_3\)</span>，组成数列 <span
+class="math inline">\(q\)</span>，使得 <span
+class="math inline">\(q\)</span> 的中位数小于等于 <span
+class="math inline">\(k\)</span>。</p>
+<p><span class="math inline">\(3≤n≤2\times10^5,
+1≤k≤10^9,1≤a_i≤10^9\)</span>。</p>
+<details>
+<summary>
+点击查看题解
+</summary>
+<p>此题不必使用对顶堆等求出具体的中位数。对于一段区间，只需满足小于等于
+<span class="math inline">\(k\)</span> 的数字数量 <span
+class="math inline">\(\ge\)</span> 大于 <span
+class="math inline">\(k\)</span>
+的数字数量，即可判断其中位数是否小于等于 <span
+class="math inline">\(k\)</span>。令小于等于 <span
+class="math inline">\(k\)</span> 的数字贡献为 <span
+class="math inline">\(-1\)</span>，大于 <span
+class="math inline">\(k\)</span> 的数字贡献为 <span
+class="math inline">\(1\)</span>，利用前缀和或后缀和可以算出某个区间的中位数是否小于等于
+<span class="math inline">\(k\)</span>（区间贡献和小于等于 <span
+class="math inline">\(0\)</span>）。</p>
+<p>只需要满足三个 <span class="math inline">\(q\)</span> 中有两个 <span
+class="math inline">\(\le k\)</span>，即可满足题意。分类讨论：</p>
+<ul>
+<li>前缀、后缀均满足；</li>
+<li>前缀、后缀只有一个满足；</li>
+<li>前缀、后缀均不满足。</li>
+</ul>
+<p>第一种情况：只需找出一个前缀和一个后缀，贡献和小于等于 <span
+class="math inline">\(0\)</span> 即可。可以利用取 min 前缀 /
+后缀和解决。</p>
+<p>第二种情况：例如前缀满足，需要找出一个后缀，减去这个后缀之后中段小于等于
+<span class="math inline">\(0\)</span> 即可。可以利用后缀和减去取 max
+后缀和解决。注意，企图使用“合法前缀 + 一个小于等于 <span
+class="math inline">\(k\)</span> 的数字”的组合来判断是错误的。</p>
+<p>第三种情况：不满足题意，输出 “NO”。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">200000</span> + <span class="number">50</span>, inf = <span class="number">1145141919810</span>;</span><br><span class="line"></span><br><span class="line">ll n, k, a[N];</span><br><span class="line">ll nump[N], numn[N], maxp[N], maxn[N], minp[N], minn[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        ll ans = <span class="number">0</span>;</span><br><span class="line">        cin &gt;&gt; n &gt;&gt; k;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            cin &gt;&gt; a[i];</span><br><span class="line">        &#125;</span><br><span class="line">        nump[<span class="number">0</span>] = numn[n + <span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        maxp[<span class="number">0</span>] = maxn[n + <span class="number">1</span>] = -inf;</span><br><span class="line">        minp[<span class="number">0</span>] = minn[n + <span class="number">1</span>] = inf;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            nump[i] = nump[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (a[i] &gt; k)</span><br><span class="line">                nump[i]++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                nump[i]--;</span><br><span class="line">            maxp[i] = <span class="built_in">max</span>(maxp[i - <span class="number">1</span>], nump[i]);</span><br><span class="line">            minp[i] = <span class="built_in">min</span>(minp[i - <span class="number">1</span>], nump[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = n; i &gt;= <span class="number">1</span>; i--) &#123;</span><br><span class="line">            numn[i] = numn[i + <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (a[i] &gt; k)</span><br><span class="line">                numn[i]++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                numn[i]--;</span><br><span class="line">            maxn[i] = <span class="built_in">max</span>(maxn[i + <span class="number">1</span>], numn[i]);</span><br><span class="line">            minn[i] = <span class="built_in">min</span>(minn[i + <span class="number">1</span>], numn[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n - <span class="number">2</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (minp[i] &lt;= <span class="number">0</span> &amp;&amp; minn[i + <span class="number">2</span>] &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                ans = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (nump[i] &lt;= <span class="number">0</span> &amp;&amp; numn[i + <span class="number">1</span>] - maxn[i + <span class="number">2</span>] &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                ans = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (nump[i + <span class="number">1</span>] - maxp[i] &lt;= <span class="number">0</span> &amp;&amp; numn[i + <span class="number">2</span>] &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                ans = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (ans == <span class="number">1</span>)</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;YES&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;NO&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -382,6 +436,7 @@ class="math inline">\(s\)</span>。有两种操作：把手指放在另一个按
 
           <div class="post-tags">
               <a href="/tags/%E6%80%9D%E7%BB%B4%E9%A2%98/" rel="tag"><i class="fa fa-tag"></i> 思维题</a>
+              <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" rel="tag"><i class="fa fa-tag"></i> 前缀和</a>
           </div>
 
         
@@ -393,6 +448,9 @@ class="math inline">\(s\)</span>。有两种操作：把手指放在另一个按
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2025/08/20/%E3%80%90IDEA%E3%80%91%E9%80%89%E7%A5%A8%E7%BB%9F%E8%AE%A1/" rel="next" title="【IDEA】选票统计">
+                  【IDEA】选票统计 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>

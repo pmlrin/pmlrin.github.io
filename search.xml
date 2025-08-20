@@ -47,6 +47,71 @@ Why Blog“三段论”来自 yelog，并非原创。
 ]]></content>
   </entry>
   <entry>
+    <title>【IDEA】选票统计</title>
+    <url>/2025/08/20/%E3%80%90IDEA%E3%80%91%E9%80%89%E7%A5%A8%E7%BB%9F%E8%AE%A1/</url>
+    <content><![CDATA[<p>原创题目。</p>
+<h1 id="选票统计">选票统计</h1>
+<p>G 国共 <span class="math inline">\(n\)</span> 个城市，<span
+class="math inline">\(m\)</span>
+个双向道路把它们连接起来，每个城市都可以通过某条路径到达其他任何一个城市。</p>
+<p>G 国为了减少建设开支，希望将 <span class="math inline">\(n-1\)</span>
+条道路建设为主干道使用，使得每个城市都可以通过这 <span
+class="math inline">\(n-1\)</span> 条道路到达其他任何一个城市。G
+国已经给出了一个建设方案。</p>
+<p>居民们有拜访其他城市居民的需求，自然需要尽量少走路。如果对于一个城市，到达其他任何一个城市的最短距离和只走主干道到达此城市的最短距离均相等，那么这个城市内的居民就会同意这个建设方案。否则，他们就不会同意这个方案。</p>
+<p>你作为 G
+国的大臣，你提议通过民主投票来决定这个方案是否通过。于是，你需要找出哪些城市里的居民同意方案，哪些不同意方案。</p>
+<span id="more"></span>
+<hr />
+<p>形式化题意：</p>
+<p>给出一张共 <span class="math inline">\(n\)</span> 个点，<span
+class="math inline">\(m\)</span> 条边的无向带权连通图 <span
+class="math inline">\(G\)</span>，边权均为正整数。给定此图的一个生成树
+<span class="math inline">\(T(G)\)</span>，它包含原图中所有的点。</p>
+<p>定义 <span class="math inline">\(D(i,j)\)</span> 为 <span
+class="math inline">\(G\)</span> 中结点 <span
+class="math inline">\(i\)</span> 与结点 <span
+class="math inline">\(j\)</span> 间的最短距离，<span
+class="math inline">\(F(i,j)\)</span> 为 <span
+class="math inline">\(T(G)\)</span> 中结点 <span
+class="math inline">\(i\)</span> 与结点 <span
+class="math inline">\(j\)</span> 间的最短距离。 特殊地，<span
+class="math inline">\(D(i,i)=F(i,i)=0\)</span>。</p>
+<p>设变量 <span class="math inline">\(Q_i\)</span>
+的取值为：当且仅当满足 <span class="math inline">\(\forall j\in
+[1,n],D(i,j)=F(i,j)\)</span> 时，<span
+class="math inline">\(Q_i\)</span> 为 <span
+class="math inline">\(1\)</span>；否则 <span
+class="math inline">\(Q_i\)</span> 为 <span
+class="math inline">\(0\)</span>。</p>
+<p>求 <span class="math inline">\(Q_{1\sim n}\)</span> 的值。</p>
+<h2 id="输入输出格式">输入输出格式</h2>
+<h3 id="输入格式">输入格式</h3>
+<p>输入的第一行为两个正整数 <span
+class="math inline">\(n,m\)</span>。</p>
+<p>接下来 <span class="math inline">\(m\)</span> 行，每行三个正整数
+<span class="math inline">\(u_i,v_i,l_i\)</span>，表示一条边权为 <span
+class="math inline">\(l_i\)</span> 的无向边 <span
+class="math inline">\((u_i,v_i)\)</span>。其中，给出的前 <span
+class="math inline">\(n-1\)</span> 条边为给定生成树上的边。</p>
+<h3 id="输出格式">输出格式</h3>
+<p>输出一行 <span class="math inline">\(n\)</span> 个数，第 <span
+class="math inline">\(i\)</span> 个数为 <span
+class="math inline">\(Q_i\)</span> 的值。</p>
+<h2 id="数据范围">数据范围</h2>
+<p><span class="math inline">\(1&lt;n&lt;m\le10^{5},1\le u_i,v_i\le
+n,1\le l_i\le 10^9\)</span>，所有数均为正整数。</p>
+]]></content>
+      <categories>
+        <category>ACM</category>
+        <category>idea</category>
+      </categories>
+      <tags>
+        <tag>最近公共祖先</tag>
+        <tag>二分查找</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CF R1019</title>
     <url>/2025/08/19/CF-R1019/</url>
     <content><![CDATA[<h1 id="problem-a"><pr>Problem A</pr></h1>
@@ -89,6 +154,53 @@ class="math inline">\(s\)</span>。有两种操作：把手指放在另一个按
 0，可以将 <span class="math inline">\(s\)</span> 开头插入一个
 0，方便统计切换次数，以判断可以减少几步操作。</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">150</span> + <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line">ll n, b[N], ans, cur, cha;</span><br><span class="line">string s;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        cin &gt;&gt; n &gt;&gt; s;</span><br><span class="line">        s = <span class="string">&#x27;0&#x27;</span> + s;</span><br><span class="line">        ans = cha = <span class="number">0</span>;</span><br><span class="line">        cur = <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            ans += <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (s[i] != cur) &#123;</span><br><span class="line">                ans += <span class="number">1</span>;</span><br><span class="line">                cha += <span class="number">1</span>;</span><br><span class="line">                cur = s[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (cha &gt;= <span class="number">3</span>)</span><br><span class="line">            ans -= <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (cha == <span class="number">2</span>) &#123;</span><br><span class="line">            ans -= <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ans -= <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; ans - <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="problem-c"><pr>Problem C</pr></h1>
+<p>定义长度为 <span class="math inline">\(m\)</span>
+的数列的中位数是数列中第 <span class="math inline">\(\lceil m/2
+\rceil\)</span> 小的数。现在给一个长度为 <span
+class="math inline">\(n\)</span> 的正整数数列 <span
+class="math inline">\(a\)</span> 和正整数 <span
+class="math inline">\(k\)</span>，询问能否将数列分成三个连续的子数列
+<span class="math inline">\(a_{1\sim l-1},a_{l\sim r},a_{r+1\sim
+n}\)</span>，这三个子数列的中位数分别为 <span
+class="math inline">\(q_1,q_2,q_3\)</span>，组成数列 <span
+class="math inline">\(q\)</span>，使得 <span
+class="math inline">\(q\)</span> 的中位数小于等于 <span
+class="math inline">\(k\)</span>。</p>
+<p><span class="math inline">\(3≤n≤2\times10^5,
+1≤k≤10^9,1≤a_i≤10^9\)</span>。</p>
+<details>
+<summary>
+点击查看题解
+</summary>
+<p>此题不必使用对顶堆等求出具体的中位数。对于一段区间，只需满足小于等于
+<span class="math inline">\(k\)</span> 的数字数量 <span
+class="math inline">\(\ge\)</span> 大于 <span
+class="math inline">\(k\)</span>
+的数字数量，即可判断其中位数是否小于等于 <span
+class="math inline">\(k\)</span>。令小于等于 <span
+class="math inline">\(k\)</span> 的数字贡献为 <span
+class="math inline">\(-1\)</span>，大于 <span
+class="math inline">\(k\)</span> 的数字贡献为 <span
+class="math inline">\(1\)</span>，利用前缀和或后缀和可以算出某个区间的中位数是否小于等于
+<span class="math inline">\(k\)</span>（区间贡献和小于等于 <span
+class="math inline">\(0\)</span>）。</p>
+<p>只需要满足三个 <span class="math inline">\(q\)</span> 中有两个 <span
+class="math inline">\(\le k\)</span>，即可满足题意。分类讨论：</p>
+<ul>
+<li>前缀、后缀均满足；</li>
+<li>前缀、后缀只有一个满足；</li>
+<li>前缀、后缀均不满足。</li>
+</ul>
+<p>第一种情况：只需找出一个前缀和一个后缀，贡献和小于等于 <span
+class="math inline">\(0\)</span> 即可。可以利用取 min 前缀 /
+后缀和解决。</p>
+<p>第二种情况：例如前缀满足，需要找出一个后缀，减去这个后缀之后中段小于等于
+<span class="math inline">\(0\)</span> 即可。可以利用后缀和减去取 max
+后缀和解决。注意，企图使用“合法前缀 + 一个小于等于 <span
+class="math inline">\(k\)</span> 的数字”的组合来判断是错误的。</p>
+<p>第三种情况：不满足题意，输出 “NO”。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">200000</span> + <span class="number">50</span>, inf = <span class="number">1145141919810</span>;</span><br><span class="line"></span><br><span class="line">ll n, k, a[N];</span><br><span class="line">ll nump[N], numn[N], maxp[N], maxn[N], minp[N], minn[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        ll ans = <span class="number">0</span>;</span><br><span class="line">        cin &gt;&gt; n &gt;&gt; k;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            cin &gt;&gt; a[i];</span><br><span class="line">        &#125;</span><br><span class="line">        nump[<span class="number">0</span>] = numn[n + <span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        maxp[<span class="number">0</span>] = maxn[n + <span class="number">1</span>] = -inf;</span><br><span class="line">        minp[<span class="number">0</span>] = minn[n + <span class="number">1</span>] = inf;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            nump[i] = nump[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (a[i] &gt; k)</span><br><span class="line">                nump[i]++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                nump[i]--;</span><br><span class="line">            maxp[i] = <span class="built_in">max</span>(maxp[i - <span class="number">1</span>], nump[i]);</span><br><span class="line">            minp[i] = <span class="built_in">min</span>(minp[i - <span class="number">1</span>], nump[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = n; i &gt;= <span class="number">1</span>; i--) &#123;</span><br><span class="line">            numn[i] = numn[i + <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (a[i] &gt; k)</span><br><span class="line">                numn[i]++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                numn[i]--;</span><br><span class="line">            maxn[i] = <span class="built_in">max</span>(maxn[i + <span class="number">1</span>], numn[i]);</span><br><span class="line">            minn[i] = <span class="built_in">min</span>(minn[i + <span class="number">1</span>], numn[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n - <span class="number">2</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (minp[i] &lt;= <span class="number">0</span> &amp;&amp; minn[i + <span class="number">2</span>] &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                ans = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (nump[i] &lt;= <span class="number">0</span> &amp;&amp; numn[i + <span class="number">1</span>] - maxn[i + <span class="number">2</span>] &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                ans = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (nump[i + <span class="number">1</span>] - maxp[i] &lt;= <span class="number">0</span> &amp;&amp; numn[i + <span class="number">2</span>] &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                ans = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (ans == <span class="number">1</span>)</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;YES&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;NO&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>ACM</category>
@@ -96,6 +208,7 @@ class="math inline">\(s\)</span>。有两种操作：把手指放在另一个按
       </categories>
       <tags>
         <tag>思维题</tag>
+        <tag>前缀和</tag>
       </tags>
   </entry>
   <entry>
