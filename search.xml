@@ -47,6 +47,44 @@ Why Blog“三段论”来自 yelog，并非原创。
 ]]></content>
   </entry>
   <entry>
+    <title>25暑期5</title>
+    <url>/2025/08/21/25%E6%9A%91%E6%9C%9F5/</url>
+    <content><![CDATA[<h1 id="problem-k"><pr>Problem K</pr></h1>
+<p>给 <span class="math inline">\(n\)</span> 个节点的一棵树，上面有
+<span class="math inline">\(m\)</span> 个特殊边。有 <span
+class="math inline">\(k\)</span>
+个路径（从某点到某点），选出最少数量的路径包含所有的 <span
+class="math inline">\(m\)</span> 条特殊边。无解输出
+-1；有解还要求方案数。</p>
+<p><span class="math inline">\(2≤n≤2×10^5,  1\leq m\leq 22, 1\leq k\leq
+2\times 10^5\)</span>。</p>
+<span id="more"></span>
+<details>
+<summary>
+点击查看题解
+</summary>
+<p>特殊边较少，设第 <span class="math inline">\(i\)</span>
+条特殊边边权为 <span class="math inline">\(2^i\)</span>。可求 <span
+class="math inline">\(k\)</span>
+个路径上的边权状态（只需利用树上前缀或，直接取路径两端前缀和的异或即可）。断言边权和不同的路径数量较少（设有
+<span class="math inline">\(k\)</span> 种），设 <span
+class="math inline">\(f(i)\)</span> 表示边权状态为 <span
+class="math inline">\(i\)</span>（状压）时所需最少路径数量，类似背包，可同时求方案数。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;int,int&gt;</span></span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">200005</span>, M = <span class="number">25</span>, O = <span class="number">4500005</span>, mod = <span class="number">998244353</span>, inf = <span class="number">1145141919810</span>;</span><br><span class="line">vector&lt;PII &gt; e[N * <span class="number">2</span>];</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; val;</span><br><span class="line"><span class="type">int</span> n, m, k, spe[N], a[N];</span><br><span class="line"><span class="type">int</span> f[O], g[O], num[O];</span><br><span class="line"><span class="type">int</span> ans1 = <span class="number">-1</span>, ans2;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> now,<span class="type">int</span> dad)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (PII i: e[now]) &#123;</span><br><span class="line">        <span class="type">int</span> to = i.first, v = spe[i.second];</span><br><span class="line">        <span class="keyword">if</span> (to == dad)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        a[to] = (a[now] | v);</span><br><span class="line">        <span class="built_in">init</span>(to, now);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    <span class="type">int</span> u, v;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">        e[u].<span class="built_in">push_back</span>(&#123;v, i&#125;);</span><br><span class="line">        e[v].<span class="built_in">push_back</span>(&#123;u, i&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">        cin &gt;&gt; u;</span><br><span class="line">        spe[u] = (<span class="number">1ll</span> &lt;&lt; (i - <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    a[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">init</span>(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">    val.<span class="built_in">push_back</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= k; i++) &#123;</span><br><span class="line">        cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">        <span class="type">int</span> tmp = (a[u] ^ a[v]);</span><br><span class="line">        <span class="keyword">if</span> (num[tmp] == <span class="number">0</span>) &#123;</span><br><span class="line">            val.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        num[tmp]++;</span><br><span class="line">    &#125;</span><br><span class="line">    g[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    k = val.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= ((<span class="number">1ll</span> &lt;&lt; m) - <span class="number">1</span>); i++)</span><br><span class="line">        f[i] = inf;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= k; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = ((<span class="number">1ll</span> &lt;&lt; m) - <span class="number">1</span>); j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (f[j | val[i]] &gt; f[j] + <span class="number">1</span>) &#123;</span><br><span class="line">                f[j | val[i]] = f[j] + <span class="number">1</span>;</span><br><span class="line">                g[j | val[i]] = g[j] * num[val[i]] % mod;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (f[j | val[i]] == f[j] + <span class="number">1</span>) &#123;</span><br><span class="line">                g[j | val[i]] = (g[j | val[i]] + g[j] * num[val[i]]) % mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (f[(<span class="number">1ll</span> &lt;&lt; m) - <span class="number">1</span>] &gt;= inf)</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;-1&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        ans1 = f[(<span class="number">1ll</span> &lt;&lt; m) - <span class="number">1</span>];</span><br><span class="line">        ans2 = g[(<span class="number">1ll</span> &lt;&lt; m) - <span class="number">1</span>];</span><br><span class="line">        cout &lt;&lt; ans1 &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; ans2 &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+]]></content>
+      <categories>
+        <category>ACM</category>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>动态规划</tag>
+        <tag>树上前缀和</tag>
+        <tag>树上路径和</tag>
+        <tag>背包</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【IDEA】选票统计</title>
     <url>/2025/08/20/%E3%80%90IDEA%E3%80%91%E9%80%89%E7%A5%A8%E7%BB%9F%E8%AE%A1/</url>
     <content><![CDATA[<p>原创题目。</p>
@@ -1736,8 +1774,8 @@ href="https://cdn.jsdelivr.net/gh/yz-hs/PicGo/%E8%B4%AA%E5%90%83%E8%9B%87%5BCSP-
       </categories>
       <tags>
         <tag>OI</tag>
-        <tag>毒瘤题</tag>
         <tag>模拟</tag>
+        <tag>毒瘤题</tag>
         <tag>队列</tag>
         <tag>博弈论</tag>
       </tags>
