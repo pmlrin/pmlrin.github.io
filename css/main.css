@@ -1375,7 +1375,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #211679;
+  background: #a4cdc9;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2925,9 +2925,6 @@ header.header {
 .hbe-input-label-shrink::after {
   top: 85% !important;
 }
-.pagination {
-  border-top: 0;
-}
 right {
   display: block;
   width: 100%;
@@ -3050,6 +3047,9 @@ details::details-content {
 }
 details[open]::details-content {
   height: auto;
+}
+.post-body .link-grid .link-grid-container {
+  background-color: #fff;
 }
 .category-all-page .category-list {
   list-style: initial;
