@@ -52,17 +52,16 @@ Why Blog“三段论”来自 yelog，并非原创。
     <content><![CDATA[<p>给出链接、标签和一句话题解。</p>
 <ul>
 <li><p><a href="https://codeforces.com/contest/2101/problem/B"
-class="uri">https://codeforces.com/contest/2101/problem/B</a>
-<tag>逆序对</tag></p>
-<p>奇数位只会被交换到奇数位，偶数位类似。奇偶分开考虑，如果奇数列和偶数列的逆序对个数相同（模
+class="uri">https://codeforces.com/contest/2101/problem/B</a></p>
+<p><tag>逆序对</tag>
+奇数位只会被交换到奇数位，偶数位类似。奇偶分开考虑，如果奇数列和偶数列的逆序对个数相同（模
 <span class="math inline">\(2\)</span>
 意义下），则两者交换需求都可以满足，两数列必定各自有序；否则，有一个数列并非有序（其中一个序列无法排好最后两个数）。</p>
 <span id="more"></span></li>
 <li><p><a href="https://codeforces.com/contest/2106/problem/E"
-class="uri">https://codeforces.com/contest/2106/problem/E</a>
-<tag>贪心</tag> <tag>二分</tag></p>
-<p>对于一个二分查找，在找到 <span class="math inline">\(k\)</span>
-之前，一定有一些数大于 <span
+class="uri">https://codeforces.com/contest/2106/problem/E</a></p>
+<p><tag>贪心</tag> <tag>二分</tag> 对于一个二分查找，在找到 <span
+class="math inline">\(k\)</span> 之前，一定有一些数大于 <span
 class="math inline">\(k\)</span>，一些数小于 <span
 class="math inline">\(k\)</span>，大数、小数应当各得其所。设有 <span
 class="math inline">\(p\)</span> 个大数位置错误，<span
@@ -71,14 +70,13 @@ class="math inline">\(p\ge q\)</span>。<span
 class="math inline">\(q\)</span> 个错误大数可以与小数交换，剩余 <span
 class="math inline">\(p-q\)</span> 个只能请外援，即答案为 <span
 class="math inline">\(2\times\max(p,q)\)</span>。</p></li>
-<li><p>https://codeforces.com/contest/2106/problem/F
-<tag>思维题</tag></p>
-<p>对于 0-墙，其连通块形式为梯形；另外，只有宽度为 <span
-class="math inline">\(1\)</span> 的 1-墙
+<li><p>https://codeforces.com/contest/2106/problem/F</p>
+<p><tag>思维题</tag> 对于 0-墙，其连通块形式为梯形；另外，只有宽度为
+<span class="math inline">\(1\)</span> 的 1-墙
 可以被“穿透”，形成大连通块。计算即可。</p></li>
-<li><p>https://codeforces.com/contest/2109/problem/D <tag>最短路</tag>
-<tag>奇偶性</tag> <tag>贪心</tag></p>
-<p>题目要求是否恰好走特定步数走到某点。假设到某点的最短距离为奇数，由于给的是无向图，可以来回走一条边，所以比此距离大的奇数步数都可以恰好走到。所以，求原图的奇偶最短路（奇数点更新偶数点，反之亦然），并算出题目所给集合子集和的最大奇数/最大偶数即可。</p></li>
+<li><p>https://codeforces.com/contest/2109/problem/D</p>
+<p><tag>最短路</tag> <tag>奇偶性</tag> <tag>贪心</tag>
+题目要求是否恰好走特定步数走到某点。假设到某点的最短距离为奇数，由于给的是无向图，可以来回走一条边，所以比此距离大的奇数步数都可以恰好走到。所以，求原图的奇偶最短路（奇数点更新偶数点，反之亦然），并算出题目所给集合子集和的最大奇数/最大偶数即可。</p></li>
 </ul>
 ]]></content>
       <categories>
@@ -86,8 +84,8 @@ class="math inline">\(1\)</span> 的 1-墙
         <category>题解</category>
       </categories>
       <tags>
-        <tag>最短路</tag>
         <tag>思维题</tag>
+        <tag>最短路</tag>
         <tag>贪心</tag>
         <tag>逆序对</tag>
       </tags>
@@ -193,8 +191,8 @@ class="math inline">\(a_i\)</span> 的贡献。</p>
         <category>题解</category>
       </categories>
       <tags>
-        <tag>动态规划</tag>
         <tag>思维题</tag>
+        <tag>动态规划</tag>
         <tag>状态压缩</tag>
         <tag>单调栈</tag>
         <tag>诈骗题</tag>
@@ -660,8 +658,8 @@ class="math inline">\(i\)</span>，这样就能还原排列。</p>
       </categories>
       <tags>
         <tag>ACM</tag>
-        <tag>思维题</tag>
         <tag>线段树</tag>
+        <tag>思维题</tag>
       </tags>
   </entry>
   <entry>
@@ -891,10 +889,10 @@ f(i,j,a_i)=\sum_{k\in C} f(i-1,j-1,k)
       </categories>
       <tags>
         <tag>ACM</tag>
+        <tag>思维题</tag>
         <tag>最大公约数</tag>
         <tag>动态规划</tag>
         <tag>最短路</tag>
-        <tag>思维题</tag>
       </tags>
   </entry>
   <entry>
@@ -1992,10 +1990,10 @@ class="math inline">\(O(n^2\alpha(n))\)</span>。</p>
       </categories>
       <tags>
         <tag>贪心</tag>
+        <tag>毒瘤题</tag>
         <tag>暴搜</tag>
         <tag>并查集</tag>
         <tag>链表</tag>
-        <tag>毒瘤题</tag>
       </tags>
   </entry>
   <entry>
@@ -2015,10 +2013,10 @@ href="https://fastly.jsdelivr.net/gh/yz-hs/PicGo/%E8%B4%AA%E5%90%83%E8%9B%87%5BC
         <category>社团讲评</category>
       </categories>
       <tags>
-        <tag>毒瘤题</tag>
         <tag>模拟</tag>
         <tag>队列</tag>
         <tag>博弈论</tag>
+        <tag>毒瘤题</tag>
       </tags>
   </entry>
   <entry>
