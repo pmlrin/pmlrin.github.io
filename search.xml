@@ -80,8 +80,7 @@ class="uri">https://codeforces.com/contest/2109/problem/D</a></p>
 <p><tag>最短路</tag> <tag>奇偶性</tag> <tag>贪心</tag>
 题目要求是否恰好走特定步数走到某点。假设到某点的最短距离为奇数，由于给的是无向图，可以来回走一条边，所以比此距离大的奇数步数都可以恰好走到。所以，求原图的奇偶最短路（奇数点更新偶数点，反之亦然），并算出题目所给集合子集和的最大奇数/最大偶数即可。</p></li>
 <li><p><a href="https://codeforces.com/contest/2111/problem/E"
-class="uri">https://codeforces.com/contest/2111/problem/E</a></p></li>
-</ul>
+class="uri">https://codeforces.com/contest/2111/problem/E</a></p>
 <p><tag>史</tag> <code>&gt;</code> 表示变为。记录 <code>b&gt;a</code>
 <code>c&gt;a</code> <code>c&gt;b</code> 的数量，并且记录合法的
 <code>c&gt;b&gt;a</code> <code>b&gt;c&gt;a</code> 数量（对每个
@@ -90,20 +89,18 @@ class="uri">https://codeforces.com/contest/2111/problem/E</a></p></li>
 同理）。然后直接暴力循环字符串贪心能换就换即可（注意，对于
 <code>c&gt;a</code>，由于 <code>c&gt;b</code> 操作会被用到，优先顺序为
 <code>c&gt;a</code> <code>c&gt;b&gt;a</code>
-<code>b&gt;c&gt;a</code>）。</p>
-<ul>
-<li><a href="https://codeforces.com/contest/2117/problem/F"
-class="uri">https://codeforces.com/contest/2117/problem/F</a></li>
-</ul>
+<code>b&gt;c&gt;a</code>）。</p></li>
+<li><p><a href="https://codeforces.com/contest/2117/problem/F"
+class="uri">https://codeforces.com/contest/2117/problem/F</a></p>
 <p><tag>思维题</tag>
 首先，不能有三个及以上的叶节点。一个叶节点可以随便填，<span
 class="math inline">\(2^n\)</span>。两个叶节点的情况，考虑分成
 <code>root-&gt;lca</code> <code>lca-&gt;leaf1</code>
 <code>lca-&gt;leaf2</code>
 三条。第一条随便填。第二、三条，两个叶节点只能 12 或者 21，再往上只能全
-2，直到一条填满（如果长的填 1，则多填一个2）然后随便填。</p>
-<ul>
-<li><p>&lt;https://codeforces.com/contest/2120/problem/D</p>
+2，直到一条填满（如果长的填 1，则多填一个2）然后随便填。</p></li>
+<li><p><a href="https://codeforces.com/contest/2120/problem/D"
+class="uri">https://codeforces.com/contest/2120/problem/D</a></p>
 <p><tag>数学</tag> 因为字典序，所以先考虑 <span
 class="math inline">\(n\)</span> 最大，抽屉原理，<span
 class="math inline">\(n=((a-1)\times k+1)\)</span>
@@ -124,8 +121,8 @@ class="math inline">\(C_n^a \times k \times (b - 1) +
         <category>题解</category>
       </categories>
       <tags>
-        <tag>思维题</tag>
         <tag>最短路</tag>
+        <tag>思维题</tag>
         <tag>贪心</tag>
         <tag>逆序对</tag>
       </tags>
@@ -231,8 +228,8 @@ class="math inline">\(a_i\)</span> 的贡献。</p>
         <category>题解</category>
       </categories>
       <tags>
-        <tag>思维题</tag>
         <tag>动态规划</tag>
+        <tag>思维题</tag>
         <tag>状态压缩</tag>
         <tag>单调栈</tag>
         <tag>诈骗题</tag>
@@ -704,8 +701,8 @@ class="math inline">\(i\)</span>，这样就能还原排列。</p>
       </categories>
       <tags>
         <tag>ACM</tag>
-        <tag>线段树</tag>
         <tag>思维题</tag>
+        <tag>线段树</tag>
       </tags>
   </entry>
   <entry>
@@ -935,10 +932,10 @@ f(i,j,a_i)=\sum_{k\in C} f(i-1,j-1,k)
       </categories>
       <tags>
         <tag>ACM</tag>
-        <tag>思维题</tag>
         <tag>最大公约数</tag>
         <tag>动态规划</tag>
         <tag>最短路</tag>
+        <tag>思维题</tag>
       </tags>
   </entry>
   <entry>
