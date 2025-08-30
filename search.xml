@@ -70,11 +70,13 @@ class="math inline">\(p\ge q\)</span>。<span
 class="math inline">\(q\)</span> 个错误大数可以与小数交换，剩余 <span
 class="math inline">\(p-q\)</span> 个只能请外援，即答案为 <span
 class="math inline">\(2\times\max(p,q)\)</span>。</p></li>
-<li><p>https://codeforces.com/contest/2106/problem/F</p>
+<li><p><a href="https://codeforces.com/contest/2106/problem/F"
+class="uri">https://codeforces.com/contest/2106/problem/F</a></p>
 <p><tag>思维题</tag> 对于 0-墙，其连通块形式为梯形；另外，只有宽度为
 <span class="math inline">\(1\)</span> 的 1-墙
 可以被“穿透”，形成大连通块。计算即可。</p></li>
-<li><p>https://codeforces.com/contest/2109/problem/D</p>
+<li><p><a href="https://codeforces.com/contest/2109/problem/D"
+class="uri">https://codeforces.com/contest/2109/problem/D</a></p>
 <p><tag>最短路</tag> <tag>奇偶性</tag> <tag>贪心</tag>
 题目要求是否恰好走特定步数走到某点。假设到某点的最短距离为奇数，由于给的是无向图，可以来回走一条边，所以比此距离大的奇数步数都可以恰好走到。所以，求原图的奇偶最短路（奇数点更新偶数点，反之亦然），并算出题目所给集合子集和的最大奇数/最大偶数即可。</p></li>
 </ul>
@@ -84,8 +86,8 @@ class="math inline">\(2\times\max(p,q)\)</span>。</p></li>
         <category>题解</category>
       </categories>
       <tags>
-        <tag>思维题</tag>
         <tag>最短路</tag>
+        <tag>思维题</tag>
         <tag>贪心</tag>
         <tag>逆序对</tag>
       </tags>
@@ -191,8 +193,8 @@ class="math inline">\(a_i\)</span> 的贡献。</p>
         <category>题解</category>
       </categories>
       <tags>
-        <tag>思维题</tag>
         <tag>动态规划</tag>
+        <tag>思维题</tag>
         <tag>状态压缩</tag>
         <tag>单调栈</tag>
         <tag>诈骗题</tag>
@@ -658,8 +660,8 @@ class="math inline">\(i\)</span>，这样就能还原排列。</p>
       </categories>
       <tags>
         <tag>ACM</tag>
-        <tag>线段树</tag>
         <tag>思维题</tag>
+        <tag>线段树</tag>
       </tags>
   </entry>
   <entry>
@@ -889,10 +891,10 @@ f(i,j,a_i)=\sum_{k\in C} f(i-1,j-1,k)
       </categories>
       <tags>
         <tag>ACM</tag>
-        <tag>思维题</tag>
         <tag>最大公约数</tag>
         <tag>动态规划</tag>
         <tag>最短路</tag>
+        <tag>思维题</tag>
       </tags>
   </entry>
   <entry>
@@ -1990,10 +1992,10 @@ class="math inline">\(O(n^2\alpha(n))\)</span>。</p>
       </categories>
       <tags>
         <tag>贪心</tag>
-        <tag>毒瘤题</tag>
         <tag>暴搜</tag>
         <tag>并查集</tag>
         <tag>链表</tag>
+        <tag>毒瘤题</tag>
       </tags>
   </entry>
   <entry>
@@ -2014,9 +2016,9 @@ href="https://fastly.jsdelivr.net/gh/yz-hs/PicGo/%E8%B4%AA%E5%90%83%E8%9B%87%5BC
       </categories>
       <tags>
         <tag>模拟</tag>
+        <tag>毒瘤题</tag>
         <tag>队列</tag>
         <tag>博弈论</tag>
-        <tag>毒瘤题</tag>
       </tags>
   </entry>
   <entry>
