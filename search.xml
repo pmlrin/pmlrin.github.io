@@ -47,6 +47,81 @@ Why Blog“三段论”来自 yelog，并非原创。
 ]]></content>
   </entry>
   <entry>
+    <title>CF题解</title>
+    <url>/2025/09/02/CF%E9%A2%98%E8%A7%A3/</url>
+    <content><![CDATA[<h1 id="g.-omg-graph"><pr>G. Omg Graph</pr></h1>
+<p><a href="https://codeforces.com/contest/2117/problem/G"
+class="uri">https://codeforces.com/contest/2117/problem/G</a></p>
+<p>给定无向带权连通图，定义一条路径的花费为路径经过的边中，边权最大值 +
+最小值。求从 <span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(n\)</span>
+路径中的最小花费（注意不一定是简单路径）。</p>
+<p><span
+class="math inline">\(2≤n≤2⋅10^5,n−1≤m≤\min(2⋅10^5,n(n−1)/2),1≤u,v≤n,1≤w≤10^9\)</span>。</p>
+<span id="more"></span>
+<details>
+<summary>
+点击查看题解
+</summary>
+<p><tag>最小生成树</tag> 考虑求 <span class="math inline">\(1\rightarrow
+n\)</span> 的最小瓶颈路，其最大值部分一定是最小的，设为 <span
+class="math inline">\(\text{dmax}_n\)</span>，并设最小值部分为 <span
+class="math inline">\(\text{dmin}_n\)</span>；之后考虑枚举每条边，试图更新最小值部分。因此，需要求出
+<span class="math inline">\(1\)</span>
+到每个点的最小瓶颈路，试图更新最小值部分时尽量使最大值不变或变化较少。</p>
+<p>由于最小生成树是最小瓶颈树，所以需要求图的最小生成树。</p>
+<p>设 <span class="math inline">\(1\rightarrow i\)</span> 的瓶颈为 <span
+class="math inline">\(\text{dmax}_i\)</span>，则边 <span
+class="math inline">\(j\)</span> 的瓶颈为 <span
+class="math inline">\(\text{emax}_j=\max\{w_j,\min\{\text{dmax}_i\mid
+(i,j)\in E\}\}\)</span>。则答案为： <span class="math display">\[
+\min\{w_i+\max\{\text{dmax}_n,\text{emax}_j\}\mid 1\le i\le m\}
+\]</span></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">200000</span> + <span class="number">50</span>, inf = <span class="number">1145141919810</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">    ll u, v, len, id;</span><br><span class="line">&#125; g[N];</span><br><span class="line"></span><br><span class="line">ll n, m, dmax[N], emax[N];</span><br><span class="line">ll dad[N];</span><br><span class="line">vector&lt;PII &gt; e[N];</span><br><span class="line">vector&lt;edge&gt; ge[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(edge x, edge y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x.len &lt; y.len;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">recmp</span><span class="params">(edge x, edge y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x.id &lt; y.id;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(ll x, ll y, ll len)</span> </span>&#123;</span><br><span class="line">    e[x].<span class="built_in">push_back</span>(&#123;y, len&#125;);</span><br><span class="line">    e[y].<span class="built_in">push_back</span>(&#123;x, len&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">gadd</span><span class="params">(ll x, ll y, ll len, ll id)</span> </span>&#123;</span><br><span class="line">    ge[x].<span class="built_in">push_back</span>(&#123;x, y, len, id&#125;);</span><br><span class="line">    ge[y].<span class="built_in">push_back</span>(&#123;y, x, len, id&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">find</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (x != dad[x]) &#123;</span><br><span class="line">        x = dad[x] = dad[dad[x]];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">merge</span><span class="params">(ll x, ll y)</span> </span>&#123;</span><br><span class="line">    x = <span class="built_in">find</span>(x), y = <span class="built_in">find</span>(y);</span><br><span class="line">    dad[x] = y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">check</span><span class="params">(ll x, ll y)</span> </span>&#123;</span><br><span class="line">    x = <span class="built_in">find</span>(x), y = <span class="built_in">find</span>(y);</span><br><span class="line">    <span class="keyword">if</span> (x == y)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(ll root, ll dad)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> son: e[root]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (son.first != dad) &#123;</span><br><span class="line">            dmax[son.first] = <span class="built_in">max</span>(dmax[root], son.second);</span><br><span class="line">            <span class="built_in">dfs</span>(son.first, root);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        ll u, v, len, ans = inf;</span><br><span class="line">        cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            ge[i].<span class="built_in">clear</span>();</span><br><span class="line">            e[i].<span class="built_in">clear</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            cin &gt;&gt; u &gt;&gt; v &gt;&gt; len;</span><br><span class="line">            g[i] = (edge)&#123;u, v, len, i&#125;;</span><br><span class="line">            <span class="built_in">gadd</span>(u, v, len, i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">            dad[i] = i;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">            emax[i] = inf;</span><br><span class="line">        <span class="built_in">sort</span>(g + <span class="number">1</span>, g + <span class="number">1</span> + m, cmp);</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">check</span>(g[i].u, g[i].v) == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="built_in">add</span>(g[i].u, g[i].v, g[i].len);</span><br><span class="line">                <span class="built_in">merge</span>(g[i].u, g[i].v);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        dmax[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">dfs</span>(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">sort</span>(g + <span class="number">1</span>, g + <span class="number">1</span> + m, recmp);</span><br><span class="line">        <span class="keyword">for</span> (ll from = <span class="number">1</span>; from &lt;= n; from++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> to: ge[from]) &#123;</span><br><span class="line">                emax[to.id] = <span class="built_in">min</span>(emax[to.id], dmax[from]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">            emax[i] = <span class="built_in">max</span>(emax[i], g[i].len);</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            ans = <span class="built_in">min</span>(ans, g[i].len + <span class="built_in">max</span>(dmax[n], emax[i]));</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h1 id="d.-from-1-to-infinity"><pr>D. From 1 to Infinity</pr></h1>
+<p><a href="https://codeforces.com/contest/2132/problem/D"
+class="uri">https://codeforces.com/contest/2132/problem/D</a></p>
+<p>写下一个无限长的数字：<span
+class="math inline">\(1234567891011121314151617...\)</span>，求从最高位开始前
+<span class="math inline">\(k\)</span> 位数码的和。</p>
+<p>多组数据，<span
+class="math inline">\(1≤t≤2⋅10^4,1≤k≤10^{15}\)</span>。</p>
+<!-- more -->
+<details>
+<summary>
+点击查看题解
+</summary>
+<p><tag>毒瘤题</tag> 考虑找到 <span class="math inline">\(k\)</span>
+位置填的是数字几，设这个数字为 <span
+class="math inline">\(x\)</span>。首先判断 <span
+class="math inline">\(x\)</span> 是几位数，设为 <span
+class="math inline">\(d\)</span>
+位。由于不同位数的数占有数位个数不同，可以均化成 <span
+class="math inline">\(d\)</span> 位数，除以 <span
+class="math inline">\(d\)</span> 即可得到 <span
+class="math inline">\(x\)</span>。</p>
+<p>先把不完整的尾巴算出来，之后考虑算 <span class="math inline">\(1\sim
+x\)</span> 的数位和。</p>
+<p>使用递归解决问题。例如算的是 <span
+class="math inline">\(1\sim546\)</span>，可以先算出 <span
+class="math inline">\(1\sim499\)</span>，之后再加上 <span
+class="math inline">\((46+1)\)</span> 个 <span
+class="math inline">\(5\)</span>，最后算 <span
+class="math inline">\(1\sim46\)</span> 递归解决即可。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">150000</span> + <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line">ll k, st[<span class="number">100</span>], tmp[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">calc</span><span class="params">(ll num)</span> </span>&#123;</span><br><span class="line">    ll len = <span class="number">0</span>, tmp = num, full, res, ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (num &lt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (tmp &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        tmp /= <span class="number">10</span>;</span><br><span class="line">        len++;</span><br><span class="line">    &#125;</span><br><span class="line">    full = (num + <span class="number">1</span>) / (ll) <span class="built_in">pow</span>(<span class="number">10</span>, len - <span class="number">1</span>);</span><br><span class="line">    res = (num + <span class="number">1</span>) % (ll) <span class="built_in">pow</span>(<span class="number">10</span>, len - <span class="number">1</span>);</span><br><span class="line">    ret += full * (full - <span class="number">1</span>) / <span class="number">2</span> * <span class="built_in">pow</span>(<span class="number">10</span>, len - <span class="number">1</span>);</span><br><span class="line">    ret += full * <span class="built_in">calc</span>(<span class="built_in">pow</span>(<span class="number">10</span>, len - <span class="number">1</span>) - <span class="number">1</span>);</span><br><span class="line">    ret += full * res;</span><br><span class="line">    ret += <span class="built_in">calc</span>(res - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T, b10 = <span class="number">1</span>, num, base, add, num2, res, len;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= <span class="number">16</span>; i++) &#123;</span><br><span class="line">        st[i] = i * <span class="number">9</span> * b10 + st[i - <span class="number">1</span>];</span><br><span class="line">        b10 *= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        cin &gt;&gt; k;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">0</span>; i &lt;= <span class="number">15</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (k &lt;= st[i + <span class="number">1</span>] &amp;&amp; k &gt;= st[i]) &#123;</span><br><span class="line">                base = i;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= base; i++) &#123;</span><br><span class="line">            k += <span class="built_in">pow</span>(<span class="number">10</span>, i) - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        num = k / (base + <span class="number">1</span>);</span><br><span class="line">        res = k % (base + <span class="number">1</span>);</span><br><span class="line">        num2 = num + <span class="number">1</span>;</span><br><span class="line">        add = len = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= <span class="number">16</span>; i++)</span><br><span class="line">            tmp[i] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; num2 &gt; <span class="number">0</span>; i++) &#123;</span><br><span class="line">            tmp[i] = num2 % <span class="number">10</span>;</span><br><span class="line">            num2 /= <span class="number">10</span>, len++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (res &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            add += tmp[len];</span><br><span class="line">            res--, len--;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; <span class="built_in">calc</span>(num) + add &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+]]></content>
+      <categories>
+        <category>ACM</category>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>最小生成树</tag>
+        <tag>毒瘤题</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>一句话题解</title>
     <url>/2025/08/30/%E4%B8%80%E5%8F%A5%E8%AF%9D%E9%A2%98%E8%A7%A3/</url>
     <content><![CDATA[<p>给出链接、标签和一句话题解。</p>
@@ -60,7 +135,7 @@ class="uri">https://codeforces.com/contest/2101/problem/B</a></p>
 <span id="more"></span></li>
 <li><p><a href="https://codeforces.com/contest/2106/problem/E"
 class="uri">https://codeforces.com/contest/2106/problem/E</a></p>
-<p><tag>贪心</tag> <tag>二分</tag> 对于一个二分查找，在找到 <span
+<p><tag>贪心</tag> 对于一个二分查找，在找到 <span
 class="math inline">\(k\)</span> 之前，一定有一些数大于 <span
 class="math inline">\(k\)</span>，一些数小于 <span
 class="math inline">\(k\)</span>，大数、小数应当各得其所。设有 <span
@@ -81,15 +156,18 @@ class="uri">https://codeforces.com/contest/2109/problem/D</a></p>
 题目要求是否恰好走特定步数走到某点。假设到某点的最短距离为奇数，由于给的是无向图，可以来回走一条边，所以比此距离大的奇数步数都可以恰好走到。所以，求原图的奇偶最短路（奇数点更新偶数点，反之亦然），并算出题目所给集合子集和的最大奇数/最大偶数即可。</p></li>
 <li><p><a href="https://codeforces.com/contest/2111/problem/E"
 class="uri">https://codeforces.com/contest/2111/problem/E</a></p>
-<p><tag>史</tag> <code>&gt;</code> 表示变为。记录 <code>b&gt;a</code>
-<code>c&gt;a</code> <code>c&gt;b</code> 的数量，并且记录合法的
-<code>c&gt;b&gt;a</code> <code>b&gt;c&gt;a</code> 数量（对每个
-<code>c&gt;b</code> 查找后缀 <code>b&gt;a</code>
+<p><tag>毒瘤题</tag> <code>&gt;</code> 表示变为。记录
+<code>b&gt;a</code> <code>c&gt;a</code> <code>c&gt;b</code>
+的数量，并且记录合法的 <code>c&gt;b&gt;a</code> <code>b&gt;c&gt;a</code>
+数量（对每个 <code>c&gt;b</code> 查找后缀 <code>b&gt;a</code>
 数量，<code>b&gt;c&gt;a</code>
 同理）。然后直接暴力循环字符串贪心能换就换即可（注意，对于
 <code>c&gt;a</code>，由于 <code>c&gt;b</code> 操作会被用到，优先顺序为
 <code>c&gt;a</code> <code>c&gt;b&gt;a</code>
 <code>b&gt;c&gt;a</code>）。</p></li>
+</ul>
+<hr />
+<ul>
 <li><p><a href="https://codeforces.com/contest/2117/problem/F"
 class="uri">https://codeforces.com/contest/2117/problem/F</a></p>
 <p><tag>思维题</tag>
@@ -101,7 +179,7 @@ class="math inline">\(2^n\)</span>。两个叶节点的情况，考虑分成
 2，直到一条填满（如果长的填 1，则多填一个2）然后随便填。</p></li>
 <li><p><a href="https://codeforces.com/contest/2120/problem/D"
 class="uri">https://codeforces.com/contest/2120/problem/D</a></p>
-<p><tag>数学</tag> 因为字典序，所以先考虑 <span
+<p><tag>抽屉原理</tag> 因为字典序，所以先考虑 <span
 class="math inline">\(n\)</span> 最大，抽屉原理，<span
 class="math inline">\(n=((a-1)\times k+1)\)</span>
 个数字就能保证有一个数字出现 <span class="math inline">\(a\)</span>
@@ -114,6 +192,38 @@ class="math inline">\(a+1\)</span>
 +1，不是最优情况。所以仍然根据抽屉原理，答案为 <span
 class="math inline">\(C_n^a \times k \times (b - 1) +
 1\)</span>。</p></li>
+<li><p><a href="https://codeforces.com/contest/2129/problem/B"
+class="uri">https://codeforces.com/contest/2129/problem/B</a></p>
+<p><tag>逆序对</tag> <tag>贪心</tag>
+注意到镜像之后这个数一定大于等于所有的原数，且小数镜像成为大数。所以从数字
+<span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(n\)</span>
+考虑是否镜像，以避免镜像后对以后的决策造成影响。只要镜像使得逆序对个数减少，就一定选择镜像。</p></li>
+<li><p><a href="https://codeforces.com/contest/2132/problem/E"
+class="uri">https://codeforces.com/contest/2132/problem/E</a></p>
+<p><tag>贪心</tag>
+这个题非常像归并排序的归并过程。对两个人的卡牌从大到小排序，并求出前
+<span class="math inline">\(i\)</span>
+张牌中分别包含有几张队员的牌。如果前 <span
+class="math inline">\(z\)</span>
+张牌有一个队员超出限制，只能用另一个队员的牌补足。</p></li>
+<li><p><a href="https://codeforces.com/contest/2124/problem/D"
+class="uri">https://codeforces.com/contest/2124/problem/D</a></p>
+<p><tag>思维题</tag> 显然前 <span class="math inline">\(k-1\)</span>
+小的数不可能被删掉，进而想到其他的数都可以被删掉，且比不删好。将数分为三类：<span
+class="math inline">\(&lt;k\)</span>，不可能被删掉；<span
+class="math inline">\(=k\)</span>，部分被删掉；<span
+class="math inline">\(&gt;k\)</span>，全部删掉。第一类数组成骨架，第二类数组成表皮。骨架必须是回文；在此基础上，骨架两端表皮长度应相等，内部应对称。双指针由骨架端点向内扫，遇到一端表皮必须删，遇到两端表皮不用删。</p></li>
+</ul>
+<hr />
+<ul>
+<li><p><a href="https://codeforces.com/contest/2127/problem/D"
+class="uri">https://codeforces.com/contest/2127/problem/D</a></p>
+<p><tag>计数题</tag> <tag>树的直径</tag>
+显然原图必须是一棵树，且除了直径上的点（不包括叶子），其他点度数必须均为
+<span
+class="math inline">\(1\)</span>。对于每个直径上的点（不包括叶子），其叶子都可以任意排列；另外，最终二分图可以跨河翻转，如果直径上的点（不包括叶子）
+<span class="math inline">\(\ge2\)</span> 还可以不跨河翻转。</p></li>
 </ul>
 ]]></content>
       <categories>
@@ -124,7 +234,11 @@ class="math inline">\(C_n^a \times k \times (b - 1) +
         <tag>最短路</tag>
         <tag>思维题</tag>
         <tag>贪心</tag>
+        <tag>毒瘤题</tag>
         <tag>逆序对</tag>
+        <tag>抽屉原理</tag>
+        <tag>计数题</tag>
+        <tag>树的直径</tag>
       </tags>
   </entry>
   <entry>
@@ -2033,10 +2147,10 @@ class="math inline">\(O(n^2\alpha(n))\)</span>。</p>
       </categories>
       <tags>
         <tag>贪心</tag>
+        <tag>毒瘤题</tag>
         <tag>暴搜</tag>
         <tag>并查集</tag>
         <tag>链表</tag>
-        <tag>毒瘤题</tag>
       </tags>
   </entry>
   <entry>
@@ -2056,8 +2170,8 @@ href="https://fastly.jsdelivr.net/gh/yz-hs/PicGo/%E8%B4%AA%E5%90%83%E8%9B%87%5BC
         <category>社团讲评</category>
       </categories>
       <tags>
-        <tag>模拟</tag>
         <tag>毒瘤题</tag>
+        <tag>模拟</tag>
         <tag>队列</tag>
         <tag>博弈论</tag>
       </tags>
