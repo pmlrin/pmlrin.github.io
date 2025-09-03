@@ -1375,7 +1375,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #8f22ad;
+  background: #8bf1ff;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3144,7 +3144,7 @@ code {
   border: 1px solid #ddd;
   background-color: #f6f6f6;
 }
-.katex-display {
+article p {
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
