@@ -168,6 +168,152 @@ class="math inline">\(i\)</span>，这样就能还原排列。</p>
       </tags>
   </entry>
   <entry>
+    <title>25寒省赛排位</title>
+    <url>/2025/08/30/25%E5%AF%92%E7%9C%81%E8%B5%9B%E6%8E%92%E4%BD%8D/</url>
+    <content><![CDATA[<h1 id="problem-c">Problem C</h1>
+<p>给长度为奇数 <span class="math inline">\(n\)</span> 的数组 <span
+class="math inline">\(a\)</span>。最多执行 <span
+class="math inline">\(k\)</span>
+次操作，每次任意选定一个元素，其值加一。最大化中位数。</p>
+<p><span class="math inline">\(1≤n≤2\times 10^5\)</span>，<span
+class="math inline">\(n\)</span> 为奇数，<span
+class="math inline">\(1≤k≤10^9,1≤a_i≤10^9\)</span>。</p>
+<span id="more"></span>
+<details>
+<summary>
+点击查看题解
+</summary>
+<p><tag>思维题</tag>
+对不如中位数大的数操作是多余的。排序，一层一层地对中位数及其之后的数加一，看可以加几层。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">200000</span> + <span class="number">50</span>, inf = <span class="number">1145141919810</span>;</span><br><span class="line"></span><br><span class="line">ll n, k, a[N], ans;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; k;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">sort</span>(a + <span class="number">1</span>, a + <span class="number">1</span> + n);</span><br><span class="line">    ans = a[n / <span class="number">2</span> + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (ll i = n / <span class="number">2</span> + <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">while</span> (a[i] == a[i + <span class="number">1</span>] &amp;&amp; i + <span class="number">1</span> &lt;= n)</span><br><span class="line">            i++;</span><br><span class="line">        <span class="keyword">if</span> (i &gt;= n)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        ll need = a[i + <span class="number">1</span>] - ans;</span><br><span class="line">        ll len = i - n / <span class="number">2</span>;</span><br><span class="line">        ll serv = k / len;</span><br><span class="line">        <span class="keyword">if</span> (serv &gt;= need) &#123;</span><br><span class="line">            k -= need * len;</span><br><span class="line">            ans += need;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            k = <span class="number">0</span>;</span><br><span class="line">            ans += serv;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (k == <span class="number">0</span>)</span><br><span class="line">        cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        cout &lt;&lt; ans + k / (n / <span class="number">2</span> + <span class="number">1</span>) &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h1 id="problem-e">Problem E</h1>
+<p>问长度为 <span class="math inline">\(n\)</span>
+的交替数列的子数列有多少个为交替数列。</p>
+<p>单个 0 或 1 为交替数列。若某交替数列 <span
+class="math inline">\(a\)</span> 最后一个数为 <span
+class="math inline">\(x\)</span>，则在 <span
+class="math inline">\(a\)</span> 后面加入元素 <span
+class="math inline">\(1-x\)</span>，也为交替数列。</p>
+<p><span class="math inline">\(1≤n≤10^6\)</span>。</p>
+<details>
+<summary>
+点击查看题解
+</summary>
+<p><tag>动态规划</tag> 设 <span class="math inline">\(f(i,j)\)</span>
+表示长度为 <span class="math inline">\(i\)</span>，最后一个元素为 <span
+class="math inline">\(j\)</span> 的交替数列数量。则 <span
+class="math inline">\(f(1,1)=f(1,0)=1\)</span>。</p>
+<p>若 <span class="math inline">\(i\)</span> 为偶数： <span
+class="math display">\[
+f(i,0)=f(i-1,1)+f(i-1,0)+1
+\]</span></p>
+<p><span class="math display">\[
+f(i,1)=f(i-1,1)
+\]</span></p>
+<p>奇数情况类似。答案为 <span
+class="math inline">\(f(n,0)+f(n,1)\)</span>。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">1000000</span> + <span class="number">50</span>, inf = <span class="number">1145141919810</span>, mod = <span class="number">1000000000</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line">ll n, f[N][<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    f[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    f[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">            f[i][<span class="number">0</span>] = (f[i - <span class="number">1</span>][<span class="number">1</span>] + f[i - <span class="number">1</span>][<span class="number">0</span>] + <span class="number">1</span>) % mod;</span><br><span class="line">            f[i][<span class="number">1</span>] = f[i - <span class="number">1</span>][<span class="number">1</span>] % mod;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            f[i][<span class="number">0</span>] = f[i - <span class="number">1</span>][<span class="number">0</span>] % mod;</span><br><span class="line">            f[i][<span class="number">1</span>] = (f[i - <span class="number">1</span>][<span class="number">1</span>] + f[i - <span class="number">1</span>][<span class="number">0</span>] + <span class="number">1</span>) % mod;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; (f[n][<span class="number">0</span>] + f[n][<span class="number">1</span>]) % mod &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h1 id="problem-f">Problem F</h1>
+<p>给 <span class="math inline">\(n\)</span>
+个字符串，问有多少对索引不同的字符串拼接并重排后，可以成为回文串。</p>
+<p><span class="math inline">\(1≤n≤100000\)</span>，所有字符的总数将小于
+<span class="math inline">\(1000000\)</span>。</p>
+<details>
+<summary>
+点击查看题解
+</summary>
+<p><tag>状态压缩</tag>
+成为回文串的条件是字符串拼接后，各种字母出现次数最多有一个奇数。利用状压和
+map 计数。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">100000</span> + <span class="number">50</span>, inf = <span class="number">1145141919810</span>, mod = <span class="number">1000000000</span> + <span class="number">7</span>;</span><br><span class="line"><span class="type">const</span> ll M = <span class="number">100000</span> + <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line">ll n, a[<span class="number">50</span>], b[M], ans = <span class="number">0</span>;</span><br><span class="line">string s;</span><br><span class="line">map&lt;ll, ll&gt; f;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        cin &gt;&gt; s;</span><br><span class="line">        s = <span class="string">&#x27; &#x27;</span> + s;</span><br><span class="line">        ll len = s.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (ll j = <span class="number">1</span>; j &lt;= <span class="number">26</span>; j++)</span><br><span class="line">            a[j] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (ll j = <span class="number">1</span>; j &lt;= len; j++) &#123;</span><br><span class="line">            a[s[j] - <span class="string">&#x27;a&#x27;</span> + <span class="number">1</span>]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll j = <span class="number">1</span>; j &lt;= <span class="number">26</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (a[j] % <span class="number">2</span>)</span><br><span class="line">                b[i] += (<span class="number">1ll</span> &lt;&lt; (j - <span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (f.<span class="built_in">count</span>(b[i]))</span><br><span class="line">            ans += f[b[i]];</span><br><span class="line">        <span class="keyword">for</span> (ll j = <span class="number">1</span>; j &lt;= <span class="number">26</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (f.<span class="built_in">count</span>(b[i] + (<span class="number">1ll</span> &lt;&lt; (j - <span class="number">1</span>))) &amp;&amp; (((b[i] &gt;&gt; (j - <span class="number">1</span>)) &amp; <span class="number">1</span>) == <span class="number">0</span>))</span><br><span class="line">                ans += f[b[i] + (<span class="number">1ll</span> &lt;&lt; (j - <span class="number">1</span>))];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll j = <span class="number">1</span>; j &lt;= <span class="number">26</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (f.<span class="built_in">count</span>(b[i] - (<span class="number">1ll</span> &lt;&lt; (j - <span class="number">1</span>))) &amp;&amp; (((b[i] &gt;&gt; (j - <span class="number">1</span>)) &amp; <span class="number">1</span>) == <span class="number">1</span>))</span><br><span class="line">                ans += f[b[i] - (<span class="number">1ll</span> &lt;&lt; (j - <span class="number">1</span>))];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (f.<span class="built_in">count</span>(b[i]) == <span class="number">0</span>)</span><br><span class="line">            f[b[i]] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            f[b[i]] += <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h1 id="problem-h">Problem H</h1>
+<p>对于数组 <span
+class="math inline">\(h[1..n]\)</span>，我们按如下方式定义其 Lipschitz
+常数 <span class="math inline">\(L(h)\)</span>：</p>
+<ul>
+<li><p>若 <span class="math inline">\(n&lt;2\)</span>，则 <span
+class="math inline">\(L(h)=0\)</span>；</p></li>
+<li><p>若 <span class="math inline">\(n≥2\)</span>，则 <span
+class="math inline">\(L(h)=\max⌈\dfrac{|h[j]−h[i]|}{j−i}⌉\)</span>，其中最大值取自所有
+<span class="math inline">\(1≤i&lt;j≤n\)</span>。</p></li>
+</ul>
+<p>给定一个长度为 <span class="math inline">\(n\)</span> 的数组 <span
+class="math inline">\(a\)</span> 和 <span
+class="math inline">\(q\)</span> 个形式为 <span
+class="math inline">\([l,r]\)</span> 的查询。对于每个查询，考虑子数组
+<span class="math inline">\(s=a[l..r]\)</span>，需要计算 <span
+class="math inline">\(s\)</span> 的<strong>所有子数组</strong>的
+Lipschitz 常数之和。</p>
+<details>
+<summary>
+点击查看题解
+</summary>
+<p><tag>诈骗题</tag> <tag>单调栈</tag>
+对于开区间可导，闭区间连续的函数，要使得平均斜率大于等于区间内任意一点处的斜率，区间内斜率必然处处相等，且等于平均斜率（拉格朗日中值定理可得）。所以，<span
+class="math inline">\(L(h)\)</span>
+的值<strong>只会被某两个相邻的数贡献</strong>。（理解性表述）</p>
+<p>问题被缩小范围，转化为求区间内所有子区间的最大值之和。</p>
+<p>考虑每个数 <span class="math inline">\(a_i\)</span> 对以 <span
+class="math inline">\(i\)</span> 为开头的区间的贡献，贡献范围为 <span
+class="math inline">\([i,j)\)</span>，其中 <span
+class="math inline">\(j\)</span> 为第一个大于 <span
+class="math inline">\(a_i\)</span> 的数的位置。此后，由 <span
+class="math inline">\(a_j\)</span> 取代 <span
+class="math inline">\(a_i\)</span> 的贡献。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">100000</span> + <span class="number">50</span>, inf = <span class="number">1145141919810</span>, mod = <span class="number">1000000000</span> + <span class="number">7</span>;</span><br><span class="line"><span class="type">const</span> ll M = <span class="number">100000</span> + <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line">ll n, a[N], nxt[N], top = <span class="number">0</span>, num[N];</span><br><span class="line">PII stk[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll q, ans, l, r;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; q;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        a[i] = <span class="built_in">abs</span>(a[i + <span class="number">1</span>] - a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    a[n] = inf;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">while</span> (stk[top].first &lt; a[i] &amp;&amp; top &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">            nxt[stk[top--].second] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        stk[++top] = (PII)&#123;a[i], i&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= q; i++) &#123;</span><br><span class="line">        cin &gt;&gt; l &gt;&gt; r;</span><br><span class="line">        ans = <span class="number">0</span>, r--;</span><br><span class="line">        <span class="keyword">for</span> (ll j = l; j &lt;= r; j++) &#123;</span><br><span class="line">            num[j] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll j = l; j &lt;= r; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nxt[j] &lt;= r &amp;&amp; nxt[j] != <span class="number">0</span>) &#123;</span><br><span class="line">                ans += a[j] * (nxt[j] - j) * num[j];</span><br><span class="line">                num[nxt[j]] += num[j];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                ans += a[j] * (r - j + <span class="number">1</span>) * num[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+]]></content>
+      <categories>
+        <category>ACM</category>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>思维题</tag>
+        <tag>动态规划</tag>
+        <tag>状态压缩</tag>
+        <tag>单调栈</tag>
+        <tag>诈骗题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>25暑排位1</title>
+    <url>/2025/09/03/25%E6%9A%91%E6%8E%92%E4%BD%8D1/</url>
+    <content><![CDATA[<h1 id="problem-a"><cp>Problem A</cp></h1>
+<p>有 <span class="math inline">\(n\)</span> 个字符串，<span
+class="math inline">\(t_1,t_2,…,t_n\)</span>，这些字符串只由字符
+<code>s</code> 和 <code>h</code> 组成。
+定义这些字符串的<strong>连接</strong>为 <span
+class="math inline">\(t_1,t_2,…,t_n\)</span> 首尾相接。</p>
+<p>可以对这 <span class="math inline">\(n\)</span>
+个字符串进行任意次重排，希望重排后字符串的<strong>连接</strong>之中
+<code>sh</code> 子序列出现次数最多，并求出这个最大值。</p>
+<p><span class="math inline">\(1≤n≤10^5\)</span>，总长度不超过 <span
+class="math inline">\(10^5\)</span>。</p>
+<span id="more"></span>
+<details>
+<summary>
+点击查看题解
+</summary>
+<p>考虑排序后统计答案。按 <code>h</code>
+占比排序即可，或者比较两个字符串不同顺序产生的贡献。</p>
+<p>解法 1：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span>  <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;int,int&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(pair&lt;<span class="type">int</span>,<span class="type">double</span>&gt; a,pair&lt;<span class="type">int</span>,<span class="type">double</span>&gt; b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.second &lt; b.second;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    string s[n];</span><br><span class="line">    <span class="type">int</span> ans = <span class="number">0</span>, a[n][<span class="number">2</span>] = &#123;&#125;, sums = <span class="number">0</span>, sumh = <span class="number">0</span>; <span class="comment">//s h</span></span><br><span class="line">    vector&lt;pair&lt;<span class="type">int</span>, <span class="type">double</span>&gt; &gt; b; <span class="comment">//index h-s</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        cin &gt;&gt; s[i];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; s[i].<span class="built_in">length</span>(); j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s[i][j] == <span class="string">&#x27;s&#x27;</span>) sums++;</span><br><span class="line">            <span class="keyword">else</span> sumh++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> ss = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; s[i].<span class="built_in">length</span>(); j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s[i][j] == <span class="string">&#x27;s&#x27;</span>) ss++, a[i][<span class="number">0</span>]++;</span><br><span class="line">            <span class="keyword">else</span> a[i][<span class="number">1</span>]++, ans += ss;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">double</span> x;</span><br><span class="line">        <span class="keyword">if</span> (a[i][<span class="number">0</span>] == <span class="number">0</span>) x = <span class="number">1000000000000000</span>;</span><br><span class="line">        <span class="keyword">else</span> x = ((<span class="type">double</span>) a[i][<span class="number">1</span>] / (<span class="type">double</span>) a[i][<span class="number">0</span>]);</span><br><span class="line">        b.<span class="built_in">push_back</span>(&#123;i, x&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">sort</span>(b.<span class="built_in">begin</span>(), b.<span class="built_in">end</span>(), cmp);</span><br><span class="line">    <span class="type">int</span> dp[n + <span class="number">5</span>];</span><br><span class="line">    dp[n] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        dp[i] = dp[i + <span class="number">1</span>] + a[b[i].first][<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> x = b[i].first;</span><br><span class="line">        ans += a[x][<span class="number">0</span>] * dp[i + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解法 2：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll, ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">100000</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">str</span> &#123;</span><br><span class="line">    string s;</span><br><span class="line">    ll len;</span><br><span class="line">&#125; S[N];</span><br><span class="line"></span><br><span class="line">ll n;</span><br><span class="line">string tmp, ans = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(str x, str y)</span> </span>&#123;</span><br><span class="line">    ll len = x.len + y.len, cnt1 = <span class="number">0</span>, cnt2 = <span class="number">0</span>, hcnt = <span class="number">0</span>, thcnt = <span class="number">0</span>;</span><br><span class="line">    string t = x.s + y.s;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">0</span>; i &lt;= len - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (t[i] == <span class="string">&#x27;h&#x27;</span>)</span><br><span class="line">            hcnt++;</span><br><span class="line">    &#125;</span><br><span class="line">    thcnt = hcnt;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">0</span>; i &lt;= len - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (t[i] == <span class="string">&#x27;s&#x27;</span>)</span><br><span class="line">            cnt1 += thcnt;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            thcnt--;</span><br><span class="line">    &#125;</span><br><span class="line">    thcnt = hcnt;</span><br><span class="line">    t = y.s + x.s;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">0</span>; i &lt;= len - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (t[i] == <span class="string">&#x27;s&#x27;</span>)</span><br><span class="line">            cnt2 += thcnt;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            thcnt--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cnt1 &gt; cnt2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll hcnt = <span class="number">0</span>, cnt = <span class="number">0</span>, slen = <span class="number">0</span>, maxlen = <span class="number">0</span>;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        cin &gt;&gt; tmp;</span><br><span class="line">        ll len = tmp.<span class="built_in">size</span>();</span><br><span class="line">        maxlen = <span class="built_in">max</span>(maxlen, len);</span><br><span class="line">        S[i].s = tmp;</span><br><span class="line">        S[i].len = len;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">stable_sort</span>(S + <span class="number">1</span>, S + <span class="number">1</span> + n, cmp);</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        ans += S[i].s;</span><br><span class="line">    slen = ans.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">0</span>; i &lt;= slen - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ans[i] == <span class="string">&#x27;h&#x27;</span>)</span><br><span class="line">            hcnt++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">0</span>; i &lt;= slen - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ans[i] == <span class="string">&#x27;s&#x27;</span>)</span><br><span class="line">            cnt += hcnt;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            hcnt--;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; cnt &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+]]></content>
+      <categories>
+        <category>ACM</category>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>排序</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>24暑排位2</title>
     <url>/2025/08/10/24%E6%9A%91%E6%8E%92%E4%BD%8D2/</url>
     <content><![CDATA[<p><a href="https://codeforces.com/gym/542438">Dashboard - SDU
@@ -353,9 +499,89 @@ f(i,j,a_i)=\sum_{k\in C} f(i-1,j-1,k)
       <tags>
         <tag>ACM</tag>
         <tag>思维题</tag>
-        <tag>最大公约数</tag>
         <tag>动态规划</tag>
+        <tag>最大公约数</tag>
         <tag>最短路</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>25暑期1</title>
+    <url>/2025/08/08/25%E6%9A%91%E6%9C%9F1/</url>
+    <content><![CDATA[<h1 id="problem-e"><pr>Problem E</pr></h1>
+<p><span class="math inline">\(T\)</span> 组询问，给两个数 <span
+class="math inline">\(a,b\)</span>，询问 <span
+class="math inline">\(|a^2-b^2|\)</span> 的值在集合 <span
+class="math inline">\(C\)</span> 中为第几小，<span
+class="math inline">\(C=\{|x^2-y^2|\mid x,y\in
+N^*,x\not=y\}\)</span>。例如 <span class="math inline">\(3,5,7,8,9\in
+C\)</span>，且为前五小。</p>
+<p><span
+class="math inline">\(1≤T≤10^4,1≤a,b≤10^9,a\not=b\)</span>。</p>
+<details>
+<summary>
+点击查看题解
+</summary>
+<p>设 <span class="math inline">\(a&gt;b\)</span>。<span
+class="math inline">\(a^2-b^2=(a+b)(a-b)\)</span>。则 <span
+class="math inline">\(a+b\)</span> 和 <span
+class="math inline">\(a-b\)</span> 同奇偶。可推出 <span
+class="math inline">\(a^2-b^2\bmod 4 \not=2\)</span>。</p>
+<p>又 <span class="math inline">\(\forall\text{ }m_1\ge 1,\exists\text{
+}x_1,y_1\in N^*\)</span>，满足 <span
+class="math inline">\(x_1-y_1=m_1\)</span>； <span
+class="math inline">\(\forall\text{ }m_2\ge 3,\exists\text{ }x_2,y_2\in
+N^*\)</span>，满足 <span
+class="math inline">\(x_2+y_2=m_2\)</span>。</p>
+<p>则 <span class="math inline">\(C=\{n\mid
+n\ge3,n\not=4,n\bmod4\not=2\}\)</span>。据此可计算排名。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T, a, b;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">        a = <span class="built_in">abs</span>(a * a - b * b);</span><br><span class="line">        <span class="keyword">if</span> (a == <span class="number">3</span>)</span><br><span class="line">            cout &lt;&lt; <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (a % <span class="number">4</span> == <span class="number">0</span>)</span><br><span class="line">            cout &lt;&lt; (a / <span class="number">4</span> - <span class="number">1</span>) * <span class="number">3</span> + <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (a % <span class="number">4</span> == <span class="number">1</span>)</span><br><span class="line">            cout &lt;&lt; (a / <span class="number">4</span> - <span class="number">1</span>) * <span class="number">3</span> + <span class="number">2</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (a % <span class="number">4</span> == <span class="number">3</span>)</span><br><span class="line">            cout &lt;&lt; (a / <span class="number">4</span> - <span class="number">1</span>) * <span class="number">3</span> + <span class="number">3</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+]]></content>
+      <categories>
+        <category>ACM</category>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
+        <tag>同余</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>25暑期5</title>
+    <url>/2025/08/21/25%E6%9A%91%E6%9C%9F5/</url>
+    <content><![CDATA[<h1 id="problem-k"><pr>Problem K</pr></h1>
+<p>给 <span class="math inline">\(n\)</span> 个节点的一棵树，上面有
+<span class="math inline">\(m\)</span> 个特殊边。有 <span
+class="math inline">\(k\)</span>
+个路径（从某点到某点），选出最少数量的路径包含所有的 <span
+class="math inline">\(m\)</span> 条特殊边。无解输出
+-1；有解还要求方案数。</p>
+<p><span class="math inline">\(2≤n≤2×10^5,  1\leq m\leq 22, 1\leq k\leq
+2\times 10^5\)</span>。</p>
+<span id="more"></span>
+<details>
+<summary>
+点击查看题解
+</summary>
+<p>特殊边较少，设第 <span class="math inline">\(i\)</span>
+条特殊边边权为 <span class="math inline">\(2^i\)</span>。可求 <span
+class="math inline">\(k\)</span>
+个路径上的边权状态（只需利用树上前缀或，直接取路径两端前缀和的异或即可）。断言边权和不同的路径数量较少（设有
+<span class="math inline">\(k\)</span> 种），设 <span
+class="math inline">\(f(i)\)</span> 表示边权状态为 <span
+class="math inline">\(i\)</span>（状压）时所需最少路径数量，类似背包，可同时求方案数。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;int,int&gt;</span></span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">200005</span>, M = <span class="number">25</span>, O = <span class="number">4500005</span>, mod = <span class="number">998244353</span>, inf = <span class="number">1145141919810</span>;</span><br><span class="line">vector&lt;PII &gt; e[N * <span class="number">2</span>];</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; val;</span><br><span class="line"><span class="type">int</span> n, m, k, spe[N], a[N];</span><br><span class="line"><span class="type">int</span> f[O], g[O], num[O];</span><br><span class="line"><span class="type">int</span> ans1 = <span class="number">-1</span>, ans2;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> now,<span class="type">int</span> dad)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (PII i: e[now]) &#123;</span><br><span class="line">        <span class="type">int</span> to = i.first, v = spe[i.second];</span><br><span class="line">        <span class="keyword">if</span> (to == dad)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        a[to] = (a[now] | v);</span><br><span class="line">        <span class="built_in">init</span>(to, now);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    <span class="type">int</span> u, v;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">        e[u].<span class="built_in">push_back</span>(&#123;v, i&#125;);</span><br><span class="line">        e[v].<span class="built_in">push_back</span>(&#123;u, i&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">        cin &gt;&gt; u;</span><br><span class="line">        spe[u] = (<span class="number">1ll</span> &lt;&lt; (i - <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    a[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">init</span>(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">    val.<span class="built_in">push_back</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= k; i++) &#123;</span><br><span class="line">        cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">        <span class="type">int</span> tmp = (a[u] ^ a[v]);</span><br><span class="line">        <span class="keyword">if</span> (num[tmp] == <span class="number">0</span>) &#123;</span><br><span class="line">            val.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        num[tmp]++;</span><br><span class="line">    &#125;</span><br><span class="line">    g[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    k = val.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= ((<span class="number">1ll</span> &lt;&lt; m) - <span class="number">1</span>); i++)</span><br><span class="line">        f[i] = inf;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= k; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = ((<span class="number">1ll</span> &lt;&lt; m) - <span class="number">1</span>); j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (f[j | val[i]] &gt; f[j] + <span class="number">1</span>) &#123;</span><br><span class="line">                f[j | val[i]] = f[j] + <span class="number">1</span>;</span><br><span class="line">                g[j | val[i]] = g[j] * num[val[i]] % mod;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (f[j | val[i]] == f[j] + <span class="number">1</span>) &#123;</span><br><span class="line">                g[j | val[i]] = (g[j | val[i]] + g[j] * num[val[i]]) % mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (f[(<span class="number">1ll</span> &lt;&lt; m) - <span class="number">1</span>] &gt;= inf)</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;-1&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        ans1 = f[(<span class="number">1ll</span> &lt;&lt; m) - <span class="number">1</span>];</span><br><span class="line">        ans2 = g[(<span class="number">1ll</span> &lt;&lt; m) - <span class="number">1</span>];</span><br><span class="line">        cout &lt;&lt; ans1 &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; ans2 &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+]]></content>
+      <categories>
+        <category>ACM</category>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>动态规划</tag>
+        <tag>树上前缀和</tag>
+        <tag>树上路径和</tag>
+        <tag>背包</tag>
       </tags>
   </entry>
   <entry>
@@ -398,155 +624,6 @@ class="math inline">\([1,n]\)</span> 最值即可。</p>
       <tags>
         <tag>ACM</tag>
         <tag>线段树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>25暑期5</title>
-    <url>/2025/08/21/25%E6%9A%91%E6%9C%9F5/</url>
-    <content><![CDATA[<h1 id="problem-k"><pr>Problem K</pr></h1>
-<p>给 <span class="math inline">\(n\)</span> 个节点的一棵树，上面有
-<span class="math inline">\(m\)</span> 个特殊边。有 <span
-class="math inline">\(k\)</span>
-个路径（从某点到某点），选出最少数量的路径包含所有的 <span
-class="math inline">\(m\)</span> 条特殊边。无解输出
--1；有解还要求方案数。</p>
-<p><span class="math inline">\(2≤n≤2×10^5,  1\leq m\leq 22, 1\leq k\leq
-2\times 10^5\)</span>。</p>
-<span id="more"></span>
-<details>
-<summary>
-点击查看题解
-</summary>
-<p>特殊边较少，设第 <span class="math inline">\(i\)</span>
-条特殊边边权为 <span class="math inline">\(2^i\)</span>。可求 <span
-class="math inline">\(k\)</span>
-个路径上的边权状态（只需利用树上前缀或，直接取路径两端前缀和的异或即可）。断言边权和不同的路径数量较少（设有
-<span class="math inline">\(k\)</span> 种），设 <span
-class="math inline">\(f(i)\)</span> 表示边权状态为 <span
-class="math inline">\(i\)</span>（状压）时所需最少路径数量，类似背包，可同时求方案数。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;int,int&gt;</span></span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">200005</span>, M = <span class="number">25</span>, O = <span class="number">4500005</span>, mod = <span class="number">998244353</span>, inf = <span class="number">1145141919810</span>;</span><br><span class="line">vector&lt;PII &gt; e[N * <span class="number">2</span>];</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; val;</span><br><span class="line"><span class="type">int</span> n, m, k, spe[N], a[N];</span><br><span class="line"><span class="type">int</span> f[O], g[O], num[O];</span><br><span class="line"><span class="type">int</span> ans1 = <span class="number">-1</span>, ans2;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> now,<span class="type">int</span> dad)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (PII i: e[now]) &#123;</span><br><span class="line">        <span class="type">int</span> to = i.first, v = spe[i.second];</span><br><span class="line">        <span class="keyword">if</span> (to == dad)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        a[to] = (a[now] | v);</span><br><span class="line">        <span class="built_in">init</span>(to, now);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    <span class="type">int</span> u, v;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">        e[u].<span class="built_in">push_back</span>(&#123;v, i&#125;);</span><br><span class="line">        e[v].<span class="built_in">push_back</span>(&#123;u, i&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">        cin &gt;&gt; u;</span><br><span class="line">        spe[u] = (<span class="number">1ll</span> &lt;&lt; (i - <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    a[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">init</span>(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">    val.<span class="built_in">push_back</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= k; i++) &#123;</span><br><span class="line">        cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">        <span class="type">int</span> tmp = (a[u] ^ a[v]);</span><br><span class="line">        <span class="keyword">if</span> (num[tmp] == <span class="number">0</span>) &#123;</span><br><span class="line">            val.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        num[tmp]++;</span><br><span class="line">    &#125;</span><br><span class="line">    g[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    k = val.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= ((<span class="number">1ll</span> &lt;&lt; m) - <span class="number">1</span>); i++)</span><br><span class="line">        f[i] = inf;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= k; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = ((<span class="number">1ll</span> &lt;&lt; m) - <span class="number">1</span>); j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (f[j | val[i]] &gt; f[j] + <span class="number">1</span>) &#123;</span><br><span class="line">                f[j | val[i]] = f[j] + <span class="number">1</span>;</span><br><span class="line">                g[j | val[i]] = g[j] * num[val[i]] % mod;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (f[j | val[i]] == f[j] + <span class="number">1</span>) &#123;</span><br><span class="line">                g[j | val[i]] = (g[j | val[i]] + g[j] * num[val[i]]) % mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (f[(<span class="number">1ll</span> &lt;&lt; m) - <span class="number">1</span>] &gt;= inf)</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;-1&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        ans1 = f[(<span class="number">1ll</span> &lt;&lt; m) - <span class="number">1</span>];</span><br><span class="line">        ans2 = g[(<span class="number">1ll</span> &lt;&lt; m) - <span class="number">1</span>];</span><br><span class="line">        cout &lt;&lt; ans1 &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; ans2 &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-]]></content>
-      <categories>
-        <category>ACM</category>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>动态规划</tag>
-        <tag>树上前缀和</tag>
-        <tag>树上路径和</tag>
-        <tag>背包</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>25寒省赛排位</title>
-    <url>/2025/08/30/25%E5%AF%92%E7%9C%81%E8%B5%9B%E6%8E%92%E4%BD%8D/</url>
-    <content><![CDATA[<h1 id="problem-c">Problem C</h1>
-<p>给长度为奇数 <span class="math inline">\(n\)</span> 的数组 <span
-class="math inline">\(a\)</span>。最多执行 <span
-class="math inline">\(k\)</span>
-次操作，每次任意选定一个元素，其值加一。最大化中位数。</p>
-<p><span class="math inline">\(1≤n≤2\times 10^5\)</span>，<span
-class="math inline">\(n\)</span> 为奇数，<span
-class="math inline">\(1≤k≤10^9,1≤a_i≤10^9\)</span>。</p>
-<span id="more"></span>
-<details>
-<summary>
-点击查看题解
-</summary>
-<p><tag>思维题</tag>
-对不如中位数大的数操作是多余的。排序，一层一层地对中位数及其之后的数加一，看可以加几层。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">200000</span> + <span class="number">50</span>, inf = <span class="number">1145141919810</span>;</span><br><span class="line"></span><br><span class="line">ll n, k, a[N], ans;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; k;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">sort</span>(a + <span class="number">1</span>, a + <span class="number">1</span> + n);</span><br><span class="line">    ans = a[n / <span class="number">2</span> + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (ll i = n / <span class="number">2</span> + <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">while</span> (a[i] == a[i + <span class="number">1</span>] &amp;&amp; i + <span class="number">1</span> &lt;= n)</span><br><span class="line">            i++;</span><br><span class="line">        <span class="keyword">if</span> (i &gt;= n)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        ll need = a[i + <span class="number">1</span>] - ans;</span><br><span class="line">        ll len = i - n / <span class="number">2</span>;</span><br><span class="line">        ll serv = k / len;</span><br><span class="line">        <span class="keyword">if</span> (serv &gt;= need) &#123;</span><br><span class="line">            k -= need * len;</span><br><span class="line">            ans += need;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            k = <span class="number">0</span>;</span><br><span class="line">            ans += serv;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (k == <span class="number">0</span>)</span><br><span class="line">        cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        cout &lt;&lt; ans + k / (n / <span class="number">2</span> + <span class="number">1</span>) &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-<h1 id="problem-e">Problem E</h1>
-<p>问长度为 <span class="math inline">\(n\)</span>
-的交替数列的子数列有多少个为交替数列。</p>
-<p>单个 0 或 1 为交替数列。若某交替数列 <span
-class="math inline">\(a\)</span> 最后一个数为 <span
-class="math inline">\(x\)</span>，则在 <span
-class="math inline">\(a\)</span> 后面加入元素 <span
-class="math inline">\(1-x\)</span>，也为交替数列。</p>
-<p><span class="math inline">\(1≤n≤10^6\)</span>。</p>
-<details>
-<summary>
-点击查看题解
-</summary>
-<p><tag>动态规划</tag> 设 <span class="math inline">\(f(i,j)\)</span>
-表示长度为 <span class="math inline">\(i\)</span>，最后一个元素为 <span
-class="math inline">\(j\)</span> 的交替数列数量。则 <span
-class="math inline">\(f(1,1)=f(1,0)=1\)</span>。</p>
-<p>若 <span class="math inline">\(i\)</span> 为偶数： <span
-class="math display">\[
-f(i,0)=f(i-1,1)+f(i-1,0)+1
-\]</span></p>
-<p><span class="math display">\[
-f(i,1)=f(i-1,1)
-\]</span></p>
-<p>奇数情况类似。答案为 <span
-class="math inline">\(f(n,0)+f(n,1)\)</span>。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">1000000</span> + <span class="number">50</span>, inf = <span class="number">1145141919810</span>, mod = <span class="number">1000000000</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line">ll n, f[N][<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    f[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    f[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">            f[i][<span class="number">0</span>] = (f[i - <span class="number">1</span>][<span class="number">1</span>] + f[i - <span class="number">1</span>][<span class="number">0</span>] + <span class="number">1</span>) % mod;</span><br><span class="line">            f[i][<span class="number">1</span>] = f[i - <span class="number">1</span>][<span class="number">1</span>] % mod;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            f[i][<span class="number">0</span>] = f[i - <span class="number">1</span>][<span class="number">0</span>] % mod;</span><br><span class="line">            f[i][<span class="number">1</span>] = (f[i - <span class="number">1</span>][<span class="number">1</span>] + f[i - <span class="number">1</span>][<span class="number">0</span>] + <span class="number">1</span>) % mod;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; (f[n][<span class="number">0</span>] + f[n][<span class="number">1</span>]) % mod &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-<h1 id="problem-f">Problem F</h1>
-<p>给 <span class="math inline">\(n\)</span>
-个字符串，问有多少对索引不同的字符串拼接并重排后，可以成为回文串。</p>
-<p><span class="math inline">\(1≤n≤100000\)</span>，所有字符的总数将小于
-<span class="math inline">\(1000000\)</span>。</p>
-<details>
-<summary>
-点击查看题解
-</summary>
-<p><tag>状态压缩</tag>
-成为回文串的条件是字符串拼接后，各种字母出现次数最多有一个奇数。利用状压和
-map 计数。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">100000</span> + <span class="number">50</span>, inf = <span class="number">1145141919810</span>, mod = <span class="number">1000000000</span> + <span class="number">7</span>;</span><br><span class="line"><span class="type">const</span> ll M = <span class="number">100000</span> + <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line">ll n, a[<span class="number">50</span>], b[M], ans = <span class="number">0</span>;</span><br><span class="line">string s;</span><br><span class="line">map&lt;ll, ll&gt; f;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        cin &gt;&gt; s;</span><br><span class="line">        s = <span class="string">&#x27; &#x27;</span> + s;</span><br><span class="line">        ll len = s.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (ll j = <span class="number">1</span>; j &lt;= <span class="number">26</span>; j++)</span><br><span class="line">            a[j] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (ll j = <span class="number">1</span>; j &lt;= len; j++) &#123;</span><br><span class="line">            a[s[j] - <span class="string">&#x27;a&#x27;</span> + <span class="number">1</span>]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll j = <span class="number">1</span>; j &lt;= <span class="number">26</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (a[j] % <span class="number">2</span>)</span><br><span class="line">                b[i] += (<span class="number">1ll</span> &lt;&lt; (j - <span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (f.<span class="built_in">count</span>(b[i]))</span><br><span class="line">            ans += f[b[i]];</span><br><span class="line">        <span class="keyword">for</span> (ll j = <span class="number">1</span>; j &lt;= <span class="number">26</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (f.<span class="built_in">count</span>(b[i] + (<span class="number">1ll</span> &lt;&lt; (j - <span class="number">1</span>))) &amp;&amp; (((b[i] &gt;&gt; (j - <span class="number">1</span>)) &amp; <span class="number">1</span>) == <span class="number">0</span>))</span><br><span class="line">                ans += f[b[i] + (<span class="number">1ll</span> &lt;&lt; (j - <span class="number">1</span>))];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll j = <span class="number">1</span>; j &lt;= <span class="number">26</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (f.<span class="built_in">count</span>(b[i] - (<span class="number">1ll</span> &lt;&lt; (j - <span class="number">1</span>))) &amp;&amp; (((b[i] &gt;&gt; (j - <span class="number">1</span>)) &amp; <span class="number">1</span>) == <span class="number">1</span>))</span><br><span class="line">                ans += f[b[i] - (<span class="number">1ll</span> &lt;&lt; (j - <span class="number">1</span>))];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (f.<span class="built_in">count</span>(b[i]) == <span class="number">0</span>)</span><br><span class="line">            f[b[i]] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            f[b[i]] += <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-<h1 id="problem-h">Problem H</h1>
-<p>对于数组 <span
-class="math inline">\(h[1..n]\)</span>，我们按如下方式定义其 Lipschitz
-常数 <span class="math inline">\(L(h)\)</span>：</p>
-<ul>
-<li><p>若 <span class="math inline">\(n&lt;2\)</span>，则 <span
-class="math inline">\(L(h)=0\)</span>；</p></li>
-<li><p>若 <span class="math inline">\(n≥2\)</span>，则 <span
-class="math inline">\(L(h)=\max⌈\dfrac{|h[j]−h[i]|}{j−i}⌉\)</span>，其中最大值取自所有
-<span class="math inline">\(1≤i&lt;j≤n\)</span>。</p></li>
-</ul>
-<p>给定一个长度为 <span class="math inline">\(n\)</span> 的数组 <span
-class="math inline">\(a\)</span> 和 <span
-class="math inline">\(q\)</span> 个形式为 <span
-class="math inline">\([l,r]\)</span> 的查询。对于每个查询，考虑子数组
-<span class="math inline">\(s=a[l..r]\)</span>，需要计算 <span
-class="math inline">\(s\)</span> 的<strong>所有子数组</strong>的
-Lipschitz 常数之和。</p>
-<details>
-<summary>
-点击查看题解
-</summary>
-<p><tag>诈骗题</tag> <tag>单调栈</tag>
-对于开区间可导，闭区间连续的函数，要使得平均斜率大于等于区间内任意一点处的斜率，区间内斜率必然处处相等，且等于平均斜率（拉格朗日中值定理可得）。所以，<span
-class="math inline">\(L(h)\)</span>
-的值<strong>只会被某两个相邻的数贡献</strong>。（理解性表述）</p>
-<p>问题被缩小范围，转化为求区间内所有子区间的最大值之和。</p>
-<p>考虑每个数 <span class="math inline">\(a_i\)</span> 对以 <span
-class="math inline">\(i\)</span> 为开头的区间的贡献，贡献范围为 <span
-class="math inline">\([i,j)\)</span>，其中 <span
-class="math inline">\(j\)</span> 为第一个大于 <span
-class="math inline">\(a_i\)</span> 的数的位置。此后，由 <span
-class="math inline">\(a_j\)</span> 取代 <span
-class="math inline">\(a_i\)</span> 的贡献。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">100000</span> + <span class="number">50</span>, inf = <span class="number">1145141919810</span>, mod = <span class="number">1000000000</span> + <span class="number">7</span>;</span><br><span class="line"><span class="type">const</span> ll M = <span class="number">100000</span> + <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line">ll n, a[N], nxt[N], top = <span class="number">0</span>, num[N];</span><br><span class="line">PII stk[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll q, ans, l, r;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; q;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        a[i] = <span class="built_in">abs</span>(a[i + <span class="number">1</span>] - a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    a[n] = inf;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">while</span> (stk[top].first &lt; a[i] &amp;&amp; top &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">            nxt[stk[top--].second] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        stk[++top] = (PII)&#123;a[i], i&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= q; i++) &#123;</span><br><span class="line">        cin &gt;&gt; l &gt;&gt; r;</span><br><span class="line">        ans = <span class="number">0</span>, r--;</span><br><span class="line">        <span class="keyword">for</span> (ll j = l; j &lt;= r; j++) &#123;</span><br><span class="line">            num[j] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll j = l; j &lt;= r; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nxt[j] &lt;= r &amp;&amp; nxt[j] != <span class="number">0</span>) &#123;</span><br><span class="line">                ans += a[j] * (nxt[j] - j) * num[j];</span><br><span class="line">                num[nxt[j]] += num[j];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                ans += a[j] * (r - j + <span class="number">1</span>) * num[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-]]></content>
-      <categories>
-        <category>ACM</category>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>思维题</tag>
-        <tag>动态规划</tag>
-        <tag>状态压缩</tag>
-        <tag>单调栈</tag>
-        <tag>诈骗题</tag>
       </tags>
   </entry>
   <entry>
@@ -750,120 +827,25 @@ class="math inline">\(0\)</span> 的位置。</li>
       </tags>
   </entry>
   <entry>
-    <title>25暑期1</title>
-    <url>/2025/08/08/25%E6%9A%91%E6%9C%9F1/</url>
-    <content><![CDATA[<h1 id="problem-e"><pr>Problem E</pr></h1>
-<p><span class="math inline">\(T\)</span> 组询问，给两个数 <span
-class="math inline">\(a,b\)</span>，询问 <span
-class="math inline">\(|a^2-b^2|\)</span> 的值在集合 <span
-class="math inline">\(C\)</span> 中为第几小，<span
-class="math inline">\(C=\{|x^2-y^2|\mid x,y\in
-N^*,x\not=y\}\)</span>。例如 <span class="math inline">\(3,5,7,8,9\in
-C\)</span>，且为前五小。</p>
-<p><span
-class="math inline">\(1≤T≤10^4,1≤a,b≤10^9,a\not=b\)</span>。</p>
-<details>
-<summary>
-点击查看题解
-</summary>
-<p>设 <span class="math inline">\(a&gt;b\)</span>。<span
-class="math inline">\(a^2-b^2=(a+b)(a-b)\)</span>。则 <span
-class="math inline">\(a+b\)</span> 和 <span
-class="math inline">\(a-b\)</span> 同奇偶。可推出 <span
-class="math inline">\(a^2-b^2\bmod 4 \not=2\)</span>。</p>
-<p>又 <span class="math inline">\(\forall\text{ }m_1\ge 1,\exists\text{
-}x_1,y_1\in N^*\)</span>，满足 <span
-class="math inline">\(x_1-y_1=m_1\)</span>； <span
-class="math inline">\(\forall\text{ }m_2\ge 3,\exists\text{ }x_2,y_2\in
-N^*\)</span>，满足 <span
-class="math inline">\(x_2+y_2=m_2\)</span>。</p>
-<p>则 <span class="math inline">\(C=\{n\mid
-n\ge3,n\not=4,n\bmod4\not=2\}\)</span>。据此可计算排名。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T, a, b;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">        a = <span class="built_in">abs</span>(a * a - b * b);</span><br><span class="line">        <span class="keyword">if</span> (a == <span class="number">3</span>)</span><br><span class="line">            cout &lt;&lt; <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (a % <span class="number">4</span> == <span class="number">0</span>)</span><br><span class="line">            cout &lt;&lt; (a / <span class="number">4</span> - <span class="number">1</span>) * <span class="number">3</span> + <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (a % <span class="number">4</span> == <span class="number">1</span>)</span><br><span class="line">            cout &lt;&lt; (a / <span class="number">4</span> - <span class="number">1</span>) * <span class="number">3</span> + <span class="number">2</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (a % <span class="number">4</span> == <span class="number">3</span>)</span><br><span class="line">            cout &lt;&lt; (a / <span class="number">4</span> - <span class="number">1</span>) * <span class="number">3</span> + <span class="number">3</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-]]></content>
+    <title>LaTeX-Test</title>
+    <url>/2024/07/29/LaTeX-Test/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="5c2ef85c1fb2550c9e679ba4a00f8584f5b7446c3485fa7905071dc04f352c2b">4630436162ade97ba2718b7d0c4b3b630904c10168e269b630e0ea7dabb1c31f5827fcfc1fea71c26a2164bd150754c0b907a31265ee35ae815eb6a18cbd26d7bbe529b92bc1e139ab8a8f2d713b8cab5d29f6a8d63a71aba834600fbbb61eb1daa399aaee4e216df8f2b176a0f51ff2399a66da90b0e4ec6ff6c61ce9954a1174a373fd589499eef3e60a59e9a5bdeb52c21c8ee6e1d13cc57e75f51b2c60d3ed222220ef0bf9964cdab0dfa8cb39da9a4dded1a9629897686c9be2b0e4ed149f42bce15c3bf312af515be9aec9bf7081823e04fa2ccff9e6c7b0e2256e2cc91b6999e33db13068767d553ba8e6dec4a4d7d7ebe87f169407410408aded91944d34bd5264e6ca116f304750d6d001fbd8ecc0ba566d4ff00b489b27c0129ae02e3fa173cfc6360fee8894b2a0b9b5022677733f46260ba40658549ea0bd637c1964beb1a21acf2a31aea56a6dad65a4274c4969fe49426f7d55a70d297204d5d01e9228faee9430b1497000295788be4cef2000867f4289c81b24906362c04bf495ec630440c82b8b175a30657bc3e7ab4580f73d8de6c2d70e26e021f6a8603b4c052cfe0e3f74286e5e70fe52f04280aebfd1ceca65323b09489e6f308655c1064e8b88e3b24a67f4ed81cb2f0d2adaa368edde0160f5685516ba72ecf5585f741ea4b734ebe20f623d772320c94411002b3441b44bc546da59dc62103983472645d55313980124b525b29274eb463461db352bad43b4157fe81fb79743f6586fcb35a53df15be054291394cf942a02195b4ce396fddc49e635fbcbf2f743b5c13daaa5250dc426141c8a1ea069c34ab1c5147c33174da617cb18715e67acb9a0009ac5868a804ad764273307705be175044d71392b274b47f2aaa335fa9752e5d8044cf37949d9c5bdca4d90939382493bf05e4c1bed7dd6d6ca0e81ada9bce88fd7b1fcaad0e966ab254024154e71a86f52ecf1ac0f02a7201cdc84a1a1390fc6c4168b95d10a5212241adfacfc6c6056e302457629dff7f21461c9353644e752abbe67d1371cf6341c28bcbb0d358ed5cf6c8dfa7761b85e49ab9f8941466bef42eba4df082bec3a685a90e6ba488eddba7aa299794527e3067c75d5dbbcbe6cb1109fa0b8163b955dfee3d226225c9326cce63f323044a97ddf311f6db6dcd9518295ab0a19f6056b3d5d483a528f3856db507a17b2243f7796391d17b2252d24982745a2d865cd3b4427d71fd52639099a61ef638107fe928f6cd0744002903360b8e331959bca54560523b5cc864852963825e291608516e626ca065c8d619bce6dc6ed8370045a27b91de17469f505b663d88445f780e85b576ef309ddc19cf8b1c59982f227a1d6402a517705bbc1e6b3160bac6009b5a99f06f6f2661aed22410de1f6904dc571816057da86dc09beb63b2438123cb68893de18bcae04974b0e5fbe3467c294defe9b435cc593fe3e21a9b1b54a47039b1862de4f303e15789bf32fb6692c6b9f401808638d748c01dceacf5337505a1a63371d529179480b8e2880dc39d4d390dff05bf867f7554d3651c58a787a1036c20966c0541dab06218e3106e0f17c618f6d11d242b3ff4da1cbcec4a8c9c6a268ad84ae0bc2bcd1000309a1c88767b3a2c8cbff06de7c482096b0e2e87e7700bbcf426139d4124a7e5f9b8f1393d841a0bf9e73c89955b4692ea5998c1d18e1f2aa8d301675b7b7483ef7398f26af5d049929658bd40dd55ddde8d8b868ca587b1883da60485cf1e16f65e9f7f1911b339838f4181706f2124500345e784369cb33d0c344ced2a68e16c778a34d1dd353c3d4c8eff40b156bc13d0c34c222b64c309e6dedffec755fa5d0b9f238e3b697588f0e57ed2d5a5d90878f6a2f2617e4a77ca4758a6f186aa230cdd4127e58c1d2719a60c2f00be975cede3e84e8527ca3e9642856346755e586a6d4d6b2174ad782b20adc511eb9089d020b10d318abcc125034d58740b322bc9c59eed6c7d947359bba3f5eca63f108619bd73c8617fed9cc28ecf10bea60934abf3f4693fb553e4457d9c52a2fe36a6e7248620d32d9cb4a826fa82da4c56b8df8aa1ca93858d50f695ba82f5a306c5fe31cb5dd74a55a575ed78b74d98884fdbfa5c29ecbd02328eb11b9496bc45f91db8315e3e2b1bfc344f828a4ea3a9d6ea435bb838c6e84c9f5b8d7139d9bfa85f465a08f546b12cf89080d8522a8ea653ef84652f8f9521dae0207f164156910fad016169182b4ea78f91b29c0547d6c23b2a25e8856228b601ff1df9bee68e026c5b4b53463b24e3b2c9cdb8996db9c820ece419542bd610cd81e26d360baa2d00b0affebd57674407519419fd540386353db9255df3f1c5ffc81dd10e8f5fae6823c68776a07260579a5247b9d51e8bf2b384a4e853921916818a00f141e9fa5cce4d6ea3b39beae2882dbe6f899edac766dda10769abdd2f1fbecd5cb3d56fe53f833f03811f540f6dc566d59eaab4542e28cbaf6d2462b5f2450c9287381a8bba0559e828ac6e1646cd99b29eb72bc10097721ef5f433a26ae4512e0dd45b2b5b8d647b1c11fdb9416f1249ccaf541c4bc11bd8185ac6d256a6508ab6d1ea0b0672294ce10cdee3a2af14d4353ebfbc43a13bc5d65e4b20da69515235fbc71a49fa55b2a73a4da1911055ae896edf2778a32e9f8856f1af8470ff7a6d1a21de2bebb551ea4a1954d331c0e41a670444fb47c6a5d61c00c084b66f212f3490ce84f8403b48f7857051c31c4e9d0e4227d37dd5a4f020ebd4ca83839b04a52a6cf98ce44d5bac486f9f92b1b218528654fe40f76c379fdf49ddb1e1c21a72db7d6d1573345c2d467f875e254a92744853b0678e0be4261b26e15f73dc5f2284efcaeffd5f586b7d80f601dafccaafdfc878fbec7801995ebdb4b8e0cf7e53ddc4c0dd25775cfb140f02d7e9c7b01d2e341c40ce240f4c46ce5f7db68d022fc2ecd106a0349e6ad5e377dd3a1b27a955631bd47f2a1d96636d568b78583b70ae916351b16fcc3c4d078ffb692bb4aa515d9d0d4d6e72a98fe3468fbf642c6d23afc28fd5ba2f45d853ac3954cd447d16631e78c2b44040eaba56aeeff2461e0bf66c690e787a22a13fe81c450ecd56d7d8e3718ae3c744cfe65364fdbdb31a16fc9e30256d6c43584ef46989cd46e0c7b0ff85fab703037a5a57cead705e217b4e053714394f73b322c6db31c0f5544d702e25aac18319c30c73a9193ce7c5f8f1d502c640e11f79c2e6a294846c51528b9cd7a90d4d1726d237c3a33f1118737a40d4581408845fbb0fa4aefc5ba616ab2dc225d475b399ea01d37dc360f1d631bdac7ac246b1da628efaeda92f0b7997797b47b7f9bccfff57eb21c895919f45c8031cdab8d711519d1bc2604d76132a5130a0ff1ce39a61259ddefcc5b0bbc4d12d7f8e1d7315ae02fdd6ad61f5ac2976f66a2aaae43559e5d3cabfe96d6f06ddc44138cabdf0cb601b45b4fac0cd3121f7ff46e797cb30ddc566d11f687233e7f7d0a8d20ab687b8934d2f4faecfb8a8e776a018e6f15b0bd521f6b6636f9a7bde355c598bef87441e6b32346837af8767992884c7ed95af15f0818c0617d36443b56fc3f6a820d0ed8a37b86a1e479844ceb6284f885da6dd626e53057e74e169ac60e5ffeb75d71dd0409c8957c9608fa4b273a16c3c202101d0bab5500cc3e125d829e8500457f7d303a934e41827332d0f41cd75e9946244ece6f21e0e660de345230a97cad4ba69a2398f82b3bf5e812cc0a5b407d3459a50e52df27cfa0d1cfe13676fcc54fbd102d7bf027a6c0423d0e3b04e632836b33bbea7c6f6c8a0a41238137bc48cac62ac205f6e8c532747fc56b1516477ec6610ab3856e18705d6b58c751f7422bdbae73847cd0e3d3ae3465f78b2f171e1fdef1ee9f738ead11b9e76fd0cf4083291b23f5fe906385941d5b77c6e9d3021ecb62291bcb0860795d6a1009d3c15805172c827b4e030850576cadb3fc9488c0c68bf030b7cc108e86bf1e63018459b4a58eacb6926981236ddb39e5a1f2eb35593aea7967a62630dae3b6ea447153e728cc0c17180a6f0c51028b871aaa6b8df275baa466fa3656d43706aa4e4173c154c644ca1bdb56a96469aa3b30e960323e5f25838774ec184d73b44cdd9af5a8bc2af3c706d7bfa8b4e8d799364dcfa8c3bd5372c4b74750a48a9986f874cdd7584edc309af5e43cb5e381e62fe16ab1d178aeb58d128d7e29866e40eabb8653f3667a0a1e155657a5e3e4ad306b3b4c7a27289688ffb53431ddf097a40616c4528873387a3e280834c8912f09341a1f13a14e74517eb58c784c77d4d3445b3ca24739d03ad59c61d5ec1474ee82e81de5869964438aa1789c816bd4d63fdfa597eff4336baee21a60b019cc9304ae6e9d7897d4e9f3c462ed91ea6eee229e60c01bd117415874ec4dbcee92b28ce5fd8b7946b3b83703198c132bc88dd5e0299d5ba3271bca65a18b32deb01712a965fc26579470c0417ff976c6f4b29381c27d381e4787407b6dd49d20e74ee0281c72f7786356e4ad0bea9150ae215e2152ea7d1043d373e0c45a9186a2ff9f811a9d5c41e066f1051db9f5bf7df09b6df233d7e9d577d0d7c10e5e6560e4479c58e8f2f89d8bd8024d884ac86bd3dafa4e60bcfc5548836040891e6a1866c21daf7a86fcb313d4ef327b6fac5efd8df7ca34ca5a8b88ec03de479d65a3068b17ad25af22230b5274baf1a5a5e59013eb63fc642274800f697e207c68a36c552f6635fac0472006090c90924cdf14f2caa0660539eb09d2040d661cf17dab9c103fe6d61a7d2ec1288db814b3744462ba310c8778a010ac394c6c51fddbad56160e3d621caf65617d2b73002a6cd286855a14025fd254758dd57dc61ee4f7e7c8fe0c8a90c9dc234c8bbbe84d50a76fd7248704448f3538af6b4d1ca7b3226210aa57fab3be244bb9651ee8491f5bac2092884805b522e582fe2e081d13062dc39d3eb5d969abb0d3e6e0fc6d2610e8b3f08d802f330a853551954dc4ebebbd717d12e2c4767f8e350e9d01de252acc943ed73682caeaeda3ff396c0303de66b671ecc9f8ab0b5a7c976b455f2b5ffaba5304addd87ee9aeb5371112d4efad47172293e82e5f92b1d9cdbc8e71733931ce4e612f58bd0bbeacdac2ca632606ba213ee8759fd25f662ee5c6f920011a7133d7aac81888fea89d18afe369043d60470be652f15f829d3eba97fa859c6f870dba6476f5eac15632de4df877df16cb571285f4e497f82c958abd1bd2b5f7ffdcc260645bf9682467e56f5249f8db9a2bf4ebfb504edd6f5d844c238a036184eda314543f63fef12f84366e2409e5ecb733ee426d3212b0c27743669f032ebe025a59e192bfd017c05a3bd2ec43443190db210f921714027cb4ece8d3e00af7005488b2efa970b90403245672f8e040e78557fa41eaaaff7e357a7709346a656f702b1a51b64a7dcfc6e7d9b5cc33d1ac542ff7d26462c0fdd55fc9dc901c60a9c3ed614150a5a7b815134f2e9095b3b1e52a50c8689ac1a160fbda1b95a12d3c7f8c4bf5006796c767b39b5c5db3d95e331ff7732e23f0287c115903771d28919a656d88cc32c001f39460cd1bb29a5d667c65c2ea3353a877f259ffa433640f9c165fbfc5f36aa63a998d1b135345ea8f05bfbe52d714d9168fe3c2319f33910636816ce094728bab92f1e7f2a075a11d33815c6fbf9be13162268881090e21bab98a1a5e6dd3cdee195f6347f6bf4745274f663d91f2ae0e935199ee75d003aeeb3c01223c57f12a70f22fdb4a0b3f80d1e9fd7d5661a85f7c207ab71d2158fc7843648571a8947e54e8f2e7ffc0d54f194bf280743d340c8da0108232427a6f392b0a4cfa07874ab4fd05315430590c94a9632d50a7a1b51b024e9e013e14868cfbf4cb0364ae3b89344ba7bea81cabab851d8c9591cc6be694b77eed57847804f12ef4e97044efaf5a4ddb32db105cff42ac1f2d6ca102cd1357d26917980a6e57e4a7c80be4aa33dd299abacb20638cc947a98b256b46e406510f6f5efcc1daa30d7859554ce5fcdbe0d3b8e8e5f38dfe69bd374dc5549916b0c4cc3fbdd6965cb99e89d34b342d1eae50917c336699529dda926dbd990d2f4dab8a17eaefa9d8bea4f9e9b62c6f052c3dc64678a2941f51e1adeea72dccdfd3d9d492935824e89cb2c844f37b0cdcb0f8be5bc19e2dffd8a9683a0f9e8b0f41bac0fd04838a0e7d03c67970f57c179168087a9c6f1cb868d479ab63bca84efbcfd7e77a6a27c51c030c9481a292661266e00cd35c1411033dfad4d3262b7a35eeda2c28cc82957d2dfbf895f603adf4d3742a35b2be5ef3d4f2576e49081178c4254a3ee2d01e74452afe266eaa64ae42317e91db8f28d39653c43285f9aaeedc579b12bee152cbcfc1dce1edad8cb7f7fc1872203ee807ff6a944479c22fcdc96e9e74bb637ae0a8488fe5daa432d2f7b59fcedcead7a9d41584dbbcd8238621306de7a7e7fe7c3cbbb25c96379b305547bcd675f5a63b5174eead68c1968e8a65ab5f240cf94bc07e3b21c00977b0deca0afa00e2c65db69908fc14f34ca1db0b0f6d2ec2dc920c1e313e8c90255cd5d205b405721ac26a32408f31776b6a629b50fb4eb3a240f1c075409bd123140f7db8d65f9db505386dd508e47cdd659b848ccf2ae442bfe73cd2a9d9ab40e8c48dad2318e80ea7f33a7005f1d268a3ecfd0d654665fdcf85bd1f6bda26117267edc31f897457ec0ad0b41beb05fa58b572d701cbd8591ab39af701d440cf058a5e6a1d8757218aec129d4e90dcefa473bdcc88331c78f4b699e062f07c83b1ca78599a88ec00330100b0d14bebc90c883bea347b5f19a493c49b1524263941ddc6c71d003a211b8b00f2ca9342a7b96c08427ef07ed7eb0118d2e0286a1b3490a447b209271226e491a330e00c427193776bbf20cdbbd645bb361bbbfe8e8233673033368a47088870fd7420cfdbeb95fe015749bfaad303336bb2fbb1c68d2db730f3c89cb39af522d2523d88343b121deba13da61498d23b1ff3efc1870f6345609899fa2fa78f8a606d5966d8712a57f2c44b2a4949c5a5efcbb93ed1b9ba14cf60482f2fd273db8ae22a9b30de5424062979882c411ce6de7e3914e263c37116751c37edb6a356447e4ec1fcc4c3817906109adc4ef2db60634d98a799dc525b2e5023135e796f548e825477210e8c92937096fb50d0854d22ef561f078291546f3d0c7bf820211b7c3493621c798f442675dd59553a5d63c51f5a43a1efc79f6f43a6aefcf3cec2a6f6f89e9b7ef89fd9b9f5d4fe565eb2d90fec0e7a4c55da4474c4be2dacbce7cef754b7e28692408d83dc0d6bf1269d4888eee213feb57a76fa8888fbe94058ad897900be91db12eea0607c93f6924b9b0e9de36ad4a64dd3d5e92ec0253314c4e73437ea95d771b6ded6844113790770a6211167d2df9509b850728927c2809567018e914744284bdfc185246501881c6ed288a9aada1a5871009ff1f15fd0475cee84b10049f5455736354b3b830fb875f3a52ea3ba3a1e7b89bd443e7bbc5e74d7541d9d4297f73d54d0ddbf0abb846259cc237cc68d49659c83789db5034d55b3b02e577a77dcabf91428da7d29100331836fe3b9fc8918b8f300b7d437ee092a2ff04497b4dab29c6d3019e393ae5658bba81ff2b00ef64f7ab24cd36836060e40bbef28d74c69a2134e1b8556b22029d16fc134225c86bed770ba44a63f7dd396566cef5b35302562b6565dcc474a5ab97c7a11b1be9f6996ea9b661b45ee584cf12aa9d9cc545dc09d6ab50b257c5a88f3c1a596675df727e65a4be8d81e2213852e4ed9adcfbdfcb72719af71aab2fdff732b11901243466254c3e3772d9f46282d6b04a064303b418f3523067cebd38d721a47ba660c7d406874428ada3a11dae898ccdb54657468aa7e61b8ced756a6c6db72fdf379b39ae87bb02f078422ef0218a5bf83458eccfdbc76ee042363037c1d925ef7cf47fb5c69d0d8c014fb8d0397dad386e23a401403485ee43ea3f3071ec39fe02a42679b4ee10561a5607c00e62254fc082b16df4544e962d1f3eb9b18a877a03a609e43e12050d9d30cc4d84265202ae401f793a739fb66ed46224abe99a51631dcf042fc3d1dfc27d961d0f6fa0d3daee49c9f8b1793e4a94f258761d42c9e205ebe2a493016a0c400cfdbad62b459a747773ab5e1cfac29042fd4d1ab0c309e12462319f8de4829866fe2c76afd6521af6d91515cb08fdbf065a27938d0d5bd2241ce9bcb8f70929c306eb75a203ffc8517e7741e76afbb9f95ce33ff292c78034eee6dd07d836b3dfae3c494aff8382e4b61472eb1c4e4b63c819c1f55be28d6ebeb8763ad09c87fa6270016db21100ea3702505b1442865a3dfebf27708ba3c831724753c1c1c3a2ebb33d0a384e0d2690e494c895c6814702762ee9975b3d6641202a40e9f7f9e9fdc87638e6ee57165dbd60ea35291e0308f8b4838dc8311fa8569b746f4eeb89733393c1077784b6b59b4e66e51a97b4ad5f171aa5ccd75db041c50d8239a09040ed251321bd2c89a6a54baa816486daa0e206fc63dedfc39551665f3345ddc9625954cc3c2023d9d3e7be7b8c8096ae410685a2773db9b85b5a16eaf36ccb2bf9d16b34937a48209a7239198ca55a9aeb833f0dbcde338b317fdc7838816f806c96f7a6b2b0d5d8bd3b254fc251c25d255aa2042f4fcb7f91a6ace0c168cdace604c176a6c43e656f773d70410846d28ed3c3991115c551fcb53a5815ae4b5e854cad864d758fd6d1083dfbbf12b456abb28cd38b378cb0174dc607609979458b06c8c32cd7350c956c5d86abd8ab90d1d38bd9151206240fef9164c38e3ee243a797900f58ad5d5d76ab0a3c85f82580810f7e61dff16c4e4712d70587486d86099fd09d279311533f1e61975c723fae548404fd3c2b989d354cc2f9513caa62a9045b823b1e43800e71ad7635917f3ac7700ca745e56302b6c093d6535ffeeb6fbe9e554e6a509baadfa7dc961f728fe86c9455fbb64c45252b2fb677ae63dbeec1d8deeb230b9537cd57f59a5f9973294e6ae2b482b0583df32b9e2f2692acece2be033ba7b9d3169752da4e494cca828aa84931bd3a35693ba4c93909e92c13140513fab58d8da5905322b397be9fa6d6fd1c3a15d7e0fdd2fa56a95eaafe5de56d6322c279b18c715d388fca06dce51413ac189cda8d40b072eb1fbc4f23ae6059c653a805fa394150a90c0a92836f33a093f30ffce19372ce10e26169035b3e474c48ba30d8c506a68c4ee8a2881822df5f810936ed619412c8d67fc12ff9af7e1450d2f875e8660409ccf4d190d3b16834bce7f2910a0056c292db0201390ce91a2974e800230ab9aa022f41be06ab70dd0b61fc555ed6f2827691af6f5873ccb8d68a601b1782bffb95cb9d78746e71f9aad6c867eebdf2da374d1cf8c3e1a280dbafc660106ac4c3f8cb91b7c6c924698555df3d6924dba0f10dd8d4958d3d19e14bd3bf41f2e8c352a394adcadb16289ede6d03d9b07eb9456c2b4d7aa4e378c965b8e61c097417093135ec312a7ff37abbccaa704c2812cd325ca9a9aa1396e7dd00a476e19192d92dfe847a0dfbdc55a2038caaa8a4d7da539f7ca107cd19d61773f1adfa7cecea6abdb8ce41fe74b41e67dfab3c84ad1118c9ef03ad078824f66c02340cbb9d7cc9f78e09a610e1d794cc3437d3d0fbef1823d1a19f43a5d4916827b5f90d1068e23ae7c6a5ad69104d4f5a15aa0576dd3e5906e5b412193e4e03024191bb9282bfbe9c84fc6b9d0651367c1b53af0e1fe057</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-shrink">
+      <input class="hbe hbe-input-field hbe-input-field-shrink" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-shrink" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-shrink">Password here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
-        <category>ACM</category>
-        <category>题解</category>
+        <category>LaTeX</category>
       </categories>
       <tags>
-        <tag>ACM</tag>
-        <tag>同余</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CF题解</title>
-    <url>/2025/09/02/CF%E9%A2%98%E8%A7%A3/</url>
-    <content><![CDATA[<h1 id="g.-omg-graph"><pr>G. Omg Graph</pr></h1>
-<p><a href="https://codeforces.com/contest/2117/problem/G"
-class="uri">https://codeforces.com/contest/2117/problem/G</a></p>
-<p>给定无向带权连通图，定义一条路径的花费为路径经过的边中，边权最大值 +
-最小值。求从 <span class="math inline">\(1\)</span> 到 <span
-class="math inline">\(n\)</span>
-路径中的最小花费（注意不一定是简单路径）。</p>
-<p><span
-class="math inline">\(2≤n≤2⋅10^5,n−1≤m≤\min(2⋅10^5,n(n−1)/2),1≤u,v≤n,1≤w≤10^9\)</span>。</p>
-<span id="more"></span>
-<details>
-<summary>
-点击查看题解
-</summary>
-<p><tag>最小生成树</tag> 考虑求 <span class="math inline">\(1\rightarrow
-n\)</span> 的最小瓶颈路，其最大值部分一定是最小的，设为 <span
-class="math inline">\(\text{dmax}_n\)</span>，并设最小值部分为 <span
-class="math inline">\(\text{dmin}_n\)</span>；之后考虑枚举每条边，试图更新最小值部分。因此，需要求出
-<span class="math inline">\(1\)</span>
-到每个点的最小瓶颈路，试图更新最小值部分时尽量使最大值不变或变化较少。</p>
-<p>由于最小生成树是最小瓶颈树，所以需要求图的最小生成树。</p>
-<p>设 <span class="math inline">\(1\rightarrow i\)</span> 的瓶颈为 <span
-class="math inline">\(\text{dmax}_i\)</span>，则边 <span
-class="math inline">\(j\)</span> 的瓶颈为 <span
-class="math inline">\(\text{emax}_j=\max\{w_j,\min\{\text{dmax}_i\mid
-(i,j)\in E\}\}\)</span>。则答案为： <span class="math display">\[
-\min\{w_i+\max\{\text{dmax}_n,\text{emax}_j\}\mid 1\le i\le m\}
-\]</span></p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">200000</span> + <span class="number">50</span>, inf = <span class="number">1145141919810</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">    ll u, v, len, id;</span><br><span class="line">&#125; g[N];</span><br><span class="line"></span><br><span class="line">ll n, m, dmax[N], emax[N];</span><br><span class="line">ll dad[N];</span><br><span class="line">vector&lt;PII &gt; e[N];</span><br><span class="line">vector&lt;edge&gt; ge[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(edge x, edge y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x.len &lt; y.len;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">recmp</span><span class="params">(edge x, edge y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x.id &lt; y.id;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(ll x, ll y, ll len)</span> </span>&#123;</span><br><span class="line">    e[x].<span class="built_in">push_back</span>(&#123;y, len&#125;);</span><br><span class="line">    e[y].<span class="built_in">push_back</span>(&#123;x, len&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">gadd</span><span class="params">(ll x, ll y, ll len, ll id)</span> </span>&#123;</span><br><span class="line">    ge[x].<span class="built_in">push_back</span>(&#123;x, y, len, id&#125;);</span><br><span class="line">    ge[y].<span class="built_in">push_back</span>(&#123;y, x, len, id&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">find</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (x != dad[x]) &#123;</span><br><span class="line">        x = dad[x] = dad[dad[x]];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">merge</span><span class="params">(ll x, ll y)</span> </span>&#123;</span><br><span class="line">    x = <span class="built_in">find</span>(x), y = <span class="built_in">find</span>(y);</span><br><span class="line">    dad[x] = y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">check</span><span class="params">(ll x, ll y)</span> </span>&#123;</span><br><span class="line">    x = <span class="built_in">find</span>(x), y = <span class="built_in">find</span>(y);</span><br><span class="line">    <span class="keyword">if</span> (x == y)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(ll root, ll dad)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> son: e[root]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (son.first != dad) &#123;</span><br><span class="line">            dmax[son.first] = <span class="built_in">max</span>(dmax[root], son.second);</span><br><span class="line">            <span class="built_in">dfs</span>(son.first, root);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        ll u, v, len, ans = inf;</span><br><span class="line">        cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            ge[i].<span class="built_in">clear</span>();</span><br><span class="line">            e[i].<span class="built_in">clear</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            cin &gt;&gt; u &gt;&gt; v &gt;&gt; len;</span><br><span class="line">            g[i] = (edge)&#123;u, v, len, i&#125;;</span><br><span class="line">            <span class="built_in">gadd</span>(u, v, len, i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">            dad[i] = i;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">            emax[i] = inf;</span><br><span class="line">        <span class="built_in">sort</span>(g + <span class="number">1</span>, g + <span class="number">1</span> + m, cmp);</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">check</span>(g[i].u, g[i].v) == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="built_in">add</span>(g[i].u, g[i].v, g[i].len);</span><br><span class="line">                <span class="built_in">merge</span>(g[i].u, g[i].v);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        dmax[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">dfs</span>(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">sort</span>(g + <span class="number">1</span>, g + <span class="number">1</span> + m, recmp);</span><br><span class="line">        <span class="keyword">for</span> (ll from = <span class="number">1</span>; from &lt;= n; from++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> to: ge[from]) &#123;</span><br><span class="line">                emax[to.id] = <span class="built_in">min</span>(emax[to.id], dmax[from]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">            emax[i] = <span class="built_in">max</span>(emax[i], g[i].len);</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            ans = <span class="built_in">min</span>(ans, g[i].len + <span class="built_in">max</span>(dmax[n], emax[i]));</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-<h1 id="d.-from-1-to-infinity"><pr>D. From 1 to Infinity</pr></h1>
-<p><a href="https://codeforces.com/contest/2132/problem/D"
-class="uri">https://codeforces.com/contest/2132/problem/D</a></p>
-<p>写下一个无限长的数字：<span
-class="math inline">\(1234567891011121314151617...\)</span>，求从最高位开始前
-<span class="math inline">\(k\)</span> 位数码的和。</p>
-<p>多组数据，<span
-class="math inline">\(1≤t≤2⋅10^4,1≤k≤10^{15}\)</span>。</p>
-<!-- more -->
-<details>
-<summary>
-点击查看题解
-</summary>
-<p><tag>毒瘤题</tag> 考虑找到 <span class="math inline">\(k\)</span>
-位置填的是数字几，设这个数字为 <span
-class="math inline">\(x\)</span>。首先判断 <span
-class="math inline">\(x\)</span> 是几位数，设为 <span
-class="math inline">\(d\)</span>
-位。由于不同位数的数占有数位个数不同，可以均化成 <span
-class="math inline">\(d\)</span> 位数，除以 <span
-class="math inline">\(d\)</span> 即可得到 <span
-class="math inline">\(x\)</span>。</p>
-<p>先把不完整的尾巴算出来，之后考虑算 <span class="math inline">\(1\sim
-x\)</span> 的数位和。</p>
-<p>使用递归解决问题。例如算的是 <span
-class="math inline">\(1\sim546\)</span>，可以先算出 <span
-class="math inline">\(1\sim499\)</span>，之后再加上 <span
-class="math inline">\((46+1)\)</span> 个 <span
-class="math inline">\(5\)</span>，最后算 <span
-class="math inline">\(1\sim46\)</span> 递归解决即可。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">150000</span> + <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line">ll k, st[<span class="number">100</span>], tmp[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">calc</span><span class="params">(ll num)</span> </span>&#123;</span><br><span class="line">    ll len = <span class="number">0</span>, tmp = num, full, res, ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (num &lt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (tmp &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        tmp /= <span class="number">10</span>;</span><br><span class="line">        len++;</span><br><span class="line">    &#125;</span><br><span class="line">    full = (num + <span class="number">1</span>) / (ll) <span class="built_in">pow</span>(<span class="number">10</span>, len - <span class="number">1</span>);</span><br><span class="line">    res = (num + <span class="number">1</span>) % (ll) <span class="built_in">pow</span>(<span class="number">10</span>, len - <span class="number">1</span>);</span><br><span class="line">    ret += full * (full - <span class="number">1</span>) / <span class="number">2</span> * <span class="built_in">pow</span>(<span class="number">10</span>, len - <span class="number">1</span>);</span><br><span class="line">    ret += full * <span class="built_in">calc</span>(<span class="built_in">pow</span>(<span class="number">10</span>, len - <span class="number">1</span>) - <span class="number">1</span>);</span><br><span class="line">    ret += full * res;</span><br><span class="line">    ret += <span class="built_in">calc</span>(res - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T, b10 = <span class="number">1</span>, num, base, add, num2, res, len;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= <span class="number">16</span>; i++) &#123;</span><br><span class="line">        st[i] = i * <span class="number">9</span> * b10 + st[i - <span class="number">1</span>];</span><br><span class="line">        b10 *= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        cin &gt;&gt; k;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">0</span>; i &lt;= <span class="number">15</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (k &lt;= st[i + <span class="number">1</span>] &amp;&amp; k &gt;= st[i]) &#123;</span><br><span class="line">                base = i;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= base; i++) &#123;</span><br><span class="line">            k += <span class="built_in">pow</span>(<span class="number">10</span>, i) - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        num = k / (base + <span class="number">1</span>);</span><br><span class="line">        res = k % (base + <span class="number">1</span>);</span><br><span class="line">        num2 = num + <span class="number">1</span>;</span><br><span class="line">        add = len = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= <span class="number">16</span>; i++)</span><br><span class="line">            tmp[i] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; num2 &gt; <span class="number">0</span>; i++) &#123;</span><br><span class="line">            tmp[i] = num2 % <span class="number">10</span>;</span><br><span class="line">            num2 /= <span class="number">10</span>, len++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (res &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            add += tmp[len];</span><br><span class="line">            res--, len--;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; <span class="built_in">calc</span>(num) + add &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-]]></content>
-      <categories>
-        <category>ACM</category>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>最小生成树</tag>
-        <tag>毒瘤题</tag>
+        <tag>LaTeX</tag>
       </tags>
   </entry>
   <entry>
@@ -950,28 +932,6 @@ hexo d 缩写</p>
       </categories>
       <tags>
         <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LaTeX-Test</title>
-    <url>/2024/07/29/LaTeX-Test/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="5c2ef85c1fb2550c9e679ba4a00f8584f5b7446c3485fa7905071dc04f352c2b">4630436162ade97ba2718b7d0c4b3b630904c10168e269b630e0ea7dabb1c31f5827fcfc1fea71c26a2164bd150754c0b907a31265ee35ae815eb6a18cbd26d7bbe529b92bc1e139ab8a8f2d713b8cab5d29f6a8d63a71aba834600fbbb61eb1daa399aaee4e216df8f2b176a0f51ff2399a66da90b0e4ec6ff6c61ce9954a1174a373fd589499eef3e60a59e9a5bdeb52c21c8ee6e1d13cc57e75f51b2c60d3ed222220ef0bf9964cdab0dfa8cb39da9a4dded1a9629897686c9be2b0e4ed149f42bce15c3bf312af515be9aec9bf7081823e04fa2ccff9e6c7b0e2256e2cc91b6999e33db13068767d553ba8e6dec4a4d7d7ebe87f169407410408aded91944d34bd5264e6ca116f304750d6d001fbd8ecc0ba566d4ff00b489b27c0129ae02e3fa173cfc6360fee8894b2a0b9b5022677733f46260ba40658549ea0bd637c1964beb1a21acf2a31aea56a6dad65a4274c4969fe49426f7d55a70d297204d5d01e9228faee9430b1497000295788be4cef2000867f4289c81b24906362c04bf495ec630440c82b8b175a30657bc3e7ab4580f73d8de6c2d70e26e021f6a8603b4c052cfe0e3f74286e5e70fe52f04280aebfd1ceca65323b09489e6f308655c1064e8b88e3b24a67f4ed81cb2f0d2adaa368edde0160f5685516ba72ecf5585f741ea4b734ebe20f623d772320c94411002b3441b44bc546da59dc62103983472645d55313980124b525b29274eb463461db352bad43b4157fe81fb79743f6586fcb35a53df15be054291394cf942a02195b4ce396fddc49e635fbcbf2f743b5c13daaa5250dc426141c8a1ea069c34ab1c5147c33174da617cb18715e67acb9a0009ac5868a804ad764273307705be175044d71392b274b47f2aaa335fa9752e5d8044cf37949d9c5bdca4d90939382493bf05e4c1bed7dd6d6ca0e81ada9bce88fd7b1fcaad0e966ab254024154e71a86f52ecf1ac0f02a7201cdc84a1a1390fc6c4168b95d10a5212241adfacfc6c6056e302457629dff7f21461c9353644e752abbe67d1371cf6341c28bcbb0d358ed5cf6c8dfa7761b85e49ab9f8941466bef42eba4df082bec3a685a90e6ba488eddba7aa299794527e3067c75d5dbbcbe6cb1109fa0b8163b955dfee3d226225c9326cce63f323044a97ddf311f6db6dcd9518295ab0a19f6056b3d5d483a528f3856db507a17b2243f7796391d17b2252d24982745a2d865cd3b4427d71fd52639099a61ef638107fe928f6cd0744002903360b8e331959bca54560523b5cc864852963825e291608516e626ca065c8d619bce6dc6ed8370045a27b91de17469f505b663d88445f780e85b576ef309ddc19cf8b1c59982f227a1d6402a517705bbc1e6b3160bac6009b5a99f06f6f2661aed22410de1f6904dc571816057da86dc09beb63b2438123cb68893de18bcae04974b0e5fbe3467c294defe9b435cc593fe3e21a9b1b54a47039b1862de4f303e15789bf32fb6692c6b9f401808638d748c01dceacf5337505a1a63371d529179480b8e2880dc39d4d390dff05bf867f7554d3651c58a787a1036c20966c0541dab06218e3106e0f17c618f6d11d242b3ff4da1cbcec4a8c9c6a268ad84ae0bc2bcd1000309a1c88767b3a2c8cbff06de7c482096b0e2e87e7700bbcf426139d4124a7e5f9b8f1393d841a0bf9e73c89955b4692ea5998c1d18e1f2aa8d301675b7b7483ef7398f26af5d049929658bd40dd55ddde8d8b868ca587b1883da60485cf1e16f65e9f7f1911b339838f4181706f2124500345e784369cb33d0c344ced2a68e16c778a34d1dd353c3d4c8eff40b156bc13d0c34c222b64c309e6dedffec755fa5d0b9f238e3b697588f0e57ed2d5a5d90878f6a2f2617e4a77ca4758a6f186aa230cdd4127e58c1d2719a60c2f00be975cede3e84e8527ca3e9642856346755e586a6d4d6b2174ad782b20adc511eb9089d020b10d318abcc125034d58740b322bc9c59eed6c7d947359bba3f5eca63f108619bd73c8617fed9cc28ecf10bea60934abf3f4693fb553e4457d9c52a2fe36a6e7248620d32d9cb4a826fa82da4c56b8df8aa1ca93858d50f695ba82f5a306c5fe31cb5dd74a55a575ed78b74d98884fdbfa5c29ecbd02328eb11b9496bc45f91db8315e3e2b1bfc344f828a4ea3a9d6ea435bb838c6e84c9f5b8d7139d9bfa85f465a08f546b12cf89080d8522a8ea653ef84652f8f9521dae0207f164156910fad016169182b4ea78f91b29c0547d6c23b2a25e8856228b601ff1df9bee68e026c5b4b53463b24e3b2c9cdb8996db9c820ece419542bd610cd81e26d360baa2d00b0affebd57674407519419fd540386353db9255df3f1c5ffc81dd10e8f5fae6823c68776a07260579a5247b9d51e8bf2b384a4e853921916818a00f141e9fa5cce4d6ea3b39beae2882dbe6f899edac766dda10769abdd2f1fbecd5cb3d56fe53f833f03811f540f6dc566d59eaab4542e28cbaf6d2462b5f2450c9287381a8bba0559e828ac6e1646cd99b29eb72bc10097721ef5f433a26ae4512e0dd45b2b5b8d647b1c11fdb9416f1249ccaf541c4bc11bd8185ac6d256a6508ab6d1ea0b0672294ce10cdee3a2af14d4353ebfbc43a13bc5d65e4b20da69515235fbc71a49fa55b2a73a4da1911055ae896edf2778a32e9f8856f1af8470ff7a6d1a21de2bebb551ea4a1954d331c0e41a670444fb47c6a5d61c00c084b66f212f3490ce84f8403b48f7857051c31c4e9d0e4227d37dd5a4f020ebd4ca83839b04a52a6cf98ce44d5bac486f9f92b1b218528654fe40f76c379fdf49ddb1e1c21a72db7d6d1573345c2d467f875e254a92744853b0678e0be4261b26e15f73dc5f2284efcaeffd5f586b7d80f601dafccaafdfc878fbec7801995ebdb4b8e0cf7e53ddc4c0dd25775cfb140f02d7e9c7b01d2e341c40ce240f4c46ce5f7db68d022fc2ecd106a0349e6ad5e377dd3a1b27a955631bd47f2a1d96636d568b78583b70ae916351b16fcc3c4d078ffb692bb4aa515d9d0d4d6e72a98fe3468fbf642c6d23afc28fd5ba2f45d853ac3954cd447d16631e78c2b44040eaba56aeeff2461e0bf66c690e787a22a13fe81c450ecd56d7d8e3718ae3c744cfe65364fdbdb31a16fc9e30256d6c43584ef46989cd46e0c7b0ff85fab703037a5a57cead705e217b4e053714394f73b322c6db31c0f5544d702e25aac18319c30c73a9193ce7c5f8f1d502c640e11f79c2e6a294846c51528b9cd7a90d4d1726d237c3a33f1118737a40d4581408845fbb0fa4aefc5ba616ab2dc225d475b399ea01d37dc360f1d631bdac7ac246b1da628efaeda92f0b7997797b47b7f9bccfff57eb21c895919f45c8031cdab8d711519d1bc2604d76132a5130a0ff1ce39a61259ddefcc5b0bbc4d12d7f8e1d7315ae02fdd6ad61f5ac2976f66a2aaae43559e5d3cabfe96d6f06ddc44138cabdf0cb601b45b4fac0cd3121f7ff46e797cb30ddc566d11f687233e7f7d0a8d20ab687b8934d2f4faecfb8a8e776a018e6f15b0bd521f6b6636f9a7bde355c598bef87441e6b32346837af8767992884c7ed95af15f0818c0617d36443b56fc3f6a820d0ed8a37b86a1e479844ceb6284f885da6dd626e53057e74e169ac60e5ffeb75d71dd0409c8957c9608fa4b273a16c3c202101d0bab5500cc3e125d829e8500457f7d303a934e41827332d0f41cd75e9946244ece6f21e0e660de345230a97cad4ba69a2398f82b3bf5e812cc0a5b407d3459a50e52df27cfa0d1cfe13676fcc54fbd102d7bf027a6c0423d0e3b04e632836b33bbea7c6f6c8a0a41238137bc48cac62ac205f6e8c532747fc56b1516477ec6610ab3856e18705d6b58c751f7422bdbae73847cd0e3d3ae3465f78b2f171e1fdef1ee9f738ead11b9e76fd0cf4083291b23f5fe906385941d5b77c6e9d3021ecb62291bcb0860795d6a1009d3c15805172c827b4e030850576cadb3fc9488c0c68bf030b7cc108e86bf1e63018459b4a58eacb6926981236ddb39e5a1f2eb35593aea7967a62630dae3b6ea447153e728cc0c17180a6f0c51028b871aaa6b8df275baa466fa3656d43706aa4e4173c154c644ca1bdb56a96469aa3b30e960323e5f25838774ec184d73b44cdd9af5a8bc2af3c706d7bfa8b4e8d799364dcfa8c3bd5372c4b74750a48a9986f874cdd7584edc309af5e43cb5e381e62fe16ab1d178aeb58d128d7e29866e40eabb8653f3667a0a1e155657a5e3e4ad306b3b4c7a27289688ffb53431ddf097a40616c4528873387a3e280834c8912f09341a1f13a14e74517eb58c784c77d4d3445b3ca24739d03ad59c61d5ec1474ee82e81de5869964438aa1789c816bd4d63fdfa597eff4336baee21a60b019cc9304ae6e9d7897d4e9f3c462ed91ea6eee229e60c01bd117415874ec4dbcee92b28ce5fd8b7946b3b83703198c132bc88dd5e0299d5ba3271bca65a18b32deb01712a965fc26579470c0417ff976c6f4b29381c27d381e4787407b6dd49d20e74ee0281c72f7786356e4ad0bea9150ae215e2152ea7d1043d373e0c45a9186a2ff9f811a9d5c41e066f1051db9f5bf7df09b6df233d7e9d577d0d7c10e5e6560e4479c58e8f2f89d8bd8024d884ac86bd3dafa4e60bcfc5548836040891e6a1866c21daf7a86fcb313d4ef327b6fac5efd8df7ca34ca5a8b88ec03de479d65a3068b17ad25af22230b5274baf1a5a5e59013eb63fc642274800f697e207c68a36c552f6635fac0472006090c90924cdf14f2caa0660539eb09d2040d661cf17dab9c103fe6d61a7d2ec1288db814b3744462ba310c8778a010ac394c6c51fddbad56160e3d621caf65617d2b73002a6cd286855a14025fd254758dd57dc61ee4f7e7c8fe0c8a90c9dc234c8bbbe84d50a76fd7248704448f3538af6b4d1ca7b3226210aa57fab3be244bb9651ee8491f5bac2092884805b522e582fe2e081d13062dc39d3eb5d969abb0d3e6e0fc6d2610e8b3f08d802f330a853551954dc4ebebbd717d12e2c4767f8e350e9d01de252acc943ed73682caeaeda3ff396c0303de66b671ecc9f8ab0b5a7c976b455f2b5ffaba5304addd87ee9aeb5371112d4efad47172293e82e5f92b1d9cdbc8e71733931ce4e612f58bd0bbeacdac2ca632606ba213ee8759fd25f662ee5c6f920011a7133d7aac81888fea89d18afe369043d60470be652f15f829d3eba97fa859c6f870dba6476f5eac15632de4df877df16cb571285f4e497f82c958abd1bd2b5f7ffdcc260645bf9682467e56f5249f8db9a2bf4ebfb504edd6f5d844c238a036184eda314543f63fef12f84366e2409e5ecb733ee426d3212b0c27743669f032ebe025a59e192bfd017c05a3bd2ec43443190db210f921714027cb4ece8d3e00af7005488b2efa970b90403245672f8e040e78557fa41eaaaff7e357a7709346a656f702b1a51b64a7dcfc6e7d9b5cc33d1ac542ff7d26462c0fdd55fc9dc901c60a9c3ed614150a5a7b815134f2e9095b3b1e52a50c8689ac1a160fbda1b95a12d3c7f8c4bf5006796c767b39b5c5db3d95e331ff7732e23f0287c115903771d28919a656d88cc32c001f39460cd1bb29a5d667c65c2ea3353a877f259ffa433640f9c165fbfc5f36aa63a998d1b135345ea8f05bfbe52d714d9168fe3c2319f33910636816ce094728bab92f1e7f2a075a11d33815c6fbf9be13162268881090e21bab98a1a5e6dd3cdee195f6347f6bf4745274f663d91f2ae0e935199ee75d003aeeb3c01223c57f12a70f22fdb4a0b3f80d1e9fd7d5661a85f7c207ab71d2158fc7843648571a8947e54e8f2e7ffc0d54f194bf280743d340c8da0108232427a6f392b0a4cfa07874ab4fd05315430590c94a9632d50a7a1b51b024e9e013e14868cfbf4cb0364ae3b89344ba7bea81cabab851d8c9591cc6be694b77eed57847804f12ef4e97044efaf5a4ddb32db105cff42ac1f2d6ca102cd1357d26917980a6e57e4a7c80be4aa33dd299abacb20638cc947a98b256b46e406510f6f5efcc1daa30d7859554ce5fcdbe0d3b8e8e5f38dfe69bd374dc5549916b0c4cc3fbdd6965cb99e89d34b342d1eae50917c336699529dda926dbd990d2f4dab8a17eaefa9d8bea4f9e9b62c6f052c3dc64678a2941f51e1adeea72dccdfd3d9d492935824e89cb2c844f37b0cdcb0f8be5bc19e2dffd8a9683a0f9e8b0f41bac0fd04838a0e7d03c67970f57c179168087a9c6f1cb868d479ab63bca84efbcfd7e77a6a27c51c030c9481a292661266e00cd35c1411033dfad4d3262b7a35eeda2c28cc82957d2dfbf895f603adf4d3742a35b2be5ef3d4f2576e49081178c4254a3ee2d01e74452afe266eaa64ae42317e91db8f28d39653c43285f9aaeedc579b12bee152cbcfc1dce1edad8cb7f7fc1872203ee807ff6a944479c22fcdc96e9e74bb637ae0a8488fe5daa432d2f7b59fcedcead7a9d41584dbbcd8238621306de7a7e7fe7c3cbbb25c96379b305547bcd675f5a63b5174eead68c1968e8a65ab5f240cf94bc07e3b21c00977b0deca0afa00e2c65db69908fc14f34ca1db0b0f6d2ec2dc920c1e313e8c90255cd5d205b405721ac26a32408f31776b6a629b50fb4eb3a240f1c075409bd123140f7db8d65f9db505386dd508e47cdd659b848ccf2ae442bfe73cd2a9d9ab40e8c48dad2318e80ea7f33a7005f1d268a3ecfd0d654665fdcf85bd1f6bda26117267edc31f897457ec0ad0b41beb05fa58b572d701cbd8591ab39af701d440cf058a5e6a1d8757218aec129d4e90dcefa473bdcc88331c78f4b699e062f07c83b1ca78599a88ec00330100b0d14bebc90c883bea347b5f19a493c49b1524263941ddc6c71d003a211b8b00f2ca9342a7b96c08427ef07ed7eb0118d2e0286a1b3490a447b209271226e491a330e00c427193776bbf20cdbbd645bb361bbbfe8e8233673033368a47088870fd7420cfdbeb95fe015749bfaad303336bb2fbb1c68d2db730f3c89cb39af522d2523d88343b121deba13da61498d23b1ff3efc1870f6345609899fa2fa78f8a606d5966d8712a57f2c44b2a4949c5a5efcbb93ed1b9ba14cf60482f2fd273db8ae22a9b30de5424062979882c411ce6de7e3914e263c37116751c37edb6a356447e4ec1fcc4c3817906109adc4ef2db60634d98a799dc525b2e5023135e796f548e825477210e8c92937096fb50d0854d22ef561f078291546f3d0c7bf820211b7c3493621c798f442675dd59553a5d63c51f5a43a1efc79f6f43a6aefcf3cec2a6f6f89e9b7ef89fd9b9f5d4fe565eb2d90fec0e7a4c55da4474c4be2dacbce7cef754b7e28692408d83dc0d6bf1269d4888eee213feb57a76fa8888fbe94058ad897900be91db12eea0607c93f6924b9b0e9de36ad4a64dd3d5e92ec0253314c4e73437ea95d771b6ded6844113790770a6211167d2df9509b850728927c2809567018e914744284bdfc185246501881c6ed288a9aada1a5871009ff1f15fd0475cee84b10049f5455736354b3b830fb875f3a52ea3ba3a1e7b89bd443e7bbc5e74d7541d9d4297f73d54d0ddbf0abb846259cc237cc68d49659c83789db5034d55b3b02e577a77dcabf91428da7d29100331836fe3b9fc8918b8f300b7d437ee092a2ff04497b4dab29c6d3019e393ae5658bba81ff2b00ef64f7ab24cd36836060e40bbef28d74c69a2134e1b8556b22029d16fc134225c86bed770ba44a63f7dd396566cef5b35302562b6565dcc474a5ab97c7a11b1be9f6996ea9b661b45ee584cf12aa9d9cc545dc09d6ab50b257c5a88f3c1a596675df727e65a4be8d81e2213852e4ed9adcfbdfcb72719af71aab2fdff732b11901243466254c3e3772d9f46282d6b04a064303b418f3523067cebd38d721a47ba660c7d406874428ada3a11dae898ccdb54657468aa7e61b8ced756a6c6db72fdf379b39ae87bb02f078422ef0218a5bf83458eccfdbc76ee042363037c1d925ef7cf47fb5c69d0d8c014fb8d0397dad386e23a401403485ee43ea3f3071ec39fe02a42679b4ee10561a5607c00e62254fc082b16df4544e962d1f3eb9b18a877a03a609e43e12050d9d30cc4d84265202ae401f793a739fb66ed46224abe99a51631dcf042fc3d1dfc27d961d0f6fa0d3daee49c9f8b1793e4a94f258761d42c9e205ebe2a493016a0c400cfdbad62b459a747773ab5e1cfac29042fd4d1ab0c309e12462319f8de4829866fe2c76afd6521af6d91515cb08fdbf065a27938d0d5bd2241ce9bcb8f70929c306eb75a203ffc8517e7741e76afbb9f95ce33ff292c78034eee6dd07d836b3dfae3c494aff8382e4b61472eb1c4e4b63c819c1f55be28d6ebeb8763ad09c87fa6270016db21100ea3702505b1442865a3dfebf27708ba3c831724753c1c1c3a2ebb33d0a384e0d2690e494c895c6814702762ee9975b3d6641202a40e9f7f9e9fdc87638e6ee57165dbd60ea35291e0308f8b4838dc8311fa8569b746f4eeb89733393c1077784b6b59b4e66e51a97b4ad5f171aa5ccd75db041c50d8239a09040ed251321bd2c89a6a54baa816486daa0e206fc63dedfc39551665f3345ddc9625954cc3c2023d9d3e7be7b8c8096ae410685a2773db9b85b5a16eaf36ccb2bf9d16b34937a48209a7239198ca55a9aeb833f0dbcde338b317fdc7838816f806c96f7a6b2b0d5d8bd3b254fc251c25d255aa2042f4fcb7f91a6ace0c168cdace604c176a6c43e656f773d70410846d28ed3c3991115c551fcb53a5815ae4b5e854cad864d758fd6d1083dfbbf12b456abb28cd38b378cb0174dc607609979458b06c8c32cd7350c956c5d86abd8ab90d1d38bd9151206240fef9164c38e3ee243a797900f58ad5d5d76ab0a3c85f82580810f7e61dff16c4e4712d70587486d86099fd09d279311533f1e61975c723fae548404fd3c2b989d354cc2f9513caa62a9045b823b1e43800e71ad7635917f3ac7700ca745e56302b6c093d6535ffeeb6fbe9e554e6a509baadfa7dc961f728fe86c9455fbb64c45252b2fb677ae63dbeec1d8deeb230b9537cd57f59a5f9973294e6ae2b482b0583df32b9e2f2692acece2be033ba7b9d3169752da4e494cca828aa84931bd3a35693ba4c93909e92c13140513fab58d8da5905322b397be9fa6d6fd1c3a15d7e0fdd2fa56a95eaafe5de56d6322c279b18c715d388fca06dce51413ac189cda8d40b072eb1fbc4f23ae6059c653a805fa394150a90c0a92836f33a093f30ffce19372ce10e26169035b3e474c48ba30d8c506a68c4ee8a2881822df5f810936ed619412c8d67fc12ff9af7e1450d2f875e8660409ccf4d190d3b16834bce7f2910a0056c292db0201390ce91a2974e800230ab9aa022f41be06ab70dd0b61fc555ed6f2827691af6f5873ccb8d68a601b1782bffb95cb9d78746e71f9aad6c867eebdf2da374d1cf8c3e1a280dbafc660106ac4c3f8cb91b7c6c924698555df3d6924dba0f10dd8d4958d3d19e14bd3bf41f2e8c352a394adcadb16289ede6d03d9b07eb9456c2b4d7aa4e378c965b8e61c097417093135ec312a7ff37abbccaa704c2812cd325ca9a9aa1396e7dd00a476e19192d92dfe847a0dfbdc55a2038caaa8a4d7da539f7ca107cd19d61773f1adfa7cecea6abdb8ce41fe74b41e67dfab3c84ad1118c9ef03ad078824f66c02340cbb9d7cc9f78e09a610e1d794cc3437d3d0fbef1823d1a19f43a5d4916827b5f90d1068e23ae7c6a5ad69104d4f5a15aa0576dd3e5906e5b412193e4e03024191bb9282bfbe9c84fc6b9d0651367c1b53af0e1fe057</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-shrink">
-      <input class="hbe hbe-input-field hbe-input-field-shrink" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-shrink" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-shrink">Password here.</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>LaTeX</category>
-      </categories>
-      <tags>
-        <tag>LaTeX</tag>
       </tags>
   </entry>
   <entry>
@@ -1219,6 +1179,81 @@ n)\)</span>。本算法可得到 <span class="math inline">\(100\)</span>
         <tag>离散化</tag>
         <tag>树状数组</tag>
         <tag>二分</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CF题解</title>
+    <url>/2025/09/02/CF%E9%A2%98%E8%A7%A3/</url>
+    <content><![CDATA[<h1 id="g.-omg-graph"><pr>G. Omg Graph</pr></h1>
+<p><a href="https://codeforces.com/contest/2117/problem/G"
+class="uri">https://codeforces.com/contest/2117/problem/G</a></p>
+<p>给定无向带权连通图，定义一条路径的花费为路径经过的边中，边权最大值 +
+最小值。求从 <span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(n\)</span>
+路径中的最小花费（注意不一定是简单路径）。</p>
+<p><span
+class="math inline">\(2≤n≤2⋅10^5,n−1≤m≤\min(2⋅10^5,n(n−1)/2),1≤u,v≤n,1≤w≤10^9\)</span>。</p>
+<span id="more"></span>
+<details>
+<summary>
+点击查看题解
+</summary>
+<p><tag>最小生成树</tag> 考虑求 <span class="math inline">\(1\rightarrow
+n\)</span> 的最小瓶颈路，其最大值部分一定是最小的，设为 <span
+class="math inline">\(\text{dmax}_n\)</span>，并设最小值部分为 <span
+class="math inline">\(\text{dmin}_n\)</span>；之后考虑枚举每条边，试图更新最小值部分。因此，需要求出
+<span class="math inline">\(1\)</span>
+到每个点的最小瓶颈路，试图更新最小值部分时尽量使最大值不变或变化较少。</p>
+<p>由于最小生成树是最小瓶颈树，所以需要求图的最小生成树。</p>
+<p>设 <span class="math inline">\(1\rightarrow i\)</span> 的瓶颈为 <span
+class="math inline">\(\text{dmax}_i\)</span>，则边 <span
+class="math inline">\(j\)</span> 的瓶颈为 <span
+class="math inline">\(\text{emax}_j=\max\{w_j,\min\{\text{dmax}_i\mid
+(i,j)\in E\}\}\)</span>。则答案为： <span class="math display">\[
+\min\{w_i+\max\{\text{dmax}_n,\text{emax}_j\}\mid 1\le i\le m\}
+\]</span></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">200000</span> + <span class="number">50</span>, inf = <span class="number">1145141919810</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">    ll u, v, len, id;</span><br><span class="line">&#125; g[N];</span><br><span class="line"></span><br><span class="line">ll n, m, dmax[N], emax[N];</span><br><span class="line">ll dad[N];</span><br><span class="line">vector&lt;PII &gt; e[N];</span><br><span class="line">vector&lt;edge&gt; ge[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(edge x, edge y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x.len &lt; y.len;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">recmp</span><span class="params">(edge x, edge y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x.id &lt; y.id;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(ll x, ll y, ll len)</span> </span>&#123;</span><br><span class="line">    e[x].<span class="built_in">push_back</span>(&#123;y, len&#125;);</span><br><span class="line">    e[y].<span class="built_in">push_back</span>(&#123;x, len&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">gadd</span><span class="params">(ll x, ll y, ll len, ll id)</span> </span>&#123;</span><br><span class="line">    ge[x].<span class="built_in">push_back</span>(&#123;x, y, len, id&#125;);</span><br><span class="line">    ge[y].<span class="built_in">push_back</span>(&#123;y, x, len, id&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">find</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (x != dad[x]) &#123;</span><br><span class="line">        x = dad[x] = dad[dad[x]];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">merge</span><span class="params">(ll x, ll y)</span> </span>&#123;</span><br><span class="line">    x = <span class="built_in">find</span>(x), y = <span class="built_in">find</span>(y);</span><br><span class="line">    dad[x] = y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">check</span><span class="params">(ll x, ll y)</span> </span>&#123;</span><br><span class="line">    x = <span class="built_in">find</span>(x), y = <span class="built_in">find</span>(y);</span><br><span class="line">    <span class="keyword">if</span> (x == y)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(ll root, ll dad)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> son: e[root]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (son.first != dad) &#123;</span><br><span class="line">            dmax[son.first] = <span class="built_in">max</span>(dmax[root], son.second);</span><br><span class="line">            <span class="built_in">dfs</span>(son.first, root);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        ll u, v, len, ans = inf;</span><br><span class="line">        cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            ge[i].<span class="built_in">clear</span>();</span><br><span class="line">            e[i].<span class="built_in">clear</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            cin &gt;&gt; u &gt;&gt; v &gt;&gt; len;</span><br><span class="line">            g[i] = (edge)&#123;u, v, len, i&#125;;</span><br><span class="line">            <span class="built_in">gadd</span>(u, v, len, i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">            dad[i] = i;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">            emax[i] = inf;</span><br><span class="line">        <span class="built_in">sort</span>(g + <span class="number">1</span>, g + <span class="number">1</span> + m, cmp);</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">check</span>(g[i].u, g[i].v) == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="built_in">add</span>(g[i].u, g[i].v, g[i].len);</span><br><span class="line">                <span class="built_in">merge</span>(g[i].u, g[i].v);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        dmax[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">dfs</span>(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">sort</span>(g + <span class="number">1</span>, g + <span class="number">1</span> + m, recmp);</span><br><span class="line">        <span class="keyword">for</span> (ll from = <span class="number">1</span>; from &lt;= n; from++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> to: ge[from]) &#123;</span><br><span class="line">                emax[to.id] = <span class="built_in">min</span>(emax[to.id], dmax[from]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">            emax[i] = <span class="built_in">max</span>(emax[i], g[i].len);</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            ans = <span class="built_in">min</span>(ans, g[i].len + <span class="built_in">max</span>(dmax[n], emax[i]));</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h1 id="d.-from-1-to-infinity"><pr>D. From 1 to Infinity</pr></h1>
+<p><a href="https://codeforces.com/contest/2132/problem/D"
+class="uri">https://codeforces.com/contest/2132/problem/D</a></p>
+<p>写下一个无限长的数字：<span
+class="math inline">\(1234567891011121314151617...\)</span>，求从最高位开始前
+<span class="math inline">\(k\)</span> 位数码的和。</p>
+<p>多组数据，<span
+class="math inline">\(1≤t≤2⋅10^4,1≤k≤10^{15}\)</span>。</p>
+<!-- more -->
+<details>
+<summary>
+点击查看题解
+</summary>
+<p><tag>毒瘤题</tag> 考虑找到 <span class="math inline">\(k\)</span>
+位置填的是数字几，设这个数字为 <span
+class="math inline">\(x\)</span>。首先判断 <span
+class="math inline">\(x\)</span> 是几位数，设为 <span
+class="math inline">\(d\)</span>
+位。由于不同位数的数占有数位个数不同，可以均化成 <span
+class="math inline">\(d\)</span> 位数，除以 <span
+class="math inline">\(d\)</span> 即可得到 <span
+class="math inline">\(x\)</span>。</p>
+<p>先把不完整的尾巴算出来，之后考虑算 <span class="math inline">\(1\sim
+x\)</span> 的数位和。</p>
+<p>使用递归解决问题。例如算的是 <span
+class="math inline">\(1\sim546\)</span>，可以先算出 <span
+class="math inline">\(1\sim499\)</span>，之后再加上 <span
+class="math inline">\((46+1)\)</span> 个 <span
+class="math inline">\(5\)</span>，最后算 <span
+class="math inline">\(1\sim46\)</span> 递归解决即可。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">150000</span> + <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line">ll k, st[<span class="number">100</span>], tmp[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">calc</span><span class="params">(ll num)</span> </span>&#123;</span><br><span class="line">    ll len = <span class="number">0</span>, tmp = num, full, res, ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (num &lt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (tmp &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        tmp /= <span class="number">10</span>;</span><br><span class="line">        len++;</span><br><span class="line">    &#125;</span><br><span class="line">    full = (num + <span class="number">1</span>) / (ll) <span class="built_in">pow</span>(<span class="number">10</span>, len - <span class="number">1</span>);</span><br><span class="line">    res = (num + <span class="number">1</span>) % (ll) <span class="built_in">pow</span>(<span class="number">10</span>, len - <span class="number">1</span>);</span><br><span class="line">    ret += full * (full - <span class="number">1</span>) / <span class="number">2</span> * <span class="built_in">pow</span>(<span class="number">10</span>, len - <span class="number">1</span>);</span><br><span class="line">    ret += full * <span class="built_in">calc</span>(<span class="built_in">pow</span>(<span class="number">10</span>, len - <span class="number">1</span>) - <span class="number">1</span>);</span><br><span class="line">    ret += full * res;</span><br><span class="line">    ret += <span class="built_in">calc</span>(res - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T, b10 = <span class="number">1</span>, num, base, add, num2, res, len;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= <span class="number">16</span>; i++) &#123;</span><br><span class="line">        st[i] = i * <span class="number">9</span> * b10 + st[i - <span class="number">1</span>];</span><br><span class="line">        b10 *= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        cin &gt;&gt; k;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">0</span>; i &lt;= <span class="number">15</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (k &lt;= st[i + <span class="number">1</span>] &amp;&amp; k &gt;= st[i]) &#123;</span><br><span class="line">                base = i;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= base; i++) &#123;</span><br><span class="line">            k += <span class="built_in">pow</span>(<span class="number">10</span>, i) - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        num = k / (base + <span class="number">1</span>);</span><br><span class="line">        res = k % (base + <span class="number">1</span>);</span><br><span class="line">        num2 = num + <span class="number">1</span>;</span><br><span class="line">        add = len = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= <span class="number">16</span>; i++)</span><br><span class="line">            tmp[i] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; num2 &gt; <span class="number">0</span>; i++) &#123;</span><br><span class="line">            tmp[i] = num2 % <span class="number">10</span>;</span><br><span class="line">            num2 /= <span class="number">10</span>, len++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (res &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            add += tmp[len];</span><br><span class="line">            res--, len--;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; <span class="built_in">calc</span>(num) + add &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+]]></content>
+      <categories>
+        <category>ACM</category>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>最小生成树</tag>
+        <tag>毒瘤题</tag>
       </tags>
   </entry>
   <entry>
@@ -1578,104 +1613,10 @@ href="https://fastly.jsdelivr.net/gh/yz-hs/PicGo/%E8%B4%AA%E5%90%83%E8%9B%87%5BC
         <category>社团讲评</category>
       </categories>
       <tags>
-        <tag>毒瘤题</tag>
         <tag>模拟</tag>
+        <tag>毒瘤题</tag>
         <tag>队列</tag>
         <tag>博弈论</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2024/07/29/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
-first post. Check <a href="https://hexo.io/docs/">documentation</a> for
-more info. If you get any problems when using Hexo, you can find the
-answer in <a
-href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
-you can ask me on <a
-href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<span id="more"></span>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a
-href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a
-href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a
-href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>【IDEA】选票统计</title>
-    <url>/2025/08/20/%E3%80%90IDEA%E3%80%91%E9%80%89%E7%A5%A8%E7%BB%9F%E8%AE%A1/</url>
-    <content><![CDATA[<p>原创题目。</p>
-<h1 id="选票统计">选票统计</h1>
-<p>G 国共 <span class="math inline">\(n\)</span> 个城市，<span
-class="math inline">\(m\)</span>
-个双向道路把它们连接起来，每个城市都可以通过某条路径到达其他任何一个城市。</p>
-<p>G 国为了减少建设开支，希望将 <span class="math inline">\(n-1\)</span>
-条道路建设为主干道使用，使得每个城市都可以通过这 <span
-class="math inline">\(n-1\)</span> 条道路到达其他任何一个城市。G
-国已经给出了一个建设方案。</p>
-<p>居民们有拜访其他城市居民的需求，自然需要尽量少走路。如果对于一个城市，到达其他任何一个城市的最短距离和只走主干道到达此城市的最短距离均相等，那么这个城市内的居民就会同意这个建设方案。否则，他们就不会同意这个方案。</p>
-<p>你作为 G
-国的大臣，你提议通过民主投票来决定这个方案是否通过。于是，你需要找出哪些城市里的居民同意方案，哪些不同意方案。</p>
-<span id="more"></span>
-<hr />
-<p>形式化题意：</p>
-<p>给出一张共 <span class="math inline">\(n\)</span> 个点，<span
-class="math inline">\(m\)</span> 条边的无向带权连通图 <span
-class="math inline">\(G\)</span>，边权均为正整数。给定此图的一个生成树
-<span class="math inline">\(T(G)\)</span>，它包含原图中所有的点。</p>
-<p>定义 <span class="math inline">\(D(i,j)\)</span> 为 <span
-class="math inline">\(G\)</span> 中结点 <span
-class="math inline">\(i\)</span> 与结点 <span
-class="math inline">\(j\)</span> 间的最短距离，<span
-class="math inline">\(F(i,j)\)</span> 为 <span
-class="math inline">\(T(G)\)</span> 中结点 <span
-class="math inline">\(i\)</span> 与结点 <span
-class="math inline">\(j\)</span> 间的最短距离。 特殊地，<span
-class="math inline">\(D(i,i)=F(i,i)=0\)</span>。</p>
-<p>设变量 <span class="math inline">\(Q_i\)</span>
-的取值为：当且仅当满足 <span class="math inline">\(\forall j\in
-[1,n],D(i,j)=F(i,j)\)</span> 时，<span
-class="math inline">\(Q_i\)</span> 为 <span
-class="math inline">\(1\)</span>；否则 <span
-class="math inline">\(Q_i\)</span> 为 <span
-class="math inline">\(0\)</span>。</p>
-<p>求 <span class="math inline">\(Q_{1\sim n}\)</span> 的值。</p>
-<h2 id="输入输出格式">输入输出格式</h2>
-<h3 id="输入格式">输入格式</h3>
-<p>输入的第一行为两个正整数 <span
-class="math inline">\(n,m\)</span>。</p>
-<p>接下来 <span class="math inline">\(m\)</span> 行，每行三个正整数
-<span class="math inline">\(u_i,v_i,l_i\)</span>，表示一条边权为 <span
-class="math inline">\(l_i\)</span> 的无向边 <span
-class="math inline">\((u_i,v_i)\)</span>。其中，给出的前 <span
-class="math inline">\(n-1\)</span> 条边为给定生成树上的边。</p>
-<h3 id="输出格式">输出格式</h3>
-<p>输出一行 <span class="math inline">\(n\)</span> 个数，第 <span
-class="math inline">\(i\)</span> 个数为 <span
-class="math inline">\(Q_i\)</span> 的值。</p>
-<h2 id="数据范围">数据范围</h2>
-<p><span class="math inline">\(1&lt;n&lt;m\le10^{5},1\le u_i,v_i\le
-n,1\le l_i\le 10^9\)</span>，所有数均为正整数。</p>
-]]></content>
-      <categories>
-        <category>ACM</category>
-        <category>idea</category>
-      </categories>
-      <tags>
-        <tag>最近公共祖先</tag>
-        <tag>二分查找</tag>
       </tags>
   </entry>
   <entry>
@@ -1869,17 +1810,148 @@ class="uri">https://www.luogu.com.cn/record/94328325</a>。</p>
       </tags>
   </entry>
   <entry>
-    <title>【解析几何】齐次化联立</title>
-    <url>/2025/08/05/%E3%80%90%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95%E3%80%91%E9%BD%90%E6%AC%A1%E5%8C%96%E8%81%94%E7%AB%8B/</url>
-    <content><![CDATA[<p>点击“阅读全文”以观看 PDF。</p>
+    <title>Hello World</title>
+    <url>/2024/07/29/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
+first post. Check <a href="https://hexo.io/docs/">documentation</a> for
+more info. If you get any problems when using Hexo, you can find the
+answer in <a
+href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
+you can ask me on <a
+href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <span id="more"></span>
-<div class="pdf-container" data-target="/assets/【解析几何】齐次化联立.pdf" data-height="600px"></div>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>《幽默报 11》</title>
+    <url>/2024/08/02/%E3%80%8A%E5%B9%BD%E9%BB%98%E6%8A%A5%2011%E3%80%8B/</url>
+    <content><![CDATA[<p>这玩意出到第十一期，在座的各位都有责任。往期幽默报：<a
+href="https://yz-hs.github.io/categories/%E6%B0%B4/%E5%B9%BD%E9%BB%98%E6%8A%A5/"
+class="uri">https://yz-hs.github.io/categories/%E6%B0%B4/%E5%B9%BD%E9%BB%98%E6%8A%A5/</a>。</p>
+<span id="more"></span>
+<h1 id="section">1</h1>
+<p>激进派和保守派，激进派语言和行动都很激进，保守派认为激进派太保守了。</p>
+<p>蟹老板：你被开除了 海绵宝宝：蟹老板 蟹老板：不用谢[doge]</p>
+<p>这是一种 积 极的创新态度 这是一种 你 不会懂的热爱 这是一种 太
+过超前的艺术 这是一种 美 丽的人生意境</p>
+<p>这可不是什么红石，这种东西叫做蓝莓，俗称苹果。生长在撒哈拉沙漠的雨林地带。因外形酷似企鹅，所以我们又喜欢叫他北极熊。你们这些人，连仙人掌都不知道，就不要乱说他是西瓜好吗？再说一遍这个橘子叫做猕猴桃</p>
+<p>刚才去吃火锅，看见火锅店的墙上提醒，羊是自己养的，菜是自己种的油是自己榨的，提醒顾客放心使用。买单的时候我，悄悄告诉老板，钱是我自己印的，请放心使用，老板追了我好几条街没追上，真有意思，腿是我自己长的，想往哪里跑就往哪里跑</p>
+<p>刚才去吃火锅，看见【火锅店老板】操纵提线，让它们作响：“我向【自己养的羊】祈求，向【自己种的菜】祈求，向【自己榨的油】祈求，怎么不推荐我的【三合一套餐】！只需要你那小小的【买单】！”买单的时候我，悄悄告诉老板：“我向【自己印的钱】祈求，多拿点！”，老板追了像我这样的【史莱姆】好几条【女王豪宅】走廊没追上，这个实验真有意思，老板向【皮皮斯】祈求，想往哪里扔就往哪里仍。【光之苠】，如果你下滑如【流水】，那我祝你现在有机会返回1997成为【【大人物】】！</p>
+<p>□□□□，□□《□□》□□□□□□□□□□□□□□□□□□□□□□。□□□□□□□□□□「□□□」□□□□□，□□□，□□□□□□□□□□「□□□」，□□□□□□。□□□□□□□□「□□□」□□□□□，□□□□□□□□□□□□□、□□□□□□□□，□□□□□□□□□，□□□□□□□——□□，□□□□「□□」□□□。</p>
+<p>正常人做饭： <code>(没放盐,放多了)</code> 初学者做饭：
+<code>[没放盐,放多了]</code> 我做饭： <code>&#123;没放盐,放多了&#125;</code></p>
+<h1 id="section-1">2</h1>
+<p>1、曾经有教育家做了一个实验，给中国孩子和美国孩子一杯水，让他们不用火就让水沸腾起来。中国孩子拿水在太阳下晒了一天，没有如愿。而聪明的美国孩子拿来四杯25度的水混合到一起，轻松地把水温升到了沸腾的100度。僵化的思维，落后的体制永远无法培养有创新意识的大科学家。</p>
+<p>2、曾经有教育家做了一个实验，给中国孩子和美国孩子一杯水，让他们不用火就让水沸腾起来。中国孩子拿来四杯25度的水混合到一起，轻松地把水温升到了沸腾的100度。而朴实的美国孩子拿着水在太阳下晒着，静静等待，最终水也升到了100度。虽然美国孩子输了，但是虽败犹荣，因为美国教育下的孩子诚实而有品质，从来不会耍小聪明。只有这样的孩子，以后才能成为正直的人。</p>
+<p>3、
+曾经有教育家做了一个实验，给一群中国孩子和一群美国孩子一人一杯水，让他们不用火就让水沸腾起来。中国孩子都把水放在太阳底下晒了一天也没到100度，而聪明的美国孩子们在一起经过商讨以后，把水混在了一块，刚好四杯25度的水混合成了100度。僵化的思维，落后的体制永远无法培养有创新意识的大科学家，也永远无法培养出有合作意识、互助精神的青年。</p>
+<p>4、曾经有教育家做了一个实验，给一群中国孩子和一群美国孩子一人一杯水，让他们不用火就让水沸腾起来。中国孩子在一起经过商讨以后，把水混在了一块，刚好四杯25度的水混合成了100度。而美国孩子都把水放在太阳底下晒了一天，终于把水温升到了100度。中国的孩子永远学不会自己解决问题，而总是想依赖群体的力量，而美国孩子能够独立自主，自力更生，这样的民族才有希望。</p>
+<p>5、
+曾经有教育家做了一个实验，给中国孩子和美国孩子一杯水，让他们不用火就让水沸腾起来。中国孩子却在太阳下把水晒了一整天，非要把水温升到100度不可，不然就不回家吃饭。最终还是失败了。美国孩子从小就懂得知足与放弃，而中国的孩子在填鸭教育的影响下，依旧愚蠢地执着坚持不可能的事情。这样永远也培养不出大科学家。</p>
+<p>6、曾经有教育家做了一个实验，给中国孩子和美国孩子一杯水，让他们不用火就让水沸腾起来。中国孩子直接认输了。而美国孩子偷来他爸爸的勃朗宁
+一下子把教育家毙了，从此再也没有被教育家研究的烦恼了。从小培养反抗强权的意识，比任何教育都重要。</p>
+<h1 id="section-2">3</h1>
+<p>一位少女在旅途中意外发现了平行时空中基于无生源论诞生的另一个自己，短暂的初次见面后两人的分离使少女踏上了寻找自我和真相的旅途，重重苦寻和错会后两人终于再次相遇并发现了少女诞生的真相，两位少女在星空下许诺要永远陪伴对方不离不弃，少女的身世最终或许只有她“一人”知晓……</p>
+<p>在废墟之中，我遇见了她。</p>
+<p>四周毫无生机
+，锈蚀的气息弥漫着，管道拐角处的水滴声是我唯一听见的声音。</p>
+<p>我漫无目的地摸索。</p>
+<p>在巨大的结构建筑中央，我发现一个若隐若现的身影。</p>
+<p>水滴仍然不停歇地落下，宛如淅淅沥沥的春雨，给这终焉的世界增添了少许的生机。</p>
+<p>在她的叙述中，我看见了无数被珍藏的记忆。</p>
+<p>人们相遇，相知，再到别离。</p>
+<p>无论是美好抑或悲伤，都是世界曾经的记忆与生命。</p>
+<p>“或许我们可以这样一直走下去。”</p>
+<p>“新生的世界，在此萌芽。”</p>
+<h1 id="section-3">4</h1>
+<p>那些想要自杀而犹豫不决的人，其实是在经受着一场地狱之火的烧灼。</p>
+<p>人的本能就是生存，要么为何害怕高高的楼层呢？</p>
+<p>凡事都需要动机，比如利益，比如快感，比如精神失常。</p>
+<p>从自杀的念头，到自杀的事实，是一个动机积累和抗衡的过程。比如，对自己的经济状况、家庭、性别、地位不满等，可以作为自杀的理由。家人的牵挂、生活的不舍等，可以作为活下来的理由。它们积累，抗衡，把你来回拉拽。很痛苦，不是吗？</p>
+<p>当你走向窗台，低头看着或车水马龙，或平静宁和的世界，恐惧就侵占了你的内心。所谓恐高症，其实来源于人类的本能。这是你的大敌，因为是它阻止了你自杀，让你卡在鬼门关，让你受地狱之火的烧灼。这是活下来的最大的理由，没有之一。</p>
+<p>于是，你拼命寻找自杀的理由。药物滥用，摧毁自己的身体；乱交，败坏自己的人格；反社会行为，放弃自己的意义。</p>
+<p>哦，不，你还是打败不了那生存的本能。那窗台已经被踏上了无数次，见证了你的无数次煎熬。似乎，那窗台是专门给你准备的历练之地。</p>
+<p>你想，为什么要毁掉自己呢？我受不了一心想死却不敢了结自己所带来的煎熬。这就是那地狱之火。那并非常人之可胜受，它让你浑浑噩噩，让你乱麻一团，让你痛苦万分。为什么要毁掉自己呢？因为自杀的念头已然驱之不去，活下去的欲望与之共存。一山不容二虎，二虎会将你折磨至疯狂。助长吧，自杀吧。</p>
+<p>一天晚上，你又来到窗台，依旧下不去决心。希望一阵风把你刮下高楼的念头，想必是有的吧。如果那样如果自杀成功，有什么意义呢？</p>
+<p>呵呵，人类，真是精妙啊。</p>
+<p>那些在窗台的人，正在接受地狱之火的烧灼。无论过后决定是生是死，他们都是勇士，绝非懦夫。</p>
+<p>没人想悄无声息地死。那些寻死的人，其实是为了摆脱痛苦，否则他们也不会抗争人类的本能。他们想要留下存在的痕迹。遗书，聊天记录，事迹……
+他们是要延缓第二次死亡和第三次死亡的来临。“死而不亡者寿”，就是这个道理吧。</p>
+<p>所以，自杀又何尝不等同于寻求生存呢？</p>
+<p>深夜发病，观点激进，勿在意。</p>
+<h1 id="section-4">5</h1>
+<p>分享一下治疗玉玉症的中药方子，个人总结出来的，非常有效，谨供参考</p>
+<p>周一去麦邓劳中医馆，老字号中医馆，也有很多网友推荐，不多赘述 推荐
+灀棘治湿汗煲150克，红篼槟80克，盅枢调110克，必要时辅以麦楦枫一剂</p>
+<p>周二或者周三去打美乐中医理疗中心，这家是专门做脾飒的，属于是后起之秀，个人认为品质优于弼圣窠
+推荐 孛茛多多肉橡粉松脾飒 12寸 喜瓣牙风晴香苌肉姜脾飒 12寸
+辅以菠萝蒎2皿</p>
+<p>周四去恳悳基中药房，这家的药材品质好是好，但是有些良方只能星期四拿到，每次去都人满为患，建议提前预定
+推荐 蒲柿淡榙 6支 热蜡襄古棘 15支</p>
+<h1 id="section-5">6</h1>
+<p>你至少需要先填写《<strong>关于修改生死簿的申请表</strong>》、《<strong>关于修改生死簿的情况说明</strong>》、《<strong>关于修改生死簿具体问题的报告</strong>》，提交天庭秘书处并耐心等待10个工作日，收到一份《<strong>关于你府申请修改生死簿问题的批复</strong>》。</p>
+<p>《批复》中明确要求：</p>
+<p>一、高度重视此次生死簿修改问题；</p>
+<p>二、统一思想、抓好落实，切实严把生死簿修改关，通过修改生死簿提高地府业务工作水平；</p>
+<p>三、紧跟天庭党委工作指导思想，把握仙界年度发展蓬勃势头，把修改生死簿工作提高到仙界整体工作落实的高度上来；</p>
+<p>四、落实责任、具体到人，对修改生死簿中各方面具体责任要落实到位；</p>
+<p>五、整理汇总、请示汇报，在修改生死簿工作推进的全环节中，要与天庭党委随时保持沟通；</p>
+<p>六、数字赋能、提高效率，重视数字化管理工作在生死簿修改中的作用，提高生死簿修改工作效能。</p>
+<p>地府在接到《批复》后，要及时召开《<strong>关于修改生死簿工作任务部署会</strong>》，召集五方鬼帝、十殿阎罗、六案功曹、六司主事出席，东岳大帝、地藏王菩萨列席，各鬼差参加。</p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-28ec981e74851477be21b116c7e7969d_720w.webp?source=2c26e567" /></p>
+<p><img data-src="https://picx.zhimg.com/80/v2-9657e88c97a985817a304da215b9c14a_720w.webp?source=2c26e567" /></p>
+<p>会议在雄壮的《哀乐》中开幕。</p>
+<p>首先由东方鬼帝主持会议并宣布会议议程，会议一共有八项议程：</p>
+<p>一、奏《哀乐》；</p>
+<p>二、由南方鬼帝宣读天庭《关于你府申请修改生死簿问题的批复》；</p>
+<p>三、由西方鬼帝就《批复》精神进行宣讲教育；</p>
+<p>四、由中央鬼帝安排部署生死簿修改工作；</p>
+<p>五、由北方鬼帝对生死簿修改工作中的行政工作作指示；</p>
+<p>六、由东方鬼帝对生死簿修改工作中的后勤保障工作作指示；</p>
+<p>七、请酆都大帝作重要指示；</p>
+<p>八、奏《葬礼进行曲》。</p>
+<p>会后，根据酆都大帝重要指示精神，各部门开始就生死簿修改工作开始进行具体动作。</p>
+<p>首先是中央鬼帝府根据会议精神下发《关于修改生死簿问题的通知》，通知下发到六案功曹、六司主事一级，通知中明确了本次生死簿修改工作的指导精神、安排部署、行动步骤、几点意见。</p>
+<p>各司接到通知后，要按照通知精神拟定工作计划，按照时间节点对生死簿修改工作进行分工，并上报中央鬼帝府，抄送各鬼帝府备案。</p>
+<p>为切实落实天庭党委年初《<strong>关于切实反对官僚主义、消除“文山会海”的通知</strong>》精神，各工作环节还必须要认真梳理总结，不走形式，避免过多占用日常工作时间，因此大家要充分利用下班时间补充、补写工作报告，填写各类表格，搞好调查走访，收集群众意见，以上内容全部以表格形式呈现，避免“八股文”、“四六句”。</p>
+<p>最后由中央鬼帝府形成《<strong>关于修改生死簿问题的调查报告</strong>》、《<strong>关于修改生死簿问题的处理意见</strong>》，《报告》、《意见》中认为：</p>
+<p>一、本次事件的主要责任人是地府查察司拘魂使黑白无常，主要责任是工作作风简单粗暴，对于修炼有成的孙悟空工作中过于死板、教条，不能灵活掌握生死簿的执行，是导致生死簿被非法修改的直接原因；</p>
+<p>二、地府领导集体对生死簿修改负有领导责任，主要责任是对部属失管失控，不重视思想教育和行政能力培养，导致个别地府工作人员工作作风简单粗暴，灵活性不足，错误拘押修炼有成的孙悟空并导致生死簿被非法修改；</p>
+<p>三、痛定思痛、加强整改，首先在地府中掀起“从严执法、灵活机动、请示汇报”的三项作风整顿行动，广泛教育地府工作人员在日常执法行政中切实落实天庭党委决议，紧跟天庭工作步伐，解决地府工作中长期存在的问题、矛盾；</p>
+<p>四、建议给予具体责任人黑白无常记过处分一次，纪委诫勉谈话；</p>
+<p>五、建议给予地府领导集体警告处分一次；</p>
+<p>六、建议重新修订生死簿，划除孙悟空条目。</p>
+<p>天庭接到《报告》、《意见》之后，呈玉帝审阅通过并在天庭行政工作会上进行了讨论形成决议，基本认可地府《意见》，对《报告》中的情况也给予了充分肯定，并指出三个问题：</p>
+<p>一是地府工作力度偏软、偏散，要加强智慧赋能、数据共享，对于天庭掌握的修炼数据不能及时共享是造成本次事件的深层次原因；</p>
+<p>二是地府领导集体不够团结统一，工作中通气不足、存在隔阂；</p>
+<p>三是地府在工作人员外出作业期间存在跟踪问效不够的问题。</p>
+<p>会议基本同意了地府的处理意见。</p>
+<p>地府在接到《<strong>天庭关于地府修改生死簿问题的会议决议</strong>》之后，认真学习讨论了《决议》并拟定了整改计划，搞了整改“回头看”，并由酆都大帝在天庭党委扩大会上进行了深刻检查。</p>
+<p>最后，一个阴律司办事员小鬼在生死簿上轻轻地勾了一下，“孙悟空”这个条目不复存在。</p>
+<p>酆都大帝独自一人在自己屋子里的时候咬牙切齿的说：</p>
+<p>“改，改，改，改你老木啊改！谁特么再改谁就是孙子！”</p>
 ]]></content>
       <categories>
-        <category>数学</category>
+        <category>幽默报</category>
       </categories>
       <tags>
-        <tag>数学</tag>
+        <tag>幽默报</tag>
       </tags>
   </entry>
   <entry>
@@ -2105,119 +2177,202 @@ A\text{在x轴上方,}∠AMB=\frac{\pi}{3},|AF|=\sqrt{2}+\sqrt{3}，\text{试求
       </tags>
   </entry>
   <entry>
-    <title>《幽默报 11》</title>
-    <url>/2024/08/02/%E3%80%8A%E5%B9%BD%E9%BB%98%E6%8A%A5%2011%E3%80%8B/</url>
-    <content><![CDATA[<p>这玩意出到第十一期，在座的各位都有责任。往期幽默报：<a
-href="https://yz-hs.github.io/categories/%E6%B0%B4/%E5%B9%BD%E9%BB%98%E6%8A%A5/"
-class="uri">https://yz-hs.github.io/categories/%E6%B0%B4/%E5%B9%BD%E9%BB%98%E6%8A%A5/</a>。</p>
+    <title>【IDEA】选票统计</title>
+    <url>/2025/08/20/%E3%80%90IDEA%E3%80%91%E9%80%89%E7%A5%A8%E7%BB%9F%E8%AE%A1/</url>
+    <content><![CDATA[<p>原创题目。</p>
+<h1 id="选票统计">选票统计</h1>
+<p>G 国共 <span class="math inline">\(n\)</span> 个城市，<span
+class="math inline">\(m\)</span>
+个双向道路把它们连接起来，每个城市都可以通过某条路径到达其他任何一个城市。</p>
+<p>G 国为了减少建设开支，希望将 <span class="math inline">\(n-1\)</span>
+条道路建设为主干道使用，使得每个城市都可以通过这 <span
+class="math inline">\(n-1\)</span> 条道路到达其他任何一个城市。G
+国已经给出了一个建设方案。</p>
+<p>居民们有拜访其他城市居民的需求，自然需要尽量少走路。如果对于一个城市，到达其他任何一个城市的最短距离和只走主干道到达此城市的最短距离均相等，那么这个城市内的居民就会同意这个建设方案。否则，他们就不会同意这个方案。</p>
+<p>你作为 G
+国的大臣，你提议通过民主投票来决定这个方案是否通过。于是，你需要找出哪些城市里的居民同意方案，哪些不同意方案。</p>
 <span id="more"></span>
-<h1 id="section">1</h1>
-<p>激进派和保守派，激进派语言和行动都很激进，保守派认为激进派太保守了。</p>
-<p>蟹老板：你被开除了 海绵宝宝：蟹老板 蟹老板：不用谢[doge]</p>
-<p>这是一种 积 极的创新态度 这是一种 你 不会懂的热爱 这是一种 太
-过超前的艺术 这是一种 美 丽的人生意境</p>
-<p>这可不是什么红石，这种东西叫做蓝莓，俗称苹果。生长在撒哈拉沙漠的雨林地带。因外形酷似企鹅，所以我们又喜欢叫他北极熊。你们这些人，连仙人掌都不知道，就不要乱说他是西瓜好吗？再说一遍这个橘子叫做猕猴桃</p>
-<p>刚才去吃火锅，看见火锅店的墙上提醒，羊是自己养的，菜是自己种的油是自己榨的，提醒顾客放心使用。买单的时候我，悄悄告诉老板，钱是我自己印的，请放心使用，老板追了我好几条街没追上，真有意思，腿是我自己长的，想往哪里跑就往哪里跑</p>
-<p>刚才去吃火锅，看见【火锅店老板】操纵提线，让它们作响：“我向【自己养的羊】祈求，向【自己种的菜】祈求，向【自己榨的油】祈求，怎么不推荐我的【三合一套餐】！只需要你那小小的【买单】！”买单的时候我，悄悄告诉老板：“我向【自己印的钱】祈求，多拿点！”，老板追了像我这样的【史莱姆】好几条【女王豪宅】走廊没追上，这个实验真有意思，老板向【皮皮斯】祈求，想往哪里扔就往哪里仍。【光之苠】，如果你下滑如【流水】，那我祝你现在有机会返回1997成为【【大人物】】！</p>
-<p>□□□□，□□《□□》□□□□□□□□□□□□□□□□□□□□□□。□□□□□□□□□□「□□□」□□□□□，□□□，□□□□□□□□□□「□□□」，□□□□□□。□□□□□□□□「□□□」□□□□□，□□□□□□□□□□□□□、□□□□□□□□，□□□□□□□□□，□□□□□□□——□□，□□□□「□□」□□□。</p>
-<p>正常人做饭： <code>(没放盐,放多了)</code> 初学者做饭：
-<code>[没放盐,放多了]</code> 我做饭： <code>&#123;没放盐,放多了&#125;</code></p>
-<h1 id="section-1">2</h1>
-<p>1、曾经有教育家做了一个实验，给中国孩子和美国孩子一杯水，让他们不用火就让水沸腾起来。中国孩子拿水在太阳下晒了一天，没有如愿。而聪明的美国孩子拿来四杯25度的水混合到一起，轻松地把水温升到了沸腾的100度。僵化的思维，落后的体制永远无法培养有创新意识的大科学家。</p>
-<p>2、曾经有教育家做了一个实验，给中国孩子和美国孩子一杯水，让他们不用火就让水沸腾起来。中国孩子拿来四杯25度的水混合到一起，轻松地把水温升到了沸腾的100度。而朴实的美国孩子拿着水在太阳下晒着，静静等待，最终水也升到了100度。虽然美国孩子输了，但是虽败犹荣，因为美国教育下的孩子诚实而有品质，从来不会耍小聪明。只有这样的孩子，以后才能成为正直的人。</p>
-<p>3、
-曾经有教育家做了一个实验，给一群中国孩子和一群美国孩子一人一杯水，让他们不用火就让水沸腾起来。中国孩子都把水放在太阳底下晒了一天也没到100度，而聪明的美国孩子们在一起经过商讨以后，把水混在了一块，刚好四杯25度的水混合成了100度。僵化的思维，落后的体制永远无法培养有创新意识的大科学家，也永远无法培养出有合作意识、互助精神的青年。</p>
-<p>4、曾经有教育家做了一个实验，给一群中国孩子和一群美国孩子一人一杯水，让他们不用火就让水沸腾起来。中国孩子在一起经过商讨以后，把水混在了一块，刚好四杯25度的水混合成了100度。而美国孩子都把水放在太阳底下晒了一天，终于把水温升到了100度。中国的孩子永远学不会自己解决问题，而总是想依赖群体的力量，而美国孩子能够独立自主，自力更生，这样的民族才有希望。</p>
-<p>5、
-曾经有教育家做了一个实验，给中国孩子和美国孩子一杯水，让他们不用火就让水沸腾起来。中国孩子却在太阳下把水晒了一整天，非要把水温升到100度不可，不然就不回家吃饭。最终还是失败了。美国孩子从小就懂得知足与放弃，而中国的孩子在填鸭教育的影响下，依旧愚蠢地执着坚持不可能的事情。这样永远也培养不出大科学家。</p>
-<p>6、曾经有教育家做了一个实验，给中国孩子和美国孩子一杯水，让他们不用火就让水沸腾起来。中国孩子直接认输了。而美国孩子偷来他爸爸的勃朗宁
-一下子把教育家毙了，从此再也没有被教育家研究的烦恼了。从小培养反抗强权的意识，比任何教育都重要。</p>
-<h1 id="section-2">3</h1>
-<p>一位少女在旅途中意外发现了平行时空中基于无生源论诞生的另一个自己，短暂的初次见面后两人的分离使少女踏上了寻找自我和真相的旅途，重重苦寻和错会后两人终于再次相遇并发现了少女诞生的真相，两位少女在星空下许诺要永远陪伴对方不离不弃，少女的身世最终或许只有她“一人”知晓……</p>
-<p>在废墟之中，我遇见了她。</p>
-<p>四周毫无生机
-，锈蚀的气息弥漫着，管道拐角处的水滴声是我唯一听见的声音。</p>
-<p>我漫无目的地摸索。</p>
-<p>在巨大的结构建筑中央，我发现一个若隐若现的身影。</p>
-<p>水滴仍然不停歇地落下，宛如淅淅沥沥的春雨，给这终焉的世界增添了少许的生机。</p>
-<p>在她的叙述中，我看见了无数被珍藏的记忆。</p>
-<p>人们相遇，相知，再到别离。</p>
-<p>无论是美好抑或悲伤，都是世界曾经的记忆与生命。</p>
-<p>“或许我们可以这样一直走下去。”</p>
-<p>“新生的世界，在此萌芽。”</p>
-<h1 id="section-3">4</h1>
-<p>那些想要自杀而犹豫不决的人，其实是在经受着一场地狱之火的烧灼。</p>
-<p>人的本能就是生存，要么为何害怕高高的楼层呢？</p>
-<p>凡事都需要动机，比如利益，比如快感，比如精神失常。</p>
-<p>从自杀的念头，到自杀的事实，是一个动机积累和抗衡的过程。比如，对自己的经济状况、家庭、性别、地位不满等，可以作为自杀的理由。家人的牵挂、生活的不舍等，可以作为活下来的理由。它们积累，抗衡，把你来回拉拽。很痛苦，不是吗？</p>
-<p>当你走向窗台，低头看着或车水马龙，或平静宁和的世界，恐惧就侵占了你的内心。所谓恐高症，其实来源于人类的本能。这是你的大敌，因为是它阻止了你自杀，让你卡在鬼门关，让你受地狱之火的烧灼。这是活下来的最大的理由，没有之一。</p>
-<p>于是，你拼命寻找自杀的理由。药物滥用，摧毁自己的身体；乱交，败坏自己的人格；反社会行为，放弃自己的意义。</p>
-<p>哦，不，你还是打败不了那生存的本能。那窗台已经被踏上了无数次，见证了你的无数次煎熬。似乎，那窗台是专门给你准备的历练之地。</p>
-<p>你想，为什么要毁掉自己呢？我受不了一心想死却不敢了结自己所带来的煎熬。这就是那地狱之火。那并非常人之可胜受，它让你浑浑噩噩，让你乱麻一团，让你痛苦万分。为什么要毁掉自己呢？因为自杀的念头已然驱之不去，活下去的欲望与之共存。一山不容二虎，二虎会将你折磨至疯狂。助长吧，自杀吧。</p>
-<p>一天晚上，你又来到窗台，依旧下不去决心。希望一阵风把你刮下高楼的念头，想必是有的吧。如果那样如果自杀成功，有什么意义呢？</p>
-<p>呵呵，人类，真是精妙啊。</p>
-<p>那些在窗台的人，正在接受地狱之火的烧灼。无论过后决定是生是死，他们都是勇士，绝非懦夫。</p>
-<p>没人想悄无声息地死。那些寻死的人，其实是为了摆脱痛苦，否则他们也不会抗争人类的本能。他们想要留下存在的痕迹。遗书，聊天记录，事迹……
-他们是要延缓第二次死亡和第三次死亡的来临。“死而不亡者寿”，就是这个道理吧。</p>
-<p>所以，自杀又何尝不等同于寻求生存呢？</p>
-<p>深夜发病，观点激进，勿在意。</p>
-<h1 id="section-4">5</h1>
-<p>分享一下治疗玉玉症的中药方子，个人总结出来的，非常有效，谨供参考</p>
-<p>周一去麦邓劳中医馆，老字号中医馆，也有很多网友推荐，不多赘述 推荐
-灀棘治湿汗煲150克，红篼槟80克，盅枢调110克，必要时辅以麦楦枫一剂</p>
-<p>周二或者周三去打美乐中医理疗中心，这家是专门做脾飒的，属于是后起之秀，个人认为品质优于弼圣窠
-推荐 孛茛多多肉橡粉松脾飒 12寸 喜瓣牙风晴香苌肉姜脾飒 12寸
-辅以菠萝蒎2皿</p>
-<p>周四去恳悳基中药房，这家的药材品质好是好，但是有些良方只能星期四拿到，每次去都人满为患，建议提前预定
-推荐 蒲柿淡榙 6支 热蜡襄古棘 15支</p>
-<h1 id="section-5">6</h1>
-<p>你至少需要先填写《<strong>关于修改生死簿的申请表</strong>》、《<strong>关于修改生死簿的情况说明</strong>》、《<strong>关于修改生死簿具体问题的报告</strong>》，提交天庭秘书处并耐心等待10个工作日，收到一份《<strong>关于你府申请修改生死簿问题的批复</strong>》。</p>
-<p>《批复》中明确要求：</p>
-<p>一、高度重视此次生死簿修改问题；</p>
-<p>二、统一思想、抓好落实，切实严把生死簿修改关，通过修改生死簿提高地府业务工作水平；</p>
-<p>三、紧跟天庭党委工作指导思想，把握仙界年度发展蓬勃势头，把修改生死簿工作提高到仙界整体工作落实的高度上来；</p>
-<p>四、落实责任、具体到人，对修改生死簿中各方面具体责任要落实到位；</p>
-<p>五、整理汇总、请示汇报，在修改生死簿工作推进的全环节中，要与天庭党委随时保持沟通；</p>
-<p>六、数字赋能、提高效率，重视数字化管理工作在生死簿修改中的作用，提高生死簿修改工作效能。</p>
-<p>地府在接到《批复》后，要及时召开《<strong>关于修改生死簿工作任务部署会</strong>》，召集五方鬼帝、十殿阎罗、六案功曹、六司主事出席，东岳大帝、地藏王菩萨列席，各鬼差参加。</p>
-<p><img data-src="https://pic1.zhimg.com/80/v2-28ec981e74851477be21b116c7e7969d_720w.webp?source=2c26e567" /></p>
-<p><img data-src="https://picx.zhimg.com/80/v2-9657e88c97a985817a304da215b9c14a_720w.webp?source=2c26e567" /></p>
-<p>会议在雄壮的《哀乐》中开幕。</p>
-<p>首先由东方鬼帝主持会议并宣布会议议程，会议一共有八项议程：</p>
-<p>一、奏《哀乐》；</p>
-<p>二、由南方鬼帝宣读天庭《关于你府申请修改生死簿问题的批复》；</p>
-<p>三、由西方鬼帝就《批复》精神进行宣讲教育；</p>
-<p>四、由中央鬼帝安排部署生死簿修改工作；</p>
-<p>五、由北方鬼帝对生死簿修改工作中的行政工作作指示；</p>
-<p>六、由东方鬼帝对生死簿修改工作中的后勤保障工作作指示；</p>
-<p>七、请酆都大帝作重要指示；</p>
-<p>八、奏《葬礼进行曲》。</p>
-<p>会后，根据酆都大帝重要指示精神，各部门开始就生死簿修改工作开始进行具体动作。</p>
-<p>首先是中央鬼帝府根据会议精神下发《关于修改生死簿问题的通知》，通知下发到六案功曹、六司主事一级，通知中明确了本次生死簿修改工作的指导精神、安排部署、行动步骤、几点意见。</p>
-<p>各司接到通知后，要按照通知精神拟定工作计划，按照时间节点对生死簿修改工作进行分工，并上报中央鬼帝府，抄送各鬼帝府备案。</p>
-<p>为切实落实天庭党委年初《<strong>关于切实反对官僚主义、消除“文山会海”的通知</strong>》精神，各工作环节还必须要认真梳理总结，不走形式，避免过多占用日常工作时间，因此大家要充分利用下班时间补充、补写工作报告，填写各类表格，搞好调查走访，收集群众意见，以上内容全部以表格形式呈现，避免“八股文”、“四六句”。</p>
-<p>最后由中央鬼帝府形成《<strong>关于修改生死簿问题的调查报告</strong>》、《<strong>关于修改生死簿问题的处理意见</strong>》，《报告》、《意见》中认为：</p>
-<p>一、本次事件的主要责任人是地府查察司拘魂使黑白无常，主要责任是工作作风简单粗暴，对于修炼有成的孙悟空工作中过于死板、教条，不能灵活掌握生死簿的执行，是导致生死簿被非法修改的直接原因；</p>
-<p>二、地府领导集体对生死簿修改负有领导责任，主要责任是对部属失管失控，不重视思想教育和行政能力培养，导致个别地府工作人员工作作风简单粗暴，灵活性不足，错误拘押修炼有成的孙悟空并导致生死簿被非法修改；</p>
-<p>三、痛定思痛、加强整改，首先在地府中掀起“从严执法、灵活机动、请示汇报”的三项作风整顿行动，广泛教育地府工作人员在日常执法行政中切实落实天庭党委决议，紧跟天庭工作步伐，解决地府工作中长期存在的问题、矛盾；</p>
-<p>四、建议给予具体责任人黑白无常记过处分一次，纪委诫勉谈话；</p>
-<p>五、建议给予地府领导集体警告处分一次；</p>
-<p>六、建议重新修订生死簿，划除孙悟空条目。</p>
-<p>天庭接到《报告》、《意见》之后，呈玉帝审阅通过并在天庭行政工作会上进行了讨论形成决议，基本认可地府《意见》，对《报告》中的情况也给予了充分肯定，并指出三个问题：</p>
-<p>一是地府工作力度偏软、偏散，要加强智慧赋能、数据共享，对于天庭掌握的修炼数据不能及时共享是造成本次事件的深层次原因；</p>
-<p>二是地府领导集体不够团结统一，工作中通气不足、存在隔阂；</p>
-<p>三是地府在工作人员外出作业期间存在跟踪问效不够的问题。</p>
-<p>会议基本同意了地府的处理意见。</p>
-<p>地府在接到《<strong>天庭关于地府修改生死簿问题的会议决议</strong>》之后，认真学习讨论了《决议》并拟定了整改计划，搞了整改“回头看”，并由酆都大帝在天庭党委扩大会上进行了深刻检查。</p>
-<p>最后，一个阴律司办事员小鬼在生死簿上轻轻地勾了一下，“孙悟空”这个条目不复存在。</p>
-<p>酆都大帝独自一人在自己屋子里的时候咬牙切齿的说：</p>
-<p>“改，改，改，改你老木啊改！谁特么再改谁就是孙子！”</p>
+<hr />
+<p>形式化题意：</p>
+<p>给出一张共 <span class="math inline">\(n\)</span> 个点，<span
+class="math inline">\(m\)</span> 条边的无向带权连通图 <span
+class="math inline">\(G\)</span>，边权均为正整数。给定此图的一个生成树
+<span class="math inline">\(T(G)\)</span>，它包含原图中所有的点。</p>
+<p>定义 <span class="math inline">\(D(i,j)\)</span> 为 <span
+class="math inline">\(G\)</span> 中结点 <span
+class="math inline">\(i\)</span> 与结点 <span
+class="math inline">\(j\)</span> 间的最短距离，<span
+class="math inline">\(F(i,j)\)</span> 为 <span
+class="math inline">\(T(G)\)</span> 中结点 <span
+class="math inline">\(i\)</span> 与结点 <span
+class="math inline">\(j\)</span> 间的最短距离。 特殊地，<span
+class="math inline">\(D(i,i)=F(i,i)=0\)</span>。</p>
+<p>设变量 <span class="math inline">\(Q_i\)</span>
+的取值为：当且仅当满足 <span class="math inline">\(\forall j\in
+[1,n],D(i,j)=F(i,j)\)</span> 时，<span
+class="math inline">\(Q_i\)</span> 为 <span
+class="math inline">\(1\)</span>；否则 <span
+class="math inline">\(Q_i\)</span> 为 <span
+class="math inline">\(0\)</span>。</p>
+<p>求 <span class="math inline">\(Q_{1\sim n}\)</span> 的值。</p>
+<h2 id="输入输出格式">输入输出格式</h2>
+<h3 id="输入格式">输入格式</h3>
+<p>输入的第一行为两个正整数 <span
+class="math inline">\(n,m\)</span>。</p>
+<p>接下来 <span class="math inline">\(m\)</span> 行，每行三个正整数
+<span class="math inline">\(u_i,v_i,l_i\)</span>，表示一条边权为 <span
+class="math inline">\(l_i\)</span> 的无向边 <span
+class="math inline">\((u_i,v_i)\)</span>。其中，给出的前 <span
+class="math inline">\(n-1\)</span> 条边为给定生成树上的边。</p>
+<h3 id="输出格式">输出格式</h3>
+<p>输出一行 <span class="math inline">\(n\)</span> 个数，第 <span
+class="math inline">\(i\)</span> 个数为 <span
+class="math inline">\(Q_i\)</span> 的值。</p>
+<h2 id="数据范围">数据范围</h2>
+<p><span class="math inline">\(1&lt;n&lt;m\le10^{5},1\le u_i,v_i\le
+n,1\le l_i\le 10^9\)</span>，所有数均为正整数。</p>
 ]]></content>
       <categories>
-        <category>幽默报</category>
+        <category>ACM</category>
+        <category>idea</category>
       </categories>
       <tags>
-        <tag>幽默报</tag>
+        <tag>最近公共祖先</tag>
+        <tag>二分查找</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【解析几何】齐次化联立</title>
+    <url>/2025/08/05/%E3%80%90%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95%E3%80%91%E9%BD%90%E6%AC%A1%E5%8C%96%E8%81%94%E7%AB%8B/</url>
+    <content><![CDATA[<p>点击“阅读全文”以观看 PDF。</p>
+<span id="more"></span>
+<div class="pdf-container" data-target="/assets/【解析几何】齐次化联立.pdf" data-height="600px"></div>
+]]></content>
+      <categories>
+        <category>数学</category>
+      </categories>
+      <tags>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一句话题解</title>
+    <url>/2025/08/30/%E4%B8%80%E5%8F%A5%E8%AF%9D%E9%A2%98%E8%A7%A3/</url>
+    <content><![CDATA[<p>给出链接、标签和一句话题解。</p>
+<ul>
+<li><p><a href="https://codeforces.com/contest/2101/problem/B"
+class="uri">https://codeforces.com/contest/2101/problem/B</a></p>
+<p><tag>逆序对</tag>
+奇数位只会被交换到奇数位，偶数位类似。奇偶分开考虑，如果奇数列和偶数列的逆序对个数相同（模
+<span class="math inline">\(2\)</span>
+意义下），则两者交换需求都可以满足，两数列必定各自有序；否则，有一个数列并非有序（其中一个序列无法排好最后两个数）。</p>
+<span id="more"></span></li>
+<li><p><a href="https://codeforces.com/contest/2106/problem/E"
+class="uri">https://codeforces.com/contest/2106/problem/E</a></p>
+<p><tag>贪心</tag> 对于一个二分查找，在找到 <span
+class="math inline">\(k\)</span> 之前，一定有一些数大于 <span
+class="math inline">\(k\)</span>，一些数小于 <span
+class="math inline">\(k\)</span>，大数、小数应当各得其所。设有 <span
+class="math inline">\(p\)</span> 个大数位置错误，<span
+class="math inline">\(q\)</span> 个小数位置错误，不妨设 <span
+class="math inline">\(p\ge q\)</span>。<span
+class="math inline">\(q\)</span> 个错误大数可以与小数交换，剩余 <span
+class="math inline">\(p-q\)</span> 个只能请外援，即答案为 <span
+class="math inline">\(2\times\max(p,q)\)</span>。</p></li>
+<li><p><a href="https://codeforces.com/contest/2106/problem/F"
+class="uri">https://codeforces.com/contest/2106/problem/F</a></p>
+<p><tag>思维题</tag> 对于 0-墙，其连通块形式为梯形；另外，只有宽度为
+<span class="math inline">\(1\)</span> 的 1-墙
+可以被“穿透”，形成大连通块。计算即可。</p></li>
+<li><p><a href="https://codeforces.com/contest/2109/problem/D"
+class="uri">https://codeforces.com/contest/2109/problem/D</a></p>
+<p><tag>最短路</tag> <tag>奇偶性</tag> <tag>贪心</tag>
+题目要求是否恰好走特定步数走到某点。假设到某点的最短距离为奇数，由于给的是无向图，可以来回走一条边，所以比此距离大的奇数步数都可以恰好走到。所以，求原图的奇偶最短路（奇数点更新偶数点，反之亦然），并算出题目所给集合子集和的最大奇数/最大偶数即可。</p></li>
+<li><p><a href="https://codeforces.com/contest/2111/problem/E"
+class="uri">https://codeforces.com/contest/2111/problem/E</a></p>
+<p><tag>毒瘤题</tag> <code>&gt;</code> 表示变为。记录
+<code>b&gt;a</code> <code>c&gt;a</code> <code>c&gt;b</code>
+的数量，并且记录合法的 <code>c&gt;b&gt;a</code> <code>b&gt;c&gt;a</code>
+数量（对每个 <code>c&gt;b</code> 查找后缀 <code>b&gt;a</code>
+数量，<code>b&gt;c&gt;a</code>
+同理）。然后直接暴力循环字符串贪心能换就换即可（注意，对于
+<code>c&gt;a</code>，由于 <code>c&gt;b</code> 操作会被用到，优先顺序为
+<code>c&gt;a</code> <code>c&gt;b&gt;a</code>
+<code>b&gt;c&gt;a</code>）。</p></li>
+</ul>
+<hr />
+<ul>
+<li><p><a href="https://codeforces.com/contest/2117/problem/F"
+class="uri">https://codeforces.com/contest/2117/problem/F</a></p>
+<p><tag>思维题</tag>
+首先，不能有三个及以上的叶节点。一个叶节点可以随便填，<span
+class="math inline">\(2^n\)</span>。两个叶节点的情况，考虑分成
+<code>root-&gt;lca</code> <code>lca-&gt;leaf1</code>
+<code>lca-&gt;leaf2</code>
+三条。第一条随便填。第二、三条，两个叶节点只能 12 或者 21，再往上只能全
+2，直到一条填满（如果长的填 1，则多填一个2）然后随便填。</p></li>
+<li><p><a href="https://codeforces.com/contest/2120/problem/D"
+class="uri">https://codeforces.com/contest/2120/problem/D</a></p>
+<p><tag>抽屉原理</tag> 因为字典序，所以先考虑 <span
+class="math inline">\(n\)</span> 最大，抽屉原理，<span
+class="math inline">\(n=((a-1)\times k+1)\)</span>
+个数字就能保证有一个数字出现 <span class="math inline">\(a\)</span>
+次，然后考虑竖着的，每列会给出现了 <span
+class="math inline">\(a\)</span> 次的那个数字的这种排列方式的出现数量
++1，当这种排列方式出现 <span class="math inline">\(b\)</span>
+次就寄了。注意，贪心得知如果一个数字出现 <span
+class="math inline">\(a+1\)</span>
+次或者更多，一列会对两个或者更多的排列方式
++1，不是最优情况。所以仍然根据抽屉原理，答案为 <span
+class="math inline">\(C_n^a \times k \times (b - 1) +
+1\)</span>。</p></li>
+<li><p><a href="https://codeforces.com/contest/2129/problem/B"
+class="uri">https://codeforces.com/contest/2129/problem/B</a></p>
+<p><tag>逆序对</tag> <tag>贪心</tag>
+注意到镜像之后这个数一定大于等于所有的原数，且小数镜像成为大数。所以从数字
+<span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(n\)</span>
+考虑是否镜像，以避免镜像后对以后的决策造成影响。只要镜像使得逆序对个数减少，就一定选择镜像。</p></li>
+<li><p><a href="https://codeforces.com/contest/2132/problem/E"
+class="uri">https://codeforces.com/contest/2132/problem/E</a></p>
+<p><tag>贪心</tag>
+这个题非常像归并排序的归并过程。对两个人的卡牌从大到小排序，并求出前
+<span class="math inline">\(i\)</span>
+张牌中分别包含有几张队员的牌。如果前 <span
+class="math inline">\(z\)</span>
+张牌有一个队员超出限制，只能用另一个队员的牌补足。</p></li>
+<li><p><a href="https://codeforces.com/contest/2124/problem/D"
+class="uri">https://codeforces.com/contest/2124/problem/D</a></p>
+<p><tag>思维题</tag> 显然前 <span class="math inline">\(k-1\)</span>
+小的数不可能被删掉，进而想到其他的数都可以被删掉，且比不删好。将数分为三类：<span
+class="math inline">\(&lt;k\)</span>，不可能被删掉；<span
+class="math inline">\(=k\)</span>，部分被删掉；<span
+class="math inline">\(&gt;k\)</span>，全部删掉。第一类数组成骨架，第二类数组成表皮。骨架必须是回文；在此基础上，骨架两端表皮长度应相等，内部应对称。双指针由骨架端点向内扫，遇到一端表皮必须删，遇到两端表皮不用删。</p></li>
+</ul>
+<hr />
+<ul>
+<li><p><a href="https://codeforces.com/contest/2127/problem/D"
+class="uri">https://codeforces.com/contest/2127/problem/D</a></p>
+<p><tag>计数题</tag> <tag>树的直径</tag>
+显然原图必须是一棵树，且除了直径上的点（不包括叶子），其他点度数必须均为
+<span
+class="math inline">\(1\)</span>。对于每个直径上的点（不包括叶子），其叶子都可以任意排列；另外，最终二分图可以跨河翻转，如果直径上的点（不包括叶子）
+<span class="math inline">\(\ge2\)</span> 还可以不跨河翻转。</p></li>
+</ul>
+]]></content>
+      <categories>
+        <category>ACM</category>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>思维题</tag>
+        <tag>最短路</tag>
+        <tag>贪心</tag>
+        <tag>毒瘤题</tag>
+        <tag>逆序对</tag>
+        <tag>抽屉原理</tag>
+        <tag>计数题</tag>
+        <tag>树的直径</tag>
       </tags>
   </entry>
   <entry>
@@ -2439,52 +2594,6 @@ Shelter(adapted)</a>里出现的代码。</p>
       </tags>
   </entry>
   <entry>
-    <title>欢迎</title>
-    <url>/2019/08/19/%E6%AC%A2%E8%BF%8E/</url>
-    <content><![CDATA[<p><img data-src="https://fastly.jsdelivr.net/gh/pmlrin/PicGo/new-welcome.jpg" /></p>
-<p>欢迎来到 <pr>Pomelorin</pr> 和 <cb>Cool-breeze</cb>
-的博客！希望我们能<cp>相互交流，共同进步</cp>～</p>
-<span id="more"></span>
-<h1 id="欢迎-dalao-来访">欢迎 Dalao 来访</h1>
-<h2 id="why-blog">Why Blog</h2>
-<div class="alert alert-info">
-Why Blog“三段论”来自 yelog，并非原创。
-</div>
-<p>喜欢写 Blog 的人，会经历三个阶段。</p>
-<blockquote>
-<p>第一阶段，刚接触 Blog，觉得很新鲜，试着选择一个免费空间来写。</p>
-</blockquote>
-<blockquote>
-<p>第二阶段，发现免费空间限制太多，就自己购买域名和空间，搭建独立博客。</p>
-</blockquote>
-<blockquote>
-<p>第三阶段，觉得独立博客的管理太麻烦，最好在保留控制权的前提下，让别人来管，自己只负责写文章。</p>
-</blockquote>
-<p>我们每个人的在网络上产生的数据越来越多，这些信息是我们在互联网上存在过的痕迹，值得我们认真对待。但是它们被分散分布在各个网站上。很多时候我们很难将它们聚合在一起，而且各个网站的信息排布方式也没有办法自由控制，所以我们需要一个可以由自己主宰的空间——博客。</p>
-<p>通过博客，我们可以记录自己的生活和成长的轨迹。它不像 Twitter
-那样碎片化，也不像 Facebook 那样关系化，它是私人的空间。</p>
-<h1 id="网站指南">网站指南</h1>
-<h2 id="侧边栏">侧边栏</h2>
-<ul>
-<li>说说：一些简短的话，不至于发新文章，以说说形式发布。</li>
-<li>留言：有什么想法、建议、吐槽、Bug 反馈，可以留言！</li>
-<li>链接：一些友链，以及有用的网站。</li>
-</ul>
-<h2 id="已知-bug">已知 Bug</h2>
-<ul>
-<li>本主题或多或少有一些无法解决的 Bug。</li>
-<li>题解的 CODE 会不可避免地被 HACK！Dalao 们若发现错误 /
-不明确的地方请提出您宝贵的意见。</li>
-</ul>
-<h2 id="其他">其他</h2>
-<p>本站域名不再更换。</p>
-<p>更换记录：<code>yz-hs.github.io</code> -&gt; <code>orzyz.tk</code>
--&gt; <code>yz-hs.tk</code> -&gt; <code>cieu.tk</code> -&gt;
-<code>yz-hs.github.io</code> -&gt; <code>Yurchiu.github.io</code> -&gt;
-<code>pmlrin.github.io</code>。</p>
-]]></content>
-  </entry>
-  <entry>
     <title>差分约束</title>
     <url>/2021/06/17/%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F/</url>
     <content><![CDATA[<h1 id="差分约束系统">差分约束系统</h1>
@@ -2601,123 +2710,49 @@ class="uri">https://www.luogu.com.cn/problem/P4878</a>。</p>
       </tags>
   </entry>
   <entry>
-    <title>一句话题解</title>
-    <url>/2025/08/30/%E4%B8%80%E5%8F%A5%E8%AF%9D%E9%A2%98%E8%A7%A3/</url>
-    <content><![CDATA[<p>给出链接、标签和一句话题解。</p>
+    <title>欢迎</title>
+    <url>/2019/08/19/%E6%AC%A2%E8%BF%8E/</url>
+    <content><![CDATA[<p><img data-src="https://fastly.jsdelivr.net/gh/pmlrin/PicGo/new-welcome.jpg" /></p>
+<p>欢迎来到 <pr>Pomelorin</pr> 和 <cb>Cool-breeze</cb>
+的博客！希望我们能<cp>相互交流，共同进步</cp>～</p>
+<span id="more"></span>
+<h1 id="欢迎-dalao-来访">欢迎 Dalao 来访</h1>
+<h2 id="why-blog">Why Blog</h2>
+<div class="alert alert-info">
+Why Blog“三段论”来自 yelog，并非原创。
+</div>
+<p>喜欢写 Blog 的人，会经历三个阶段。</p>
+<blockquote>
+<p>第一阶段，刚接触 Blog，觉得很新鲜，试着选择一个免费空间来写。</p>
+</blockquote>
+<blockquote>
+<p>第二阶段，发现免费空间限制太多，就自己购买域名和空间，搭建独立博客。</p>
+</blockquote>
+<blockquote>
+<p>第三阶段，觉得独立博客的管理太麻烦，最好在保留控制权的前提下，让别人来管，自己只负责写文章。</p>
+</blockquote>
+<p>我们每个人的在网络上产生的数据越来越多，这些信息是我们在互联网上存在过的痕迹，值得我们认真对待。但是它们被分散分布在各个网站上。很多时候我们很难将它们聚合在一起，而且各个网站的信息排布方式也没有办法自由控制，所以我们需要一个可以由自己主宰的空间——博客。</p>
+<p>通过博客，我们可以记录自己的生活和成长的轨迹。它不像 Twitter
+那样碎片化，也不像 Facebook 那样关系化，它是私人的空间。</p>
+<h1 id="网站指南">网站指南</h1>
+<h2 id="侧边栏">侧边栏</h2>
 <ul>
-<li><p><a href="https://codeforces.com/contest/2101/problem/B"
-class="uri">https://codeforces.com/contest/2101/problem/B</a></p>
-<p><tag>逆序对</tag>
-奇数位只会被交换到奇数位，偶数位类似。奇偶分开考虑，如果奇数列和偶数列的逆序对个数相同（模
-<span class="math inline">\(2\)</span>
-意义下），则两者交换需求都可以满足，两数列必定各自有序；否则，有一个数列并非有序（其中一个序列无法排好最后两个数）。</p>
-<span id="more"></span></li>
-<li><p><a href="https://codeforces.com/contest/2106/problem/E"
-class="uri">https://codeforces.com/contest/2106/problem/E</a></p>
-<p><tag>贪心</tag> 对于一个二分查找，在找到 <span
-class="math inline">\(k\)</span> 之前，一定有一些数大于 <span
-class="math inline">\(k\)</span>，一些数小于 <span
-class="math inline">\(k\)</span>，大数、小数应当各得其所。设有 <span
-class="math inline">\(p\)</span> 个大数位置错误，<span
-class="math inline">\(q\)</span> 个小数位置错误，不妨设 <span
-class="math inline">\(p\ge q\)</span>。<span
-class="math inline">\(q\)</span> 个错误大数可以与小数交换，剩余 <span
-class="math inline">\(p-q\)</span> 个只能请外援，即答案为 <span
-class="math inline">\(2\times\max(p,q)\)</span>。</p></li>
-<li><p><a href="https://codeforces.com/contest/2106/problem/F"
-class="uri">https://codeforces.com/contest/2106/problem/F</a></p>
-<p><tag>思维题</tag> 对于 0-墙，其连通块形式为梯形；另外，只有宽度为
-<span class="math inline">\(1\)</span> 的 1-墙
-可以被“穿透”，形成大连通块。计算即可。</p></li>
-<li><p><a href="https://codeforces.com/contest/2109/problem/D"
-class="uri">https://codeforces.com/contest/2109/problem/D</a></p>
-<p><tag>最短路</tag> <tag>奇偶性</tag> <tag>贪心</tag>
-题目要求是否恰好走特定步数走到某点。假设到某点的最短距离为奇数，由于给的是无向图，可以来回走一条边，所以比此距离大的奇数步数都可以恰好走到。所以，求原图的奇偶最短路（奇数点更新偶数点，反之亦然），并算出题目所给集合子集和的最大奇数/最大偶数即可。</p></li>
-<li><p><a href="https://codeforces.com/contest/2111/problem/E"
-class="uri">https://codeforces.com/contest/2111/problem/E</a></p>
-<p><tag>毒瘤题</tag> <code>&gt;</code> 表示变为。记录
-<code>b&gt;a</code> <code>c&gt;a</code> <code>c&gt;b</code>
-的数量，并且记录合法的 <code>c&gt;b&gt;a</code> <code>b&gt;c&gt;a</code>
-数量（对每个 <code>c&gt;b</code> 查找后缀 <code>b&gt;a</code>
-数量，<code>b&gt;c&gt;a</code>
-同理）。然后直接暴力循环字符串贪心能换就换即可（注意，对于
-<code>c&gt;a</code>，由于 <code>c&gt;b</code> 操作会被用到，优先顺序为
-<code>c&gt;a</code> <code>c&gt;b&gt;a</code>
-<code>b&gt;c&gt;a</code>）。</p></li>
+<li>说说：一些简短的话，不至于发新文章，以说说形式发布。</li>
+<li>留言：有什么想法、建议、吐槽、Bug 反馈，可以留言！</li>
+<li>链接：一些友链，以及有用的网站。</li>
 </ul>
-<hr />
+<h2 id="已知-bug">已知 Bug</h2>
 <ul>
-<li><p><a href="https://codeforces.com/contest/2117/problem/F"
-class="uri">https://codeforces.com/contest/2117/problem/F</a></p>
-<p><tag>思维题</tag>
-首先，不能有三个及以上的叶节点。一个叶节点可以随便填，<span
-class="math inline">\(2^n\)</span>。两个叶节点的情况，考虑分成
-<code>root-&gt;lca</code> <code>lca-&gt;leaf1</code>
-<code>lca-&gt;leaf2</code>
-三条。第一条随便填。第二、三条，两个叶节点只能 12 或者 21，再往上只能全
-2，直到一条填满（如果长的填 1，则多填一个2）然后随便填。</p></li>
-<li><p><a href="https://codeforces.com/contest/2120/problem/D"
-class="uri">https://codeforces.com/contest/2120/problem/D</a></p>
-<p><tag>抽屉原理</tag> 因为字典序，所以先考虑 <span
-class="math inline">\(n\)</span> 最大，抽屉原理，<span
-class="math inline">\(n=((a-1)\times k+1)\)</span>
-个数字就能保证有一个数字出现 <span class="math inline">\(a\)</span>
-次，然后考虑竖着的，每列会给出现了 <span
-class="math inline">\(a\)</span> 次的那个数字的这种排列方式的出现数量
-+1，当这种排列方式出现 <span class="math inline">\(b\)</span>
-次就寄了。注意，贪心得知如果一个数字出现 <span
-class="math inline">\(a+1\)</span>
-次或者更多，一列会对两个或者更多的排列方式
-+1，不是最优情况。所以仍然根据抽屉原理，答案为 <span
-class="math inline">\(C_n^a \times k \times (b - 1) +
-1\)</span>。</p></li>
-<li><p><a href="https://codeforces.com/contest/2129/problem/B"
-class="uri">https://codeforces.com/contest/2129/problem/B</a></p>
-<p><tag>逆序对</tag> <tag>贪心</tag>
-注意到镜像之后这个数一定大于等于所有的原数，且小数镜像成为大数。所以从数字
-<span class="math inline">\(1\)</span> 到 <span
-class="math inline">\(n\)</span>
-考虑是否镜像，以避免镜像后对以后的决策造成影响。只要镜像使得逆序对个数减少，就一定选择镜像。</p></li>
-<li><p><a href="https://codeforces.com/contest/2132/problem/E"
-class="uri">https://codeforces.com/contest/2132/problem/E</a></p>
-<p><tag>贪心</tag>
-这个题非常像归并排序的归并过程。对两个人的卡牌从大到小排序，并求出前
-<span class="math inline">\(i\)</span>
-张牌中分别包含有几张队员的牌。如果前 <span
-class="math inline">\(z\)</span>
-张牌有一个队员超出限制，只能用另一个队员的牌补足。</p></li>
-<li><p><a href="https://codeforces.com/contest/2124/problem/D"
-class="uri">https://codeforces.com/contest/2124/problem/D</a></p>
-<p><tag>思维题</tag> 显然前 <span class="math inline">\(k-1\)</span>
-小的数不可能被删掉，进而想到其他的数都可以被删掉，且比不删好。将数分为三类：<span
-class="math inline">\(&lt;k\)</span>，不可能被删掉；<span
-class="math inline">\(=k\)</span>，部分被删掉；<span
-class="math inline">\(&gt;k\)</span>，全部删掉。第一类数组成骨架，第二类数组成表皮。骨架必须是回文；在此基础上，骨架两端表皮长度应相等，内部应对称。双指针由骨架端点向内扫，遇到一端表皮必须删，遇到两端表皮不用删。</p></li>
+<li>本主题或多或少有一些无法解决的 Bug。</li>
+<li>题解的 CODE 会不可避免地被 HACK！Dalao 们若发现错误 /
+不明确的地方请提出您宝贵的意见。</li>
 </ul>
-<hr />
-<ul>
-<li><p><a href="https://codeforces.com/contest/2127/problem/D"
-class="uri">https://codeforces.com/contest/2127/problem/D</a></p>
-<p><tag>计数题</tag> <tag>树的直径</tag>
-显然原图必须是一棵树，且除了直径上的点（不包括叶子），其他点度数必须均为
-<span
-class="math inline">\(1\)</span>。对于每个直径上的点（不包括叶子），其叶子都可以任意排列；另外，最终二分图可以跨河翻转，如果直径上的点（不包括叶子）
-<span class="math inline">\(\ge2\)</span> 还可以不跨河翻转。</p></li>
-</ul>
+<h2 id="其他">其他</h2>
+<p>本站域名不再更换。</p>
+<p>更换记录：<code>yz-hs.github.io</code> -&gt; <code>orzyz.tk</code>
+-&gt; <code>yz-hs.tk</code> -&gt; <code>cieu.tk</code> -&gt;
+<code>yz-hs.github.io</code> -&gt; <code>Yurchiu.github.io</code> -&gt;
+<code>pmlrin.github.io</code>。</p>
 ]]></content>
-      <categories>
-        <category>ACM</category>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>思维题</tag>
-        <tag>最短路</tag>
-        <tag>贪心</tag>
-        <tag>毒瘤题</tag>
-        <tag>逆序对</tag>
-        <tag>抽屉原理</tag>
-        <tag>计数题</tag>
-        <tag>树的直径</tag>
-      </tags>
   </entry>
 </search>
