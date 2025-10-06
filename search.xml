@@ -236,9 +236,9 @@ class="math inline">\(6\)</span>
         <category>题解</category>
       </categories>
       <tags>
-        <tag>思维题</tag>
-        <tag>动态规划</tag>
         <tag>最大公约数</tag>
+        <tag>动态规划</tag>
+        <tag>思维题</tag>
         <tag>容斥</tag>
         <tag>搜索与剪枝</tag>
       </tags>
@@ -463,10 +463,10 @@ class="math inline">\(1\)</span>。对于每个直径上的点（不包括叶子
         <category>题解</category>
       </categories>
       <tags>
-        <tag>思维题</tag>
         <tag>最短路</tag>
-        <tag>毒瘤题</tag>
+        <tag>思维题</tag>
         <tag>贪心</tag>
+        <tag>毒瘤题</tag>
         <tag>逆序对</tag>
         <tag>抽屉原理</tag>
         <tag>计数题</tag>
@@ -577,8 +577,8 @@ class="math inline">\(a_i\)</span> 的贡献。</p>
         <category>题解</category>
       </categories>
       <tags>
-        <tag>思维题</tag>
         <tag>动态规划</tag>
+        <tag>思维题</tag>
         <tag>状态压缩</tag>
         <tag>单调栈</tag>
         <tag>诈骗题</tag>
@@ -1049,8 +1049,8 @@ class="math inline">\(i\)</span>，这样就能还原排列。</p>
         <category>题解</category>
       </categories>
       <tags>
-        <tag>思维题</tag>
         <tag>ACM</tag>
+        <tag>思维题</tag>
         <tag>线段树</tag>
       </tags>
   </entry>
@@ -1280,11 +1280,11 @@ f(i,j,a_i)=\sum_{k\in C} f(i-1,j-1,k)
         <category>题解</category>
       </categories>
       <tags>
-        <tag>思维题</tag>
-        <tag>动态规划</tag>
         <tag>ACM</tag>
         <tag>最大公约数</tag>
+        <tag>动态规划</tag>
         <tag>最短路</tag>
+        <tag>思维题</tag>
       </tags>
   </entry>
   <entry>
@@ -2381,8 +2381,8 @@ class="math inline">\(O(n^2\alpha(n))\)</span>。</p>
         <category>社团讲评</category>
       </categories>
       <tags>
-        <tag>毒瘤题</tag>
         <tag>贪心</tag>
+        <tag>毒瘤题</tag>
         <tag>暴搜</tag>
         <tag>并查集</tag>
         <tag>链表</tag>

@@ -1375,7 +1375,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #eea721;
+  background: #f6cbd7;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3148,4 +3148,9 @@ article p {
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+article p::-webkit-scrollbar {
+  display: none;
 }
