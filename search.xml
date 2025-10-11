@@ -236,9 +236,9 @@ class="math inline">\(6\)</span>
         <category>题解</category>
       </categories>
       <tags>
-        <tag>最大公约数</tag>
-        <tag>动态规划</tag>
         <tag>思维题</tag>
+        <tag>动态规划</tag>
+        <tag>最大公约数</tag>
         <tag>容斥</tag>
         <tag>搜索与剪枝</tag>
       </tags>
@@ -284,12 +284,12 @@ class="math inline">\(10^5\)</span>。</p>
     <content><![CDATA[<h1 id="g.-omg-graph"><pr>G. Omg Graph</pr></h1>
 <p><a href="https://codeforces.com/contest/2117/problem/G"
 class="uri">https://codeforces.com/contest/2117/problem/G</a></p>
-<p>给定无向带权连通图，定义一条路径的花费为路径经过的边中，边权最大值 +
-最小值。求从 <span class="math inline">\(1\)</span> 到 <span
+<p>给定无向带权连通图，定义一条路径的花费为：路径经过的边中，边权最大值
++ 最小值。求从 <span class="math inline">\(1\)</span> 到 <span
 class="math inline">\(n\)</span>
 路径中的最小花费（注意不一定是简单路径）。</p>
 <p><span
-class="math inline">\(2≤n≤2⋅10^5,n−1≤m≤\min(2⋅10^5,n(n−1)/2),1≤u,v≤n,1≤w≤10^9\)</span>。</p>
+class="math inline">\(2≤n≤2⋅10^5,n−1≤m≤\min(2⋅10^5,n(n−1)/2),1≤u,v≤n,1≤w≤10^9\)</span></p>
 <span id="more"></span>
 <details>
 <summary>
@@ -343,12 +343,39 @@ class="math inline">\(5\)</span>，最后算 <span
 class="math inline">\(1\sim46\)</span> 递归解决即可。</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">150000</span> + <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line">ll k, st[<span class="number">100</span>], tmp[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">calc</span><span class="params">(ll num)</span> </span>&#123;</span><br><span class="line">    ll len = <span class="number">0</span>, tmp = num, full, res, ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (num &lt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (tmp &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        tmp /= <span class="number">10</span>;</span><br><span class="line">        len++;</span><br><span class="line">    &#125;</span><br><span class="line">    full = (num + <span class="number">1</span>) / (ll) <span class="built_in">pow</span>(<span class="number">10</span>, len - <span class="number">1</span>);</span><br><span class="line">    res = (num + <span class="number">1</span>) % (ll) <span class="built_in">pow</span>(<span class="number">10</span>, len - <span class="number">1</span>);</span><br><span class="line">    ret += full * (full - <span class="number">1</span>) / <span class="number">2</span> * <span class="built_in">pow</span>(<span class="number">10</span>, len - <span class="number">1</span>);</span><br><span class="line">    ret += full * <span class="built_in">calc</span>(<span class="built_in">pow</span>(<span class="number">10</span>, len - <span class="number">1</span>) - <span class="number">1</span>);</span><br><span class="line">    ret += full * res;</span><br><span class="line">    ret += <span class="built_in">calc</span>(res - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T, b10 = <span class="number">1</span>, num, base, add, num2, res, len;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= <span class="number">16</span>; i++) &#123;</span><br><span class="line">        st[i] = i * <span class="number">9</span> * b10 + st[i - <span class="number">1</span>];</span><br><span class="line">        b10 *= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        cin &gt;&gt; k;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">0</span>; i &lt;= <span class="number">15</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (k &lt;= st[i + <span class="number">1</span>] &amp;&amp; k &gt;= st[i]) &#123;</span><br><span class="line">                base = i;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= base; i++) &#123;</span><br><span class="line">            k += <span class="built_in">pow</span>(<span class="number">10</span>, i) - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        num = k / (base + <span class="number">1</span>);</span><br><span class="line">        res = k % (base + <span class="number">1</span>);</span><br><span class="line">        num2 = num + <span class="number">1</span>;</span><br><span class="line">        add = len = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= <span class="number">16</span>; i++)</span><br><span class="line">            tmp[i] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; num2 &gt; <span class="number">0</span>; i++) &#123;</span><br><span class="line">            tmp[i] = num2 % <span class="number">10</span>;</span><br><span class="line">            num2 /= <span class="number">10</span>, len++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (res &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            add += tmp[len];</span><br><span class="line">            res--, len--;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; <span class="built_in">calc</span>(num) + add &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
+<h1 id="d.-not-alone"><pr>D. Not Alone</pr></h1>
+<p><a href="https://codeforces.com/contest/2153/problem/D"
+class="uri">https://codeforces.com/contest/2153/problem/D</a></p>
+<p>如果环形数列中每个数存在至少一个与之相等的相邻数，称这个数列是好数列。</p>
+<p>给一个长度为 <span class="math inline">\(n\)</span> 的环形数列 <span
+class="math inline">\(a\)</span>。可以进行任意次操作：对数列中任意一个数增加或减少一。求最少需要多少次操作，将
+<span class="math inline">\(a\)</span> 数列变为好数列。</p>
+<p><span class="math inline">\(3≤n≤2⋅10^5,1≤a_i≤10^9\)</span></p>
+<!-- more -->
+<details>
+<summary>
+点击查看题解
+</summary>
+<p><tag>思维题</tag> 好数列 →
+数列中的数形成一系列大小大于一的连通块（块内数字均相等）→
+连通块大小不需要超过 <span
+class="math inline">\(3\)</span>，否则不优。</p>
+<p>对于非环形数列，可以使用 DP 解决：设 <span
+class="math inline">\(f(i,2/3)\)</span> 表示将 <span
+class="math inline">\(a[1:i]\)</span> 变成好数列，且末尾连通块大小为
+<span class="math inline">\(2/3\)</span> 的最少操作。</p>
+<p>对于题目要求环形数列，需要断环为链。考虑到连通块大小不超过 <span
+class="math inline">\(3\)</span>，所以只需要取断点 <span
+class="math inline">\(1,2,3\)</span> 号位即可。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">4e5</span> + <span class="number">10</span>, inf = <span class="number">1145141919810999999</span>;</span><br><span class="line"></span><br><span class="line">ll n, d[N], f[N][<span class="number">4</span>];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">calc</span><span class="params">(ll a[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (ll j = <span class="number">2</span>; j &lt;= <span class="number">3</span>; j++) &#123;</span><br><span class="line">            f[i][j] = inf;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    f[<span class="number">0</span>][<span class="number">2</span>] = f[<span class="number">0</span>][<span class="number">3</span>] = <span class="number">0</span>;</span><br><span class="line">    f[<span class="number">2</span>][<span class="number">2</span>] = <span class="built_in">abs</span>(a[<span class="number">1</span>] - a[<span class="number">2</span>]);</span><br><span class="line">    f[<span class="number">3</span>][<span class="number">3</span>] = <span class="built_in">max</span>(&#123;a[<span class="number">1</span>], a[<span class="number">2</span>], a[<span class="number">3</span>]&#125;) - <span class="built_in">min</span>(&#123;a[<span class="number">1</span>], a[<span class="number">2</span>], a[<span class="number">3</span>]&#125;);</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">3</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        ll p2 = <span class="built_in">abs</span>(a[i] - a[i - <span class="number">1</span>]);</span><br><span class="line">        ll p3 = <span class="built_in">max</span>(&#123;a[i], a[i - <span class="number">1</span>], a[i - <span class="number">2</span>]&#125;) - <span class="built_in">min</span>(&#123;a[i], a[i - <span class="number">1</span>], a[i - <span class="number">2</span>]&#125;);</span><br><span class="line">        f[i][<span class="number">2</span>] = <span class="built_in">min</span>(f[i - <span class="number">2</span>][<span class="number">2</span>], f[i - <span class="number">2</span>][<span class="number">3</span>]) + p2;</span><br><span class="line">        f[i][<span class="number">3</span>] = <span class="built_in">min</span>(f[i - <span class="number">3</span>][<span class="number">2</span>], f[i - <span class="number">3</span>][<span class="number">3</span>]) + p3;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">min</span>(f[n][<span class="number">2</span>], f[n][<span class="number">3</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        cin &gt;&gt; d[i];</span><br><span class="line">        d[i + n] = d[i];</span><br><span class="line">    &#125;</span><br><span class="line">    ll ans = inf;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</span><br><span class="line">        ans = <span class="built_in">min</span>(ans, <span class="built_in">calc</span>(d + i));</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
 ]]></content>
       <categories>
         <category>ACM</category>
         <category>题解</category>
       </categories>
       <tags>
+        <tag>思维题</tag>
         <tag>最小生成树</tag>
         <tag>毒瘤题</tag>
       </tags>
@@ -463,10 +490,10 @@ class="math inline">\(1\)</span>。对于每个直径上的点（不包括叶子
         <category>题解</category>
       </categories>
       <tags>
-        <tag>最短路</tag>
         <tag>思维题</tag>
-        <tag>贪心</tag>
+        <tag>最短路</tag>
         <tag>毒瘤题</tag>
+        <tag>贪心</tag>
         <tag>逆序对</tag>
         <tag>抽屉原理</tag>
         <tag>计数题</tag>
@@ -577,8 +604,8 @@ class="math inline">\(a_i\)</span> 的贡献。</p>
         <category>题解</category>
       </categories>
       <tags>
-        <tag>动态规划</tag>
         <tag>思维题</tag>
+        <tag>动态规划</tag>
         <tag>状态压缩</tag>
         <tag>单调栈</tag>
         <tag>诈骗题</tag>
@@ -1049,8 +1076,8 @@ class="math inline">\(i\)</span>，这样就能还原排列。</p>
         <category>题解</category>
       </categories>
       <tags>
-        <tag>ACM</tag>
         <tag>思维题</tag>
+        <tag>ACM</tag>
         <tag>线段树</tag>
       </tags>
   </entry>
@@ -1280,11 +1307,11 @@ f(i,j,a_i)=\sum_{k\in C} f(i-1,j-1,k)
         <category>题解</category>
       </categories>
       <tags>
+        <tag>思维题</tag>
+        <tag>动态规划</tag>
         <tag>ACM</tag>
         <tag>最大公约数</tag>
-        <tag>动态规划</tag>
         <tag>最短路</tag>
-        <tag>思维题</tag>
       </tags>
   </entry>
   <entry>
@@ -2381,8 +2408,8 @@ class="math inline">\(O(n^2\alpha(n))\)</span>。</p>
         <category>社团讲评</category>
       </categories>
       <tags>
-        <tag>贪心</tag>
         <tag>毒瘤题</tag>
+        <tag>贪心</tag>
         <tag>暴搜</tag>
         <tag>并查集</tag>
         <tag>链表</tag>
