@@ -696,8 +696,8 @@ class="math inline">\(x\)</span>。</p>
       <tags>
         <tag>最短路</tag>
         <tag>思维题</tag>
-        <tag>毒瘤题</tag>
         <tag>贪心</tag>
+        <tag>毒瘤题</tag>
         <tag>逆序对</tag>
         <tag>抽屉原理</tag>
         <tag>计数题</tag>
@@ -2615,8 +2615,8 @@ class="math inline">\(O(n^2\alpha(n))\)</span>。</p>
         <category>社团讲评</category>
       </categories>
       <tags>
-        <tag>毒瘤题</tag>
         <tag>贪心</tag>
+        <tag>毒瘤题</tag>
         <tag>暴搜</tag>
         <tag>并查集</tag>
         <tag>链表</tag>
