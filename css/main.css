@@ -1375,7 +1375,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #fff;
+  background: #8c220a;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3159,4 +3159,7 @@ article p::-webkit-scrollbar {
   bottom: 5%;
   right: 0.8%;
   width: 13%;
+}
+article blockquote {
+  background-color: #fafafa;
 }
