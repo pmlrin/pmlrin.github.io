@@ -48,6 +48,157 @@ Why Blog“三段论”来自 yelog，并非原创。
 ]]></content>
   </entry>
   <entry>
+    <title>模板——数学类</title>
+    <url>/2025/11/06/%E6%A8%A1%E6%9D%BF%E2%80%94%E2%80%94%E6%95%B0%E5%AD%A6%E7%B1%BB/</url>
+    <content><![CDATA[<h1 id="模板数学类">模板——数学类</h1>
+<p>快速幂，质数线性筛，<strong>质</strong>因数分解，欧几里得（gcd），扩展欧几里得（exgcd），求欧拉函数
+<span
+class="math inline">\(\varphi(x)\)</span>，欧拉定理，扩展欧拉定理，中国剩余定理（CRT），在任意模意义下的逆元，同余最短路，组合数，Lucas
+定理，卡特兰数，递推求逆元，拉格朗日插值。</p>
+<span id="more"></span>
+<h2 id="快速幂">快速幂</h2>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">ll <span class="title">qpow</span><span class="params">(ll a, ll b, ll p)</span> </span>&#123;</span><br><span class="line">    ll ret = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (b) &#123;</span><br><span class="line">        <span class="keyword">if</span> (b % <span class="number">2</span>)</span><br><span class="line">            ret = ret * a % p;</span><br><span class="line">        a = a * a % p;</span><br><span class="line">        b /= <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="质数线性筛">质数线性筛</h2>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">vector&lt;ll&gt; primes;</span><br><span class="line">ll notprime[M];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">eular</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    notprime[<span class="number">0</span>] = notprime[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">2</span>; i &lt;= M - <span class="number">10</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (notprime[i] == <span class="number">0</span>) &#123;</span><br><span class="line">            primes.<span class="built_in">push_back</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> j: primes) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i * j &gt; M - <span class="number">10</span>)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            notprime[i * j] = <span class="number">1</span>;<span class="comment">//i*j 的最小质因数是 j</span></span><br><span class="line">            <span class="keyword">if</span> (i % j == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="质因数分解">质因数分解</h2>
+<p>此方法 <span class="math inline">\(O(\sqrt{n})\)</span>。</p>
+<p>值域不大时可用最小质因数来质因数分解，<span
+class="math inline">\(O(\log n)\)</span>。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">vector&lt;ll&gt; primes;</span><br><span class="line"><span class="function">vector&lt;ll&gt; <span class="title">fact</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">    vector&lt;ll&gt; ret;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> p: primes) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p * p &gt; x)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">if</span> (x % p == <span class="number">0</span>) &#123;</span><br><span class="line">            ret.<span class="built_in">push_back</span>(p);</span><br><span class="line">            <span class="keyword">while</span> (x % p == <span class="number">0</span>) &#123;</span><br><span class="line">                x /= p;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (x != <span class="number">1</span>)</span><br><span class="line">        ret.<span class="built_in">push_back</span>(x);</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="欧几里得gcd">欧几里得（gcd）</h2>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">ll <span class="title">gcd</span><span class="params">(ll a, ll b)</span> </span>&#123; <span class="keyword">return</span> b ? <span class="built_in">gcd</span>(b, a % b) : a; &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="扩展欧几里得exgcd">扩展欧几里得（exgcd）</h2>
+<p>求出 <span class="math inline">\(ax + by = \gcd(a, b)\)</span>
+的一组特解 <span class="math inline">\(x_0,y_0\)</span>。</p>
+<p>通解：<span
+class="math inline">\(x=x_0+kb/\gcd,y=y_0-ka/\gcd\)</span>。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">ll <span class="title">exgcd</span><span class="params">(ll a, ll b, ll &amp;x, ll &amp;y)</span> </span>&#123;</span><br><span class="line">    ll ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (b == <span class="number">0</span>) &#123;</span><br><span class="line">        x = <span class="number">1</span>;</span><br><span class="line">        y = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">    ret = <span class="built_in">exgcd</span>(b, a % b, y, x);</span><br><span class="line">    y -= a / b * x;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="求欧拉函数-varphix">求欧拉函数 <span
+class="math inline">\(\varphi(x)\)</span></h2>
+<p>直接求：质因数分解。设 <span class="math inline">\(n =
+\prod_{i=1}^{s}p_i^{k_i}\)</span>，其中 <span
+class="math inline">\(p_i\)</span> 是质数，有 <span
+class="math inline">\(\varphi(n) = n \times \prod_{i = 1}^s{\dfrac{p_i -
+1}{p_i}}\)</span>。</p>
+<p>线性筛：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    notprime[<span class="number">0</span>] = notprime[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">2</span>; i &lt;= M - <span class="number">10</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (notprime[i] == <span class="number">0</span>) &#123;</span><br><span class="line">            primes.<span class="built_in">push_back</span>(i);</span><br><span class="line">            phi[i] = i - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> j: primes) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i * j &gt; M - <span class="number">10</span>)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            notprime[i * j] = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (i % j != <span class="number">0</span>) &#123;</span><br><span class="line">                phi[i * j] = phi[i] * phi[j];<span class="comment">//积性函数</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i % j == <span class="number">0</span>) &#123;</span><br><span class="line">                phi[i * j] = phi[i] * j;<span class="comment">//根据“直接求”</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="欧拉定理">欧拉定理</h2>
+<p>与欧拉函数紧密相关的一个定理就是欧拉定理。其描述如下：</p>
+<p>若 <span class="math inline">\(\gcd(a, m) = 1\)</span>，则 <span
+class="math inline">\(a^{\varphi(m)} \equiv 1 \pmod{m}\)</span>。</p>
+<h2 id="扩展欧拉定理">扩展欧拉定理</h2>
+<p>当然也有扩展欧拉定理，用于处理一般的 <span
+class="math inline">\(a\)</span> 和 <span
+class="math inline">\(m\)</span> 的情形。</p>
+<p><span class="math display">\[
+a^b\equiv
+\begin{cases}
+a^{b\bmod\varphi(m)},\,&amp;\gcd(a,\,m)=1\\
+a^b,&amp;\gcd(a,\,m)\ne1,\,b&lt;\varphi(m)\\
+a^{b\bmod\varphi(m)+\varphi(m)},&amp;\gcd(a,\,m)\ne1,\,b\ge\varphi(m)
+\end{cases}
+\pmod m
+\]</span></p>
+<h2 id="中国剩余定理crt">中国剩余定理（CRT）</h2>
+<p>包含在任意模意义下的逆元求法。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> ll N = <span class="number">10</span> + <span class="number">10</span>;</span><br><span class="line">ll n, a[N], m[N], M = <span class="number">1</span>, Mi, ti, ans = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">exgcd</span><span class="params">(ll a, ll b, ll &amp;x, ll &amp;y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (b == <span class="number">0</span>) &#123;</span><br><span class="line">        x = <span class="number">1</span>;</span><br><span class="line">        y = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">exgcd</span>(b, a % b, y, x);</span><br><span class="line">    y -= a / b * x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">inv</span><span class="params">(ll x, ll mod)</span> </span>&#123;<span class="comment">//在任意模意义下的逆元</span></span><br><span class="line">    ll y;</span><br><span class="line">    <span class="built_in">exgcd</span>(x, mod, x, y);</span><br><span class="line">    <span class="keyword">return</span> (x % mod + mod) % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%lld%lld&quot;</span>, m + i, a + i);</span><br><span class="line">        M *= m[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        Mi = M / m[i];</span><br><span class="line">        ti = <span class="built_in">inv</span>(Mi, m[i]);</span><br><span class="line">        ans = (ans + a[i] * Mi * ti % M) % M;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>, ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="同余最短路">同余最短路</h2>
+<p>当出现形如「给定 <span class="math inline">\(n\)</span> 个整数，求这
+<span class="math inline">\(n\)</span>
+个整数能拼凑出多少的其他整数（<span class="math inline">\(n\)</span>
+个整数可以重复取）」，以及「给定 <span class="math inline">\(n\)</span>
+个整数，求这 <span class="math inline">\(n\)</span>
+个整数不能拼凑出的最小（最大）的整数」，或者「至少要拼几次才能拼出模
+<span class="math inline">\(K\)</span> 余 <span
+class="math inline">\(p\)</span>
+的数」的问题时可以使用同余最短路的方法。</p>
+<p>同余最短路利用同余来构造一些状态，可以达到优化空间复杂度的目的。</p>
+<p>类比差分约束方法，利用同余构造的这些状态可以看作单源最短路中的点。同余最短路的状态转移通常是这样的
+<span class="math inline">\(f(i+y) = f(i) + y\)</span>，类似单源最短路中
+<span class="math inline">\(f(v) = f(u) +edge(u,v)\)</span>。</p>
+<blockquote>
+<p>给定 <span class="math inline">\(x，y，z，h\)</span>，对于 <span
+class="math inline">\(k \in [1,h]\)</span>，有多少个 <span
+class="math inline">\(k\)</span> 能够满足 <span
+class="math inline">\(ax+by+cz=k\)</span>。（<span
+class="math inline">\(0\leq a,b,c\)</span>，<span
+class="math inline">\(1\le x,y,z\le 10^5\)</span>，<span
+class="math inline">\(h\le 2^{63}-1\)</span>）</p>
+<p>不妨假设 <span class="math inline">\(x &lt; y &lt; z\)</span>。</p>
+<p>令 <span class="math inline">\(d_i\)</span> 为只通过 <span
+class="math inline">\(x\)</span> 和 <span
+class="math inline">\(y\)</span>，需满足 <span
+class="math inline">\(p\bmod x = i\)</span> 能够达到的最低楼层 <span
+class="math inline">\(p\)</span>，即 <span
+class="math inline">\(x\)</span> 和 <span
+class="math inline">\(y\)</span> 操作后能得到的模 <span
+class="math inline">\(x\)</span> 下与 <span
+class="math inline">\(i\)</span>
+同余的最小数，用来计算该同余类满足条件的数个数。</p>
+<p>可以得到两个状态：</p>
+<ul>
+<li><p><span class="math inline">\(i \xrightarrow{y} (i+y) \bmod
+x\)</span></p></li>
+<li><p><span class="math inline">\(i \xrightarrow{z} (i+z) \bmod
+x\)</span></p></li>
+</ul>
+<p>注意通常选取一组 <span class="math inline">\(a_i\)</span>
+中最小的那个数对它取模，也就是此处的 <span
+class="math inline">\(x\)</span>，这样可以尽量减小空间复杂度（剩余系最小）。</p>
+<p>那么实际上相当于执行了最短路中的建边操作：</p>
+<p><code>add(i, (i+y) % x, y)</code></p>
+<p><code>add(i, (i+z) % x, z)</code></p>
+<p>接下来只需要求出 <span class="math inline">\(d_0, d_1, d_2, \dots,
+d_{x-1}\)</span>，只需要跑一次最短路就可求出相应的 <span
+class="math inline">\(d_i\)</span>。</p>
+</blockquote>
+<h2 id="lucas-定理">Lucas 定理</h2>
+<p>含有组合数模板。</p>
+<p>对于<strong>素数</strong> <span class="math inline">\(p\)</span>，有
+<span class="math display">\[
+\binom{n}{k}\equiv \binom{\lfloor n/p\rfloor}{\lfloor
+k/p\rfloor}\binom{n\bmod p}{k\bmod p}\pmod p.
+\]</span></p>
+<p>其中，当 <span class="math inline">\(n&lt;k\)</span> 时，二项式系数
+<span class="math inline">\(\dbinom{n}{k}\)</span> 规定为 <span
+class="math inline">\(0\)</span>。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> ll N = <span class="number">200000</span> + <span class="number">10</span>;</span><br><span class="line">ll n, m, p, mul[N], inv[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    mul[<span class="number">0</span>] = mul[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">2</span>; i &lt;= n + m; i++)</span><br><span class="line">        mul[i] = mul[i - <span class="number">1</span>] * i % p;</span><br><span class="line">    inv[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">2</span>; i &lt;= p - <span class="number">1</span>; i++)</span><br><span class="line">        inv[i] = ((-p / i * inv[p % i]) % p + p) % p;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">C</span><span class="params">(ll n, ll m)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; m)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> mul[n] * inv[mul[m] * mul[n - m] % p] % p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">Lucas</span><span class="params">(ll n, ll m, ll p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (m == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">C</span>(n % p, m % p) * <span class="built_in">Lucas</span>(n / p, m / p, p) % p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ll T;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>, &amp;T);</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%lld%lld%lld&quot;</span>, &amp;n, &amp;m, &amp;p);</span><br><span class="line">        <span class="built_in">init</span>();</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>, <span class="built_in">Lucas</span>(n + m, n, p));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="卡特兰数">卡特兰数</h2>
+<p>含有递推求逆元。</p>
+<p>Catalan 数满足如下递推关系：</p>
+<p><span class="math display">\[
+C_n = \begin{cases}
+1, &amp; n = 0, \\
+\sum_{i=0}^{n-1} C_{i}C_{n-1-i}, &amp; n &gt; 0.
+\end{cases}
+\]</span> Catalan 数 <span class="math inline">\(C_n\)</span>
+的递推关系有着天然的递归结构：规模为 <span
+class="math inline">\(n\)</span> 的计数问题 <span
+class="math inline">\(C_n\)</span>，可以通过枚举分界点，分拆为两个规模分别为
+<span class="math inline">\(i\)</span> 和 <span
+class="math inline">\((n-1-i)\)</span> 的子问题。这一递推关系使得
+Catalan 数广泛出现于各类具有类似递归结构的问题中。</p>
+<p>Catalan 数有如下常见的表达式：</p>
+<p><span class="math display">\[
+C_n = \frac{1}{n+1}\binom{2n}{n} = \dfrac{(2n)!}{n!(n+1)!},~ n\ge 0.
+\]</span></p>
+<p><span class="math display">\[
+C_n = \binom{2n}{n} - \binom{2n}{n+1},~n \ge 0.
+\]</span></p>
+<p><span class="math display">\[
+C_n = \frac{(4n-2)}{n+1}C_{n-1},~ n &gt; 0,~ C_0 = 1.
+\]</span></p>
+<p>递推求卡特兰数：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> p = <span class="number">998244353</span>; <span class="comment">//模</span></span><br><span class="line"><span class="type">int</span> inv[<span class="number">510</span>]; <span class="comment">//逆元</span></span><br><span class="line"><span class="type">int</span> f[<span class="number">510</span>]; <span class="comment">//卡特兰数</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    inv[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= <span class="number">501</span>; i++) &#123;</span><br><span class="line">        inv[i] = (p - p / i) * inv[p % i] % p;</span><br><span class="line">    &#125;</span><br><span class="line">    f[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= <span class="number">500</span>; i++) &#123;</span><br><span class="line">        f[i] = f[i - <span class="number">1</span>] * (<span class="number">4</span> * i - <span class="number">2</span>) % p * inv[i + <span class="number">1</span>] % p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="拉格朗日插值">拉格朗日插值</h2>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%lld%lld&quot;</span>, &amp;n, &amp;k);</span><br><span class="line"><span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lld%lld&quot;</span>, x + i, y + i);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    ll tmpa = y[i] % mod, tmpb = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (ll j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i != j) &#123;</span><br><span class="line">            tmpa = tmpa * (k - x[j]) % mod;</span><br><span class="line">            tmpb = tmpb * (x[i] - x[j]) % mod;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ans += tmpa * <span class="built_in">inv</span>(tmpb) % mod;</span><br><span class="line">    ans = (ans + mod) % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>, ans % mod);</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>ACM</category>
+        <category>模板</category>
+      </categories>
+  </entry>
+  <entry>
     <title>一句话题解2</title>
     <url>/2025/11/04/%E4%B8%80%E5%8F%A5%E8%AF%9D%E9%A2%98%E8%A7%A32/</url>
     <content><![CDATA[<ul>
