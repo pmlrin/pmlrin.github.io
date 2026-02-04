@@ -48,6 +48,227 @@ Why Blog“三段论”来自 yelog，并非原创。
 ]]></content>
   </entry>
   <entry>
+    <title>线段树</title>
+    <url>/2026/02/04/%E7%BA%BF%E6%AE%B5%E6%A0%91/</url>
+    <content><![CDATA[<h1 id="简介">简介</h1>
+<p>线段树，是用来存放给定区间内对应信息的一种数据结构，是一种二叉搜索树。可用来处理数组相应的单点、区间修改操作，也可以进行区间最值、区间和等的查询。</p>
+<p>根据维护数值分类：值域线段树、权值线段树。</p>
+<span id="more"></span>
+<p>线段树是一种二叉搜索树，它将一个区间划分成一些单元区间，每个单元区间对应线段树中的一个叶结点。子节点向父节点传递信息，而父节点存储的信息则是子节点信息的整合。</p>
+<p>用 <code>Node[l,r]</code> 表示线段树表示区间 <code>[l,r]</code>
+的节点。其儿子就是 <code>Node[l,(l+r)/2]</code>
+<code>Node[(l+r)/2+1,r]</code>。当 <span
+class="math inline">\(l\)</span> 与 <span
+class="math inline">\(r\)</span>
+相等时为叶子，停止，这样尽量等分下去的树形结构。（值）</p>
+<p>存储可同样使用数组，下标表示编号。对于编号为 <code>p</code>
+的节点，<code>p*2</code> 即为左儿子，<code>p*2+1</code>
+即为右儿子。（键）</p>
+<p>线段树的时间复杂度可达 log 级别。而未优化的空间复杂度为 4N
+级别，因此有时需要动态开点让空间压缩。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/yz-hs/PicGo/1.png" /></p>
+<h1 id="操作part-1">操作（Part 1）</h1>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson (root*2)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson ((root*2)+1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> mid ((l+r)/2)</span></span><br></pre></td></tr></table></figure>
+<p>代码以单点/区间修改，区间求和为例。</p>
+<h2 id="建树">建树</h2>
+<p>建树直接按照上述规则递归即可。相当于是在 DFS 线段树，边 DFS
+边建立。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">build</span><span class="params">(ll root,ll l,ll r,ll d[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(l==r)&#123;t[root]=d[l];<span class="keyword">return</span>;&#125;</span><br><span class="line">	<span class="built_in">build</span>(lson,l,mid,d);</span><br><span class="line">	<span class="built_in">build</span>(rson,mid<span class="number">+1</span>,r,d);</span><br><span class="line">	t[root]=t[lson]+t[rson]; <span class="comment">//pushup</span></span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="区间查询">区间查询</h2>
+<p>怎么查询信息呢？既然这个要查询的区间被分为了 log n 个节点，那么找到这
+log n 个节点，即可递归进行查找。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">ll <span class="title">query</span><span class="params">(ll root,ll l,ll r,ll x,ll y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(x&lt;=l&amp;&amp;y&gt;=r) <span class="keyword">return</span> t[root];</span><br><span class="line">	ll ansl=<span class="number">0</span>,ansr=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span>(x&lt;=mid) ansl=<span class="built_in">query</span>(lson,l,mid,x,y);</span><br><span class="line">	<span class="keyword">if</span>(y&gt;mid) ansr=<span class="built_in">query</span>(rson,mid<span class="number">+1</span>,r,x,y);</span><br><span class="line">	<span class="keyword">return</span> ansl+ansr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="单点修改">单点修改</h2>
+<p>单点修改就是指只修改线段树的某个叶子节点的值，修改叶子节点会对其父节点的值产生影响，因此修改子节点后，要回溯更新其父节点的值。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">update</span><span class="params">(ll root,ll l,ll r,ll pos,ll data)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(l==r) &#123;t[root]+=data;<span class="keyword">return</span>;&#125;</span><br><span class="line">	<span class="keyword">if</span>(pos&lt;=mid) <span class="built_in">update</span>(lson,l,mid,pos,data);</span><br><span class="line">	<span class="keyword">if</span>(pos&gt;mid) <span class="built_in">update</span>(rson,mid<span class="number">+1</span>,r,pos,data);</span><br><span class="line">	t[root]=t[lson]+t[rson];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="线段树三问">线段树三问</h2>
+<p>处理较难的线段树问题的常用套路，以单点修改（加某一个值）、区间查询为例：</p>
+<ol type="1">
+<li>维护哪些信息？区间和。</li>
+<li>如何合并区间信息？直接相加。</li>
+<li>如何修改信息？直接相加。</li>
+</ol>
+<h1 id="例题part-1">例题（Part 1）</h1>
+<h2 id="某经典问题">某经典问题</h2>
+<p>给一个长为 N 的数列，有 M 次操作，每次操作时以下三种之一：</p>
+<ul>
+<li>修改数列中的一个数</li>
+<li>求数列中某连续一段所有数的两两乘积的和（mod 1e9+7）</li>
+<li>求数列中某连续一段所有相邻两数乘积的和（mod 1e9+7）</li>
+</ul>
+<p>N 和 M 均为 1e5。</p>
+<details>
+<summary>
+解答
+</summary>
+<p>假设 x 节点的儿子为 y 和 z。</p>
+<p>x 相邻两数乘积的和为：y 相邻两数乘积的和 + z 相邻两数乘积的和 + y
+最右边的数 * z 最左边的数。</p>
+<p>x 任意两数乘积的和为：y 任意两数乘积的和 + z 任意两数乘积的和 + y
+的和 * z 的和。</p>
+<p>然后直接维护即可。</p>
+<ol type="1">
+<li><p>维护哪些信息？相邻两数乘积的和，任意两数乘积的和，最左边的数，最右边的数，区间和。</p>
+<p>我们可以发现，为了求解，往往需要额外维护其他信息。</p></li>
+<li><p>如何合并区间信息？</p>
+<ul>
+<li>相邻两数乘积的和、任意两数乘积的和，如上所述。</li>
+<li>x 最左边的数为 y 最左边的数，x 最右边的数为 z 最右边的数。</li>
+<li>x 的和为 y 的和加 z 的和。</li>
+</ul></li>
+<li><p>如何修改信息？单点修改叶子节点，之后向上传递更新。</p></li>
+</ol>
+</details>
+<h2 id="p4513-小白逛公园"><a
+href="https://www.luogu.com.cn/problem/P4513">P4513 小白逛公园</a></h2>
+<p>1e5
+长度序列，单点修改，询问区间最大子段和。最大子段和指的是找出一个可以是空的子区间，和最大。</p>
+<details>
+<summary>
+解答
+</summary>
+<p>可以想到，对于节点 x 的答案，答案要么是 y 或 z 本身的答案，要么跨越 y
+和 z。</p>
+<ol type="1">
+<li><p>维护哪些信息？区间最大子段和，左起最大前缀，右起最大后缀，区间和。</p></li>
+<li><p>如何合并区间信息？</p>
+<p>区间最大子段和： y 区间最大子段和，z 区间最大子段和，y 右起最大后缀 +
+z 左起最大前缀 三者取最大值。</p>
+<p>左起最大前缀：y 左起最大前缀，y 区间和 + z 左起最大前缀
+两者取最大值。右起最大后缀同理。</p>
+<p>区间和：y 区间和加 z 区间和。</p></li>
+<li><p>如何修改信息？单点修改叶子节点，之后向上传递更新。</p></li>
+</ol>
+</details>
+<h1 id="操作part-2">操作（Part 2）</h1>
+<p>涉及到区间修改的问题没法快速的直接进行修改。</p>
+<p>每次线段树操作会涉及到 log
+个线段树的节点，而且一个点被访问当且仅当其父亲节点被访问过。</p>
+<p>所以我们可以用“懒惰”的思想来维护。这个最重要的思想就是，我们每次操作只会访问到少数线段树上的节点，那对于没有被访问到的节点，比如这些节点子树内部的节点，我们不需要维护其经过区间修改后的值，只需要保证这些节点被访问到的时候是正确的就行。</p>
+<h2 id="下放标记">下放标记</h2>
+<p>以区间加、求区间和举例子：</p>
+<p>我们在每个节点上维护一个标记，代表<strong>这个节点被加了多少值，但是其儿子因暂时未访问而暂未修改</strong>。</p>
+<p>查询的时候对于每个经过的节点，下放标记到其儿子：首先对儿子区间加
+tag（代表 tag 起到的作用），之后将 tag 传递给儿子。</p>
+<p>这样我们查询的时候还是查询 log
+个节点，与之前的不同的是，每个节点有可能被整体加了一个值。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">pushdown</span><span class="params">(ll root,ll l,ll r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll tag=t[root].tag;</span><br><span class="line">	<span class="keyword">if</span>(t[root].tag==<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">	t[lson].data+=tag*(mid-l<span class="number">+1</span>);</span><br><span class="line">	t[rson].data+=tag*(r-mid);</span><br><span class="line">	t[lson].tag+=tag;t[rson].tag+=tag;</span><br><span class="line">	t[root].tag=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="区间修改">区间修改</h2>
+<p>包括区间查询，在下一步访问儿子之前，必须要进行 pushdown
+操作，以免儿子未更新导致错误。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">update</span><span class="params">(ll root,ll l,ll r,ll x,ll y,ll data)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(x&lt;=l&amp;&amp;y&gt;=r)</span><br><span class="line">	&#123;</span><br><span class="line">		t[root].data+=data*(r-l<span class="number">+1</span>);</span><br><span class="line">		t[root].tag+=data;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">pushdown</span>(root,l,r);</span><br><span class="line">	<span class="keyword">if</span>(x&lt;=mid) <span class="built_in">update</span>(lson,l,mid,x,y,data);</span><br><span class="line">	<span class="keyword">if</span>(y&gt;mid) <span class="built_in">update</span>(rson,mid<span class="number">+1</span>,r,x,y,data);</span><br><span class="line">	t[root].data=t[lson].data+t[rson].data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="线段树五问">线段树五问</h2>
+<p>处理较难的线段树问题的常用套路，以区间加、区间查询为例：</p>
+<ol type="1">
+<li>维护哪些信息？区间和。</li>
+<li>维护哪些标记？区间加标记。</li>
+<li>如何合并区间信息？直接相加。</li>
+<li>如何快速修改区间信息？加上 增量乘区间长度。</li>
+<li>如何合并标记？直接相加。</li>
+</ol>
+<h1 id="例题part-2">例题（Part 2）</h1>
+<h2 id="p3372-模板线段树-1">P3372 【模板】线段树 1</h2>
+<p><a
+href="https://www.luogu.com.cn/problem/P3372">link</a>。模板题，就不用说了吧。</p>
+<h2 id="p3373-模板线段树-2">P3373 【模板】线段树 2</h2>
+<p><a href="https://www.luogu.com.cn/problem/P3373">link</a>。</p>
+<p>我们发现一个 lazytag
+是不能够解决问题的，那就上两个，分别表示乘法意义上的 lazytag
+和加法意义上的 lazytag。紧接着想到 pushdown
+操作之后我们又发现必须在向下传递 lazytag 的时候人为地为这两个 lazytag
+规定一个先后顺序。可以规定乘法优先。</p>
+<p>规定好
+<code>tree[son].data=tree[son].data*tree[root].mtag+tree[root].atag*(r-l+1)</code>，这样的话假如改变
+atag 的数值就只改变 atag，改变 mtag 的时候把 atag
+也对应的乘一下就可以了，没有精度损失，看起来很不错。</p>
+<h2 id="p1198-jsoi2008最大数">P1198 [JSOI2008]最大数</h2>
+<p><a href="https://www.luogu.com.cn/problem/P1198">link</a>。</p>
+<h3 id="题面">题面</h3>
+<p>现在请求你维护一个数列，要求提供以下两种操作，共 <span
+class="math inline">\(M\)</span> 个操作：</p>
+<ul>
+<li>查询操作。
+<ul>
+<li>功能：查询当前数列中末尾 <span class="math inline">\(L\)</span>
+个数中的最大的数，并输出这个数的值。</li>
+<li>限制：<span class="math inline">\(L\)</span>
+不超过当前数列的长度。<span class="math inline">\((L &gt;
+0)\)</span>。</li>
+</ul></li>
+<li>插入操作。
+<ul>
+<li>功能：将 <span class="math inline">\(n\)</span> 加上 <span
+class="math inline">\(t\)</span>，其中 <span
+class="math inline">\(t\)</span>
+是最近一次查询操作的答案（如果还未执行过查询操作，则<span
+class="math inline">\(t=0\)</span>)，并将所得结果对一个固定的常数 <span
+class="math inline">\(D\)</span> 取模，将所得答案插入到数列的末尾。</li>
+<li>限制：<span class="math inline">\(n\)</span>
+是整数（可能为负数）并且在长整范围内。</li>
+</ul></li>
+</ul>
+<p>注意：初始时数列是空的，没有一个数。</p>
+<p>对于全部的测试点，保证 <span class="math inline">\(1 \leq M \leq 2
+\times 10^5\)</span>，<span class="math inline">\(1 \leq D \leq 2 \times
+10^9\)</span>。</p>
+<h3 id="题解">题解</h3>
+<p>这很明显，是单点修改、区间查询最大值，可用线段树解决。</p>
+<p>先建立一个叶子节点数为 <span class="math inline">\(M\)</span>
+的线段树，叶子节点赋值为极小值。并定义 <span
+class="math inline">\(len\)</span> 表示数列长度。</p>
+<p>插入操作即为修改第 <span class="math inline">\(len+1\)</span>
+节点的值，并 <span class="math inline">\(len \gets
+len+1\)</span>，单点修改。</p>
+<p>查询操作即为查询区间 <span
+class="math inline">\([len-L+1,len]\)</span> 的最大值，区间查询。</p>
+<h2 id="p1438-无聊的数列">P1438 无聊的数列</h2>
+<p><a href="https://www.luogu.com.cn/problem/P1438">link</a>。</p>
+<h3 id="题面-1">题面</h3>
+<p>维护一个数列，支持两种操作：</p>
+<ul>
+<li>给出一个长度等于 <span class="math inline">\(r-l+1\)</span>
+的等差数列，首项为 <span class="math inline">\(K\)</span>，公差为 <span
+class="math inline">\(D\)</span>，并将它对应加到 <span
+class="math inline">\([l,r]\)</span> 范围中的每一个数上。即：令 <span
+class="math inline">\(a_l=a_l+K,a_{l+1}=a_{l+1}+K+D,\ldots
+,a_r=a_r+K+(r-l) \times D\)</span>。</li>
+<li>询问序列的第 <span class="math inline">\(p\)</span> 个数的值 <span
+class="math inline">\(a_p\)</span>。</li>
+</ul>
+<p>对于 <span class="math inline">\(100\%\)</span> 数据，<span
+class="math inline">\(0\le n,m \le 10^5,-200\le a_i,K,D\le 200, 1 \leq l
+\leq r \leq n, 1 \leq p \leq n\)</span>。</p>
+<h3 id="题解-1">题解</h3>
+<p>首先我们容易想到用差分去解这道题。</p>
+<p>我们先读入给定的等差数列，然后再开一个数组记录差分。每次 <span
+class="math inline">\(1\)</span> 号操作有 <span
+class="math inline">\(l\)</span>，<span
+class="math inline">\(r\)</span>，<span
+class="math inline">\(D\)</span>，<span class="math inline">\(K\)</span>
+四个参数，而我们需要进行的操作其实很简单：</p>
+<ol type="1">
+<li><p>区间 <span
+class="math inline">\([l,l]\)</span>：<code>f[l]=f[l]+K</code>。</p></li>
+<li><p>区间 <span
+class="math inline">\((l,r]\)</span>：<code>f[i]=f[i]+D</code>（<span
+class="math inline">\(i\in(l,r]\)</span>）。</p></li>
+<li><p>区间 <span
+class="math inline">\([r+1,r+1]\)</span>：<code>f[r+1]=f[r+1]-(K+((r-l)*D)</code>。</p></li>
+</ol>
+<p>而对于每次查询 <span class="math inline">\(a_p\)</span> 的值,只要输出
+<span class="math inline">\(\sum_{i=1}^n f_i\)</span> 的值即可。</p>
+]]></content>
+      <categories>
+        <category>OI</category>
+        <category>模板</category>
+      </categories>
+      <tags>
+        <tag>线段树</tag>
+        <tag>OI</tag>
+        <tag>树</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>堆 二叉搜索树</title>
     <url>/2026/01/30/%E5%A0%86-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</url>
     <content><![CDATA[<h1 id="二叉堆">二叉堆</h1>
@@ -65,6 +286,12 @@ class="math inline">\(O(\log n)\)</span>。</p>
 即为右儿子，<code>p/2</code> 即为父节点。同时，用 <code>size</code>
 记录当前二叉堆中节点的个数。</p>
 <p><img data-src="https://oi-wiki.org/ds/images/binary-heap-array.svg" /></p>
+<p>二叉堆使用 STL 的 <code>priority_queue</code>
+即可，手写也没有什么价值。</p>
+<details>
+<summary>
+点击展开
+</summary>
 <h2 id="基础操作">基础操作</h2>
 <p><strong>向上调整</strong>：如果这个结点的权值小于它父亲的权值，就交换，重复此过程直到不满足或者到根。</p>
 <p><strong>向下调整</strong>：在该结点的儿子中，找一个权值最小的，如果这个权值小于该结点，与该结点交换，重复此过程直到不满足或者到底层。</p>
@@ -79,6 +306,7 @@ n)\)</span>。</p>
 <p>另外，还支持任意节点的删除、修改。</p>
 <h2 id="代码参考">代码参考</h2>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll,ll&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson (root*2)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson (root*2+1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> dad (root/2)</span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">1e6</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Heap</span> &#123;</span><br><span class="line">    ll h[N] = &#123;&#125;, n = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">ll <span class="title">up</span><span class="params">(ll root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (root &gt; <span class="number">1</span> &amp;&amp; h[root] &lt; h[dad]) &#123;</span><br><span class="line">            <span class="built_in">swap</span>(h[root], h[dad]);</span><br><span class="line">            root = dad;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ll <span class="title">down</span><span class="params">(ll root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (lson &lt;= n) &#123;</span><br><span class="line">            ll temp = lson;</span><br><span class="line">            <span class="keyword">if</span> (rson &lt;= n &amp;&amp; h[rson] &lt; h[lson])</span><br><span class="line">                temp = rson;</span><br><span class="line">            <span class="keyword">if</span> (h[temp] &gt;= h[root])</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="built_in">swap</span>(h[root], h[temp]);</span><br><span class="line">            root = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">build</span><span class="params">(ll siz, ll a[])</span> </span>&#123;</span><br><span class="line">        n = siz;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">            h[i] = a[i];</span><br><span class="line">        <span class="keyword">for</span> (ll i = n; i &gt;= <span class="number">1</span>; i--)</span><br><span class="line">            <span class="built_in">down</span>(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ll <span class="title">top</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> h[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ll <span class="title">push</span><span class="params">(ll val)</span> </span>&#123;</span><br><span class="line">        h[++n] = val;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">up</span>(n);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">pop</span><span class="params">(ll key = <span class="number">1</span>)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">swap</span>(h[key], h[n]);</span><br><span class="line">        n--;</span><br><span class="line">        <span class="built_in">down</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;q;</span><br><span class="line"></span><br><span class="line"><span class="comment">//priority_queue&lt;ll, deque&lt;ll&gt;, greater&lt;ll&gt; &gt; q;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ll n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        ll op, tmp;</span><br><span class="line">        cin &gt;&gt; op;</span><br><span class="line">        <span class="keyword">if</span> (op == <span class="number">1</span>) &#123;</span><br><span class="line">            cin &gt;&gt; tmp;</span><br><span class="line">            q.<span class="built_in">push</span>(tmp);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">2</span>) &#123;</span><br><span class="line">            cout &lt;&lt; q.<span class="built_in">top</span>() &lt;&lt; endl;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            q.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T;</span><br><span class="line">    T = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</details>
 <h2 id="堆的-stl-实现">堆的 STL 实现</h2>
 <p>一般来说，我们在写算法题时常用优先队列替代手写二叉堆。</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">priority_queue&lt;ll, deque&lt;ll&gt;, greater&lt;ll&gt; &gt; q; <span class="comment">//小根堆</span></span><br><span class="line">priority_queue&lt;ll&gt; q;  <span class="comment">//大根堆</span></span><br><span class="line"></span><br><span class="line">q.<span class="built_in">push</span>(x); <span class="comment">//插入</span></span><br><span class="line">q.<span class="built_in">top</span>(); <span class="comment">//查询堆顶元素</span></span><br><span class="line">q.<span class="built_in">pop</span>(); <span class="comment">//删除堆顶元素</span></span><br><span class="line">q.<span class="built_in">empty</span>(); <span class="comment">//堆是否为空</span></span><br></pre></td></tr></table></figure>
@@ -86,6 +314,9 @@ n)\)</span>。</p>
 <ul>
 <li><p>P3378 【模板】堆 <a href="https://www.luogu.com.cn/problem/P3378"
 class="uri">https://www.luogu.com.cn/problem/P3378</a>（模板）</p></li>
+<li><p>给出一个正数序列，输出前 <span class="math inline">\(k\)</span>
+小的子区间和。<span
+class="math inline">\(n,k\le10^5\)</span>。（简单应用）</p></li>
 <li><p>P1168 中位数 <a href="https://www.luogu.com.cn/problem/P1168"
 class="uri">https://www.luogu.com.cn/problem/P1168</a> （对顶堆）</p>
 <p>给定一个长度为 <span class="math inline">\(N\)</span> 的非负整数序列
@@ -93,7 +324,7 @@ class="uri">https://www.luogu.com.cn/problem/P1168</a> （对顶堆）</p>
 <li><p>CSP-S 2021 廊桥分配 <a
 href="https://www.luogu.com.cn/problem/P7913"
 class="uri">https://www.luogu.com.cn/problem/P7913</a>
-（较有挑战性）</p>
+（较有挑战性，不做要求）</p>
 <p>现有 <span class="math inline">\(n\)</span>
 个廊桥（停飞机的地方），<span class="math inline">\(m_1\)</span>
 架国内航班，<span class="math inline">\(m_2\)</span>
@@ -113,6 +344,7 @@ class="math inline">\(k\)</span> 的数、查询前驱与后继。</p>
 <li>若二叉搜索树的右子树不为空，则其右子树上所有点的权值均大于其根节点的值。</li>
 <li>二叉搜索树的左右子树均为二叉搜索树。</li>
 </ol>
+<p>二叉搜索树中序遍历递增，“拍扁了”有序。最小的在最左边，最大的在最右边。</p>
 <p><code>set</code> 与 <code>map</code>
 的内部数据结构即为平衡树。使用搜索树的目的之一是缩短插入、删除、修改和查找节点的时间。在最坏情况下，搜索树有可能退化为链。想象一棵每个结点只有右孩子的二叉搜索树，那么它的性质就和链一样，所有操作（增删改查）的时间复杂度是
 <span class="math inline">\(O(n)\)</span>。</p>
@@ -138,6 +370,10 @@ n)\)</span>。感兴趣的同学可以进一步学习 Treap、Splay 等平衡树
 <code>root</code> 的右子树中继续搜索。</li>
 </ul>
 <p>插入，删除，修改都需要先在二叉搜索树中进行搜索。</p>
+<details>
+<summary>
+点击展开
+</summary>
 <h3 id="插入一个元素">插入一个元素</h3>
 <p>在以 <code>root</code> 为根节点的二叉搜索树中插入一个值为
 <code>value</code> 的节点。</p>
@@ -158,10 +394,9 @@ n)\)</span>。感兴趣的同学可以进一步学习 Treap、Splay 等平衡树
 <p>先在二叉搜索树中搜索权值为 <code>value</code>
 的节点，分类讨论如下：</p>
 <ul>
-<li>若该节点的 <code>count</code> 大于 1<img data-src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-alt="1" />，只需要减少 <code>count</code>。</li>
-<li>若该节点的 <code>count</code> 为 1<img data-src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-alt="1" />：
+<li>若该节点的 <code>count</code> 大于 1，只需要减少
+<code>count</code>。</li>
+<li>若该节点的 <code>count</code> 为 1：
 <ul>
 <li>若 <code>root</code> 为叶子节点，直接删除该节点即可。</li>
 <li>若 <code>root</code>
@@ -184,6 +419,7 @@ class="math inline">\([k-count,k−1]\)</span>（<code>count</code>
 <li>若其左子树的大小小于 <span
 class="math inline">\(k-count\)</span>，则该元素在右子树中。</li>
 </ul>
+</details>
 ]]></content>
       <categories>
         <category>ACM</category>
@@ -3218,9 +3454,9 @@ href="https://fastly.jsdelivr.net/gh/yz-hs/PicGo/%E8%B4%AA%E5%90%83%E8%9B%87%5BC
       </categories>
       <tags>
         <tag>毒瘤题</tag>
+        <tag>模拟</tag>
         <tag>队列</tag>
         <tag>博弈论</tag>
-        <tag>模拟</tag>
       </tags>
   </entry>
   <entry>
