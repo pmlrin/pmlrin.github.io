@@ -65,8 +65,11 @@ class="math inline">\(r\)</span>
 即为右儿子。（键）</p>
 <p>线段树的时间复杂度可达 log 级别。而未优化的空间复杂度为 4N
 级别，因此有时需要动态开点让空间压缩。</p>
+<p>首先理解线段树的 log 怎么来的：第一，从根节点到叶子节点，只需要经过
+log 个节点。第二，给定任意一个区间，线段树上只需要 log
+个区间就可以把此区间覆盖。</p>
 <p><img data-src="https://cdn.jsdelivr.net/gh/yz-hs/PicGo/1.png" /></p>
-<h1 id="操作part-1">操作（Part 1）</h1>
+<h1 id="单点操作part-1">单点操作（Part 1）</h1>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lson (root*2)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rson ((root*2)+1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> mid ((l+r)/2)</span></span><br></pre></td></tr></table></figure>
 <p>代码以单点/区间修改，区间求和为例。</p>
 <h2 id="建树">建树</h2>
@@ -146,20 +149,18 @@ z 左起最大前缀 三者取最大值。</p>
 <li><a href="https://www.luogu.com.cn/problem/P4588">P4588 TJOI2018
 数学计算</a>。注意在模数任意的情况下，并非所有整数都存在逆元，所以不要当成数论题。</li>
 </ul>
-<h1 id="操作part-2">操作（Part 2）</h1>
+<h1 id="区间操作part-2">区间操作（Part 2）</h1>
 <p>涉及到区间修改的问题没法快速的直接进行修改。</p>
 <p>每次线段树操作会涉及到 log
 个线段树的节点，而且一个点被访问当且仅当其父亲节点被访问过，所以我们可以用“懒惰”的思想来维护。</p>
-<p>懒惰标记，简单来说，就是通过延迟对节点信息的更改，从而减少可能不必要的操作次数。每次执行修改时，我们通过打标记的方法表明该节点对应的区间在某一次操作中被更改，但不更新该节点的子节点的信息。实质性的修改则在下一次访问带有标记的节点时才进行。</p>
-<p>这个最重要的思想就是，我们每次操作只会访问到少数线段树上的节点，那对于没有被访问到的节点，比如这些节点子树内部的节点，我们不需要维护其经过区间修改后的值，只需要保证这些节点被访问到的时候是正确的就行。</p>
 <h2 id="下放标记">下放标记</h2>
 <p>以区间加、求区间和举例子：</p>
 <p>我们在每个节点上维护一个懒惰标记，代表<strong>这个节点被加了多少值，但是其儿子因暂时未访问而暂未修改</strong>。</p>
-<p>查询的时候对于每个经过的节点，下放标记到其儿子：首先对儿子区间加
+<p>懒惰标记，简单来说，就是通过延迟对节点信息的更改，从而减少可能不必要的操作次数。每次执行修改时，我们通过打标记的方法表明该节点对应的区间在某一次操作中被更改，但不更新该节点的子节点的信息。实质性的修改则在下一次访问带有标记的节点时才进行。</p>
+<p>这个最重要的思想就是，我们每次操作只会访问到少数线段树上的节点，那对于没有被访问到的节点，比如这些节点子树内部的节点，我们不需要维护其经过区间修改后的值，只需要保证这些节点被访问到的时候是正确的就行。</p>
+<p>查询的时候对于每个经过的节点，先下放标记到其儿子：首先对儿子区间加
 tag（代表标记对区间信息的影响），之后将 tag
-传递给儿子（代表多个标记的合并）。</p>
-<p>这样我们查询的时候还是查询 log
-个节点，与之前的不同的是，每个节点有可能被整体加了一个值。</p>
+传递给儿子（代表标记的合并）。</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">pushdown</span><span class="params">(ll root,ll l,ll r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll tag=t[root].tag;</span><br><span class="line">	<span class="keyword">if</span>(t[root].tag==<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">	t[lson].data+=tag*(mid-l<span class="number">+1</span>);</span><br><span class="line">	t[rson].data+=tag*(r-mid);</span><br><span class="line">	t[lson].tag+=tag;t[rson].tag+=tag;</span><br><span class="line">	t[root].tag=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="区间修改">区间修改</h2>
 <p>我们考虑一下引入懒标记后，线段树需要支持什么。</p>
@@ -199,10 +200,6 @@ a，区间长度为 len，我们加上 b，则区间和变为 <code>len*b</code>
 <li>如何利用标记修改信息？加上 标记乘区间长度。</li>
 </ol>
 <h1 id="例题part-2">例题（Part 2）</h1>
-<h2 id="p3372-模板线段树-1"><a
-href="https://www.luogu.com.cn/problem/P3372">P3372 【模板】线段树
-1</a></h2>
-<p>区间加、区间求和模板题。</p>
 <h2 id="p3373-模板线段树-2"><a
 href="https://www.luogu.com.cn/problem/P3373">P3373 【模板】线段树
 2</a></h2>
@@ -217,7 +214,7 @@ href="https://www.luogu.com.cn/problem/P3373">P3373 【模板】线段树
 </summary>
 <p>我们发现一个标记是不能够解决问题的，那就上两个，分别表示乘法的 mul
 和加法的
-add。紧接着想到两个标记并非相互独立，需要人为规定标记修改信息。</p>
+add。紧接着想到两个标记并非相互独立，需要人为规定标记修改信息顺序。</p>
 <p>例如我们规定：先 mul 修改信息，之后 add 修改信息，即
 <code>d=d*mul+add*len</code>。</p>
 <ul>
@@ -228,6 +225,15 @@ add。紧接着想到两个标记并非相互独立，需要人为规定标记�
 标记，说明这个节点应当加 add，之后的乘法对 add 也有影响。由于 add
 暂未真的加在节点上（懒标记），add 也需要体现乘法的影响。</li>
 </ul>
+<p>如果先加再乘呢？</p>
+<ul>
+<li>如果一个节点被乘上了 x，则 <code>mul*=x</code>，add 不变。</li>
+<li>如果一个节点被加上了 x，则 mul
+不变，<code>add+=x/mul</code>。此时产生了精度损失。所以在此题，只能选用先乘再加。</li>
+</ul>
+<p>有时候只能固定一个顺序。例如区间覆盖 cov 和区间加
+add，必须先覆盖再加。如果先加再覆盖，如果一个节点被加上了 x，这个 x
+的贡献无论如何都无法传递。</p>
 <ol type="1">
 <li>维护哪些信息？区间和 d。</li>
 <li>维护哪些标记？add 与 mul。</li>
@@ -255,14 +261,14 @@ G</a></li>
 </ul>
 <h1 id="权值线段树part-3">权值线段树（Part 3）</h1>
 <p>根据维护数值分类：值域线段树、权值线段树。之前我们讲的都是值域线段树，接下来我们讲权值线段树。</p>
-<p>权值线段树每个节点存储的是某个值域区间内元素出现的次数（可理解为
-multiset），常用于如查询第 k
+<p>权值线段树每个节点存储的是某个值域区间内元素出现的次数（可理解为高级版桶数组，<code>b[i]</code>
+代表数字 <code>i</code> 出现次数），常用于如查询第 k
 小/大值、区间频次等。相比平衡树，权值线段树实现简单、常数小，但在值域较大时需配合<strong>离散化</strong>或<strong>动态开点</strong>降低空间消耗。</p>
 <p>如果我们讲之前单点加、区间求和的值域线段树理解为权值线段树，则变为：</p>
 <ul>
-<li>向集合内添加 x 个整数 d（单点 d 加 x）；</li>
-<li>求 <code>[l,r]</code> 内出现了多少整数（区间 <code>[l,r]</code>
-求和）。</li>
+<li>向集合内添加 x 个整数 d（对应单点 d 加 x）</li>
+<li>求 <code>[l,r]</code> 内出现了多少个整数（对应区间
+<code>[l,r]</code> 求和）</li>
 </ul>
 <h2 id="动态开点线段树">动态开点线段树</h2>
 <p>前面讲到堆式储存的情况下，需要给线段树开 4n 大小的数组。</p>
@@ -387,13 +393,13 @@ class="math inline">\(k\)</span> 的数、查询前驱与后继。</p>
 <li>二叉搜索树的左右子树均为二叉搜索树。</li>
 </ol>
 <p>二叉搜索树中序遍历递增，“拍扁了”有序。最小的在最左边，最大的在最右边。</p>
-<p><code>set</code> 与 <code>map</code>
-的内部数据结构即为平衡树。使用搜索树的目的之一是缩短插入、删除、修改和查找节点的时间。在最坏情况下，搜索树有可能退化为链。想象一棵每个结点只有右孩子的二叉搜索树，那么它的性质就和链一样，所有操作（增删改查）的时间复杂度是
+<p>使用搜索树的目的之一是缩短插入、删除、修改和查找节点的时间。在最坏情况下，搜索树有可能退化为链。想象一棵每个结点只有右孩子的二叉搜索树，那么它的性质就和链一样，所有操作（增删改查）的时间复杂度是
 <span class="math inline">\(O(n)\)</span>。</p>
 <p>可以发现操作的复杂度与树的高度 <span class="math inline">\(h\)</span>
 有关。由此引出了平衡树，通过一定操作维持树的高度（平衡性）来降低操作的复杂度，使得所有操作时间复杂度达到
-<span class="math inline">\(O(\log
-n)\)</span>。感兴趣的同学可以进一步学习 Treap、Splay 等平衡树。</p>
+<span class="math inline">\(O(\log n)\)</span>。<code>set</code> 与
+<code>map</code> 的内部数据结构即为平衡树。感兴趣的同学可以进一步学习
+Treap、Splay 等平衡树。</p>
 <h2 id="操作">操作</h2>
 <p><a href="https://visualgo.net/en/bst">二叉搜索树可视化演示</a></p>
 <h3 id="查找最小最大值">查找最小/最大值</h3>
@@ -3496,9 +3502,9 @@ href="https://fastly.jsdelivr.net/gh/yz-hs/PicGo/%E8%B4%AA%E5%90%83%E8%9B%87%5BC
       </categories>
       <tags>
         <tag>毒瘤题</tag>
-        <tag>模拟</tag>
         <tag>队列</tag>
         <tag>博弈论</tag>
+        <tag>模拟</tag>
       </tags>
   </entry>
   <entry>
