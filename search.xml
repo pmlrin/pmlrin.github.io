@@ -170,7 +170,8 @@ tag（代表标记对区间信息的影响），之后将 tag
 的信息，否则这个问题线段树不能解决。</li>
 <li>一个线段树节点上多个标记的合并：标记之间要可以快速合并，比如区间加标记，区间
 +a 和 +b 合并后变成区间 +(a+b)；区间修改标记，区间先修改为 a，后修改为
-b，合并后变成区间修改为 b。</li>
+b，合并后变成区间修改为
+b。<strong>标记合并既发生于修改，也发生于下传标记。</strong></li>
 <li>标记对区间信息的影响：这个一般是最麻烦的一步。我们维护出了线段树上一个的信息，要支持这个节点被修改后，这个信息能快速计算出来。比如区间加区间和，当前线段树节点区间和为
 a，区间长度为 len，我们加上 b，则区间和变为
 <code>(a+len*b)</code>；区间修改区间和，当前线段树节点区间和为
@@ -194,10 +195,9 @@ a，区间长度为 len，我们加上 b，则区间和变为 <code>len*b</code>
 <li>维护哪些信息？区间和。</li>
 <li>维护哪些标记？区间加标记。</li>
 <li>如何合并区间信息？直接相加。</li>
-<li>如何快速修改区间信息与标记信息？区间信息加上
-增量乘区间长度，标记信息加上增量。</li>
+<li>如何快速修改区间信息？加上增量乘区间长度。</li>
 <li>如何合并标记？直接相加。</li>
-<li>如何利用标记修改信息？加上 标记乘区间长度。</li>
+<li>如何利用标记修改信息？加上标记乘区间长度。</li>
 </ol>
 <h1 id="例题part-2">例题（Part 2）</h1>
 <h2 id="p3373-模板线段树-2"><a
@@ -231,17 +231,15 @@ add。紧接着想到两个标记并非相互独立，需要人为规定标记�
 <li>如果一个节点被加上了 x，则 mul
 不变，<code>add+=x/mul</code>。此时产生了精度损失。所以在此题，只能选用先乘再加。</li>
 </ul>
-<p>有时候只能固定一个顺序。例如区间覆盖 cov 和区间加
-add，必须先覆盖再加。如果先加再覆盖，如果一个节点被加上了 x，这个 x
-的贡献无论如何都无法传递。</p>
+<p>以上在区间修改与下放标记时都会出现。</p>
 <ol type="1">
 <li>维护哪些信息？区间和 d。</li>
 <li>维护哪些标记？add 与 mul。</li>
 <li>如何合并区间信息？直接相加。</li>
-<li>如何快速修改区间信息与标记信息？对于加法，加上
-<code>x*len</code>；对于乘法，直接乘 x。标记信息修改如上。</li>
+<li>如何快速修改区间信息？对于加法，加上
+<code>x*len</code>；对于乘法，直接乘 x。</li>
 <li>如何合并标记？<code>[]</code>
-表示子节点的标记。<code>[add]=[add]*mul+add, [mul]*=mul</code>。</li>
+表示子节点（或修改前）的标记。<code>[mul]*=mul, [add]=[add]*mul+add</code>。</li>
 <li>如何利用标记修改信息？<code>d=d*mul+add*len</code>。</li>
 </ol>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">SGT</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="meta">#<span class="keyword">define</span> lson (root*2)</span></span><br><span class="line">	<span class="meta">#<span class="keyword">define</span> rson ((root*2)+1)</span></span><br><span class="line">	<span class="meta">#<span class="keyword">define</span> mid ((l+r)/2)</span></span><br><span class="line">	<span class="keyword">struct</span> <span class="title class_">node</span>&#123;ll d,atag,mtag;&#125;t[N*<span class="number">4</span>];</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">pushup</span><span class="params">(ll root)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		t[root].d=(t[lson].d+t[rson].d)%p;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">pushdown</span><span class="params">(ll root,ll l,ll r)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		ll mtag=t[root].mtag%p;</span><br><span class="line">		ll atag=t[root].atag%p;</span><br><span class="line">		t[lson].mtag=t[lson].mtag*mtag%p;</span><br><span class="line">		t[rson].mtag=t[rson].mtag*mtag%p;</span><br><span class="line">		t[lson].d=t[lson].d*mtag%p;</span><br><span class="line">		t[rson].d=t[rson].d*mtag%p;</span><br><span class="line">		t[lson].atag=(t[lson].atag*mtag+atag)%p;</span><br><span class="line">		t[rson].atag=(t[rson].atag*mtag+atag)%p;</span><br><span class="line">		t[lson].d=(t[lson].d+atag*(mid-l<span class="number">+1</span>))%p;</span><br><span class="line">		t[rson].d=(t[rson].d+atag*(r-mid))%p;</span><br><span class="line">		t[root].atag=<span class="number">0</span>; t[root].mtag=<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">build</span><span class="params">(ll root,ll l,ll r)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		t[root].mtag=<span class="number">1</span>;</span><br><span class="line">		t[root].atag=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(l==r)</span><br><span class="line">		&#123;</span><br><span class="line">			t[root].d=a[l]%p;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">build</span>(lson,l,mid);</span><br><span class="line">		<span class="built_in">build</span>(rson,mid<span class="number">+1</span>,r);</span><br><span class="line">		<span class="built_in">pushup</span>(root);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">ll <span class="title">query</span><span class="params">(ll root,ll l,ll r,ll x,ll y)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(x&lt;=l&amp;&amp;r&lt;=y) <span class="keyword">return</span> t[root].d%p;</span><br><span class="line">		ll al=<span class="number">0</span>,ar=<span class="number">0</span>;</span><br><span class="line">		<span class="built_in">pushdown</span>(root,l,r);</span><br><span class="line">		<span class="keyword">if</span>(x&lt;=mid) al=<span class="built_in">query</span>(lson,l,mid,x,y);</span><br><span class="line">		<span class="keyword">if</span>(y&gt;mid) ar=<span class="built_in">query</span>(rson,mid<span class="number">+1</span>,r,x,y);</span><br><span class="line">		<span class="keyword">return</span> (al+ar)%p;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">aupdate</span><span class="params">(ll root,ll l,ll r,ll x,ll y,ll d)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(x&lt;=l&amp;&amp;r&lt;=y)</span><br><span class="line">		&#123;</span><br><span class="line">			t[root].d=(t[root].d+d*(r-l<span class="number">+1</span>))%p;</span><br><span class="line">			t[root].atag=(t[root].atag+d)%p;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">pushdown</span>(root,l,r);</span><br><span class="line">		<span class="keyword">if</span>(x&lt;=mid) <span class="built_in">aupdate</span>(lson,l,mid,x,y,d);</span><br><span class="line">		<span class="keyword">if</span>(y&gt;mid) <span class="built_in">aupdate</span>(rson,mid<span class="number">+1</span>,r,x,y,d);</span><br><span class="line">		<span class="built_in">pushup</span>(root);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">mupdate</span><span class="params">(ll root,ll l,ll r,ll x,ll y,ll d)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(x&lt;=l&amp;&amp;r&lt;=y)</span><br><span class="line">		&#123;</span><br><span class="line">			t[root].d=t[root].d*d%p;</span><br><span class="line">			t[root].atag=t[root].atag*d%p;</span><br><span class="line">			t[root].mtag=t[root].mtag*d%p;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">pushdown</span>(root,l,r);</span><br><span class="line">		<span class="keyword">if</span>(x&lt;=mid) <span class="built_in">mupdate</span>(lson,l,mid,x,y,d);</span><br><span class="line">		<span class="keyword">if</span>(y&gt;mid) <span class="built_in">mupdate</span>(rson,mid<span class="number">+1</span>,r,x,y,d);</span><br><span class="line">		<span class="built_in">pushup</span>(root);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;tree;</span><br></pre></td></tr></table></figure>
@@ -1558,8 +1556,8 @@ class="math inline">\(x\)</span>。</p>
       <tags>
         <tag>最短路</tag>
         <tag>思维题</tag>
-        <tag>贪心</tag>
         <tag>毒瘤题</tag>
+        <tag>贪心</tag>
         <tag>逆序对</tag>
         <tag>抽屉原理</tag>
         <tag>计数题</tag>
@@ -3477,8 +3475,8 @@ class="math inline">\(O(n^2\alpha(n))\)</span>。</p>
         <category>社团讲评</category>
       </categories>
       <tags>
-        <tag>贪心</tag>
         <tag>毒瘤题</tag>
+        <tag>贪心</tag>
         <tag>暴搜</tag>
         <tag>并查集</tag>
         <tag>链表</tag>
@@ -3502,9 +3500,9 @@ href="https://fastly.jsdelivr.net/gh/yz-hs/PicGo/%E8%B4%AA%E5%90%83%E8%9B%87%5BC
       </categories>
       <tags>
         <tag>毒瘤题</tag>
+        <tag>模拟</tag>
         <tag>队列</tag>
         <tag>博弈论</tag>
-        <tag>模拟</tag>
       </tags>
   </entry>
   <entry>
