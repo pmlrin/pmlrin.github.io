@@ -51,6 +51,7 @@ Why Blog“三段论”来自 yelog，并非原创。
     <title>模板——补充</title>
     <url>/2026/02/10/%E6%A8%A1%E6%9D%BF%E2%80%94%E2%80%94%E8%A1%A5%E5%85%85/</url>
     <content><![CDATA[<p>树上启发式合并、Kruskal 重构树。</p>
+<span id="more"></span>
 <h1 id="树上启发式合并">树上启发式合并</h1>
 <p>例如计算 <span class="math inline">\(\sum_{d(x)=d(y),1\le x&lt;y\le
 n}d(y)-d(lca(x,y))\)</span>。</p>
@@ -1581,8 +1582,8 @@ class="math inline">\(x\)</span>。</p>
       <tags>
         <tag>最短路</tag>
         <tag>思维题</tag>
-        <tag>贪心</tag>
         <tag>毒瘤题</tag>
+        <tag>贪心</tag>
         <tag>逆序对</tag>
         <tag>抽屉原理</tag>
         <tag>计数题</tag>
@@ -3500,8 +3501,8 @@ class="math inline">\(O(n^2\alpha(n))\)</span>。</p>
         <category>社团讲评</category>
       </categories>
       <tags>
-        <tag>贪心</tag>
         <tag>毒瘤题</tag>
+        <tag>贪心</tag>
         <tag>暴搜</tag>
         <tag>并查集</tag>
         <tag>链表</tag>
@@ -3524,8 +3525,8 @@ href="https://fastly.jsdelivr.net/gh/yz-hs/PicGo/%E8%B4%AA%E5%90%83%E8%9B%87%5BC
         <category>社团讲评</category>
       </categories>
       <tags>
-        <tag>模拟</tag>
         <tag>毒瘤题</tag>
+        <tag>模拟</tag>
         <tag>队列</tag>
         <tag>博弈论</tag>
       </tags>
