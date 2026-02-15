@@ -50,12 +50,22 @@ Why Blog“三段论”来自 yelog，并非原创。
   <entry>
     <title>模板——补充</title>
     <url>/2026/02/10/%E6%A8%A1%E6%9D%BF%E2%80%94%E2%80%94%E8%A1%A5%E5%85%85/</url>
-    <content><![CDATA[<p>树上启发式合并。</p>
+    <content><![CDATA[<p>树上启发式合并、Kruskal 重构树。</p>
 <h1 id="树上启发式合并">树上启发式合并</h1>
 <p>例如计算 <span class="math inline">\(\sum_{d(x)=d(y),1\le x&lt;y\le
 n}d(y)-d(lca(x,y))\)</span>。</p>
 <p><span class="math inline">\(O(n\log n)\)</span> 版：</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">vector&lt;ll&gt; e[N];</span><br><span class="line">ll a[N], d[N], cnt[N], big[N], siz[N], ans;</span><br><span class="line">ll dfn[N], L[N], R[N], index;</span><br><span class="line">ll n, m;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">dfs</span><span class="params">(ll root, ll dad)</span> </span>&#123;</span><br><span class="line">    ll curb = <span class="number">0</span>;</span><br><span class="line">    d[root] = d[dad] + <span class="number">1</span>;</span><br><span class="line">    siz[root]++;</span><br><span class="line">    dfn[++index] = root;</span><br><span class="line">    L[root] = index;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> son: e[root]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (son == dad)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        siz[root] += <span class="built_in">dfs</span>(son, root);</span><br><span class="line">        <span class="keyword">if</span> (siz[son] &gt; curb) &#123;</span><br><span class="line">            curb = siz[son];</span><br><span class="line">            big[root] = son;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    R[root] = index;</span><br><span class="line">    <span class="keyword">return</span> siz[root];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dsu</span><span class="params">(ll root, ll dad, ll keep)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> son: e[root]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (son == dad || son == big[root])</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="built_in">dsu</span>(son, root, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (big[root])</span><br><span class="line">        <span class="built_in">dsu</span>(big[root], root, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> son: e[root]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (son == dad || son == big[root])</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span> (ll i = L[son]; i &lt;= R[son]; i++) &#123;</span><br><span class="line">            ans += cnt[d[dfn[i]]] * (d[dfn[i]] - d[root]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll i = L[son]; i &lt;= R[son]; i++) &#123;</span><br><span class="line">            cnt[d[dfn[i]]]++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cnt[d[root]]++;</span><br><span class="line">    <span class="keyword">if</span> (keep == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (ll i = L[root]; i &lt;= R[root]; i++) &#123;</span><br><span class="line">            cnt[d[dfn[i]]]--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="kruskal-重构树">Kruskal 重构树</h1>
+<p>原图中两个点之间的所有简单路径上最大边权的最小值 =
+最小生成树上两个点之间的简单路径上的最大值 = Kruskal 重构树上两点之间的
+LCA 的权值。</p>
+<p>也就是说，到点 x 的简单路径上最大边权的最小值 <span
+class="math inline">\(\leq val\)</span> 的所有点 y 均在 Kruskal
+重构树上的某一棵子树内，且恰好为该子树的所有叶子节点。</p>
+<p>注意重构树新建了节点，初始化范围为 <span
+class="math inline">\(n+m\)</span>。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sort</span>(h + <span class="number">1</span>, h + <span class="number">1</span> + m, cmp);<span class="comment">//按照边权排序</span></span><br><span class="line"><span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">    ll u = s.<span class="built_in">find</span>(h[i].u), v = s.<span class="built_in">find</span>(h[i].v);<span class="comment">//并查集</span></span><br><span class="line">    <span class="keyword">if</span> (u != v) &#123;</span><br><span class="line">        cnt++;</span><br><span class="line">        s.<span class="built_in">merge</span>(u, cnt);</span><br><span class="line">        s.<span class="built_in">merge</span>(v, cnt);</span><br><span class="line">        high[cnt] = h[i].len;<span class="comment">//点权为边权</span></span><br><span class="line">        e[u].<span class="built_in">push_back</span>(cnt);</span><br><span class="line">        e[cnt].<span class="built_in">push_back</span>(u);</span><br><span class="line">        e[v].<span class="built_in">push_back</span>(cnt);</span><br><span class="line">        e[cnt].<span class="built_in">push_back</span>(v);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">dfs</span>(cnt, cnt);</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>ACM</category>
@@ -3514,8 +3524,8 @@ href="https://fastly.jsdelivr.net/gh/yz-hs/PicGo/%E8%B4%AA%E5%90%83%E8%9B%87%5BC
         <category>社团讲评</category>
       </categories>
       <tags>
-        <tag>毒瘤题</tag>
         <tag>模拟</tag>
+        <tag>毒瘤题</tag>
         <tag>队列</tag>
         <tag>博弈论</tag>
       </tags>
