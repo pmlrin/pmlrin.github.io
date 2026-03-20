@@ -50,7 +50,8 @@ Why Blog“三段论”来自 yelog，并非原创。
   <entry>
     <title>模板——补充</title>
     <url>/2026/02/10/%E6%A8%A1%E6%9D%BF%E2%80%94%E2%80%94%E8%A1%A5%E5%85%85/</url>
-    <content><![CDATA[<p>树上启发式合并、Kruskal 重构树。</p>
+    <content><![CDATA[<p>树上启发式合并、Kruskal
+重构树、神秘康托展开、欧拉路（更新）、Dinic（更新）。</p>
 <span id="more"></span>
 <h1 id="树上启发式合并">树上启发式合并</h1>
 <p>例如计算 <span class="math inline">\(\sum_{d(x)=d(y),1\le x&lt;y\le
@@ -67,6 +68,65 @@ class="math inline">\(\leq val\)</span> 的所有点 y 均在 Kruskal
 <p>注意重构树新建了节点，初始化范围为 <span
 class="math inline">\(n+m\)</span>。</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sort</span>(h + <span class="number">1</span>, h + <span class="number">1</span> + m, cmp);<span class="comment">//按照边权排序</span></span><br><span class="line"><span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">    ll u = s.<span class="built_in">find</span>(h[i].u), v = s.<span class="built_in">find</span>(h[i].v);<span class="comment">//并查集</span></span><br><span class="line">    <span class="keyword">if</span> (u != v) &#123;</span><br><span class="line">        cnt++;</span><br><span class="line">        s.<span class="built_in">merge</span>(u, cnt);</span><br><span class="line">        s.<span class="built_in">merge</span>(v, cnt);</span><br><span class="line">        high[cnt] = h[i].len;<span class="comment">//点权为边权</span></span><br><span class="line">        e[u].<span class="built_in">push_back</span>(cnt);</span><br><span class="line">        e[cnt].<span class="built_in">push_back</span>(u);</span><br><span class="line">        e[v].<span class="built_in">push_back</span>(cnt);</span><br><span class="line">        e[cnt].<span class="built_in">push_back</span>(v);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">dfs</span>(cnt, cnt);</span><br></pre></td></tr></table></figure>
+<h1 id="神秘康托展开">神秘康托展开</h1>
+<p>我们的目标是把全排列转化成一个变进制数，以方便我们进行加法。对于第
+<span class="math inline">\(i\)</span> 根手指，它有 <span
+class="math inline">\(n−i+1\)</span>
+种选择，根据位值原理，要想让每个数对应一个全排列，就要让这一位数是 <span
+class="math inline">\(n−i+1\)</span> 进制的。</p>
+<p>那么，整个过程分为三步：</p>
+<ol type="1">
+<li>将火星数变成变进制数；</li>
+<li>将变进制数加上 <span class="math inline">\(m\)</span>；</li>
+<li>将变进制数变成火星数。</li>
+</ol>
+<p>我们来看一个实例： 将 <span class="math inline">\(1,4,5,2,3\)</span>
+变成变进制数：</p>
+<ul>
+<li>首位 1 是 5 种选择 <span
+class="math inline">\(\{1,2,3,4,5\}\)</span> 的第 1 种，故变为
+0（从0开始）</li>
+<li>次位 4 是 4 种选择 <span class="math inline">\(\{2,3,4,5\}\)</span>
+的第 3 种，故变为 2</li>
+<li>…</li>
+<li>最后，排列 <span class="math inline">\(1,4,5,2,3\)</span> 变成了
+<span class="math inline">\((02200)\)</span></li>
+</ul>
+<p>接下来给它加上 3 变成 <span
+class="math inline">\((02203)\)</span>，并处理进位：</p>
+<ul>
+<li>末位是 1 进制的，进 3 得 <span
+class="math inline">\((02230)\)</span>。</li>
+<li>次低位是 2 进制的，满 2 进一得 <span
+class="math inline">\((02310)\)</span>。</li>
+<li>中间位是 3 进制的，满 3 进一得 <span
+class="math inline">\((03010)\)</span>。</li>
+<li>次位是 4 进制的，<span
+class="math inline">\(3&lt;4\)</span>，不进位，得 <span
+class="math inline">\((03010)\)</span>。</li>
+</ul>
+<p>最后将 <span class="math inline">\((03010)\)</span> 变回火星数。</p>
+<ul>
+<li>首位 0 表示这位应选择 <span
+class="math inline">\(\{1,2,3,4,5\}\)</span> 的第 1 种，即 1</li>
+<li>次位 3 表示这位应选择 <span
+class="math inline">\(\{2,3,4,5\}\)</span> 的第 4 种（1 被选过了），即
+5</li>
+<li>…</li>
+</ul>
+<p>所以本题答案为 <code>14523</code> +3= <code>15243</code>。</p>
+<h1 id="欧拉路更新">欧拉路（更新）</h1>
+<p>我们先结合定理进行分析：</p>
+<ul>
+<li><p>如果是求有没有欧拉回路：判断是有向图还是无向图，若为有向图，所有顶点出、入度相等。若为无向图，则没有奇度顶点。</p></li>
+<li><p>如果是求有没有欧拉通路：判断是有向图还是无向图，若为有向图，所有顶点的出度与入度相等或者除两个顶点外其余顶点的出度等于入度（另外两个顶点一个为入度比出度大一为起点，另外一个反之为终点）。若为无向图，仅有两个奇度顶点或者没有奇度顶点。</p></li>
+</ul>
+<p>这里以有向图为例，求是否存在欧拉回路或者欧拉通路。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll, ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">1e5</span> + <span class="number">10</span>, inf = <span class="number">1e17</span>;</span><br><span class="line"></span><br><span class="line">vector&lt;PII&gt; e[N];</span><br><span class="line">vector&lt;ll&gt; ans;</span><br><span class="line">ll n, m, cur[N], in[N], out[N], vis[N * <span class="number">2</span>], st = <span class="number">0</span>, ed = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(PII a, PII b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (a.first == b.first)</span><br><span class="line">        <span class="keyword">return</span> a.second &lt; b.second;</span><br><span class="line">    <span class="keyword">return</span> a.first &lt; b.first;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(ll now)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (ll &amp;i = cur[now]; i &lt; e[now].<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!vis[e[now][i].second]) &#123;</span><br><span class="line">            vis[e[now][i].second] = <span class="number">1</span>;</span><br><span class="line">            <span class="built_in">dfs</span>(e[now][i].first);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ans.<span class="built_in">push_back</span>(now);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>, u, v; i &lt;= m; i++) &#123;</span><br><span class="line">        cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">        e[u].<span class="built_in">push_back</span>(&#123;v, i&#125;);</span><br><span class="line">        in[v]++;</span><br><span class="line">        out[u]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="built_in">sort</span>(e[i].<span class="built_in">begin</span>(), e[i].<span class="built_in">end</span>(), cmp);</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">abs</span>(in[i] - out[i]) &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;No&quot;</span> &lt;&lt; endl;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (out[i] - in[i] == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (st) &#123;</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;No&quot;</span> &lt;&lt; endl;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            st = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (in[i] - out[i] == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (ed) &#123;</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;No&quot;</span> &lt;&lt; endl;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            ed = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!st) &#123;</span><br><span class="line">        st = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">dfs</span>(st);</span><br><span class="line">    <span class="keyword">if</span> (ans.<span class="built_in">size</span>() != m + <span class="number">1</span>) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;No&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> i = ans.<span class="built_in">rbegin</span>(); i != ans.<span class="built_in">rend</span>(); ++i) &#123;</span><br><span class="line">        cout &lt;&lt; *i &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T;</span><br><span class="line">    T = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果以无向图为例，求是否存在欧拉回路或者欧拉通路。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(ll now)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (ll &amp;i = cur[now]; i &lt; e[now].<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!vis[e[now][i].second]) &#123;</span><br><span class="line">            vis[e[now][i].second] = <span class="number">1</span>;</span><br><span class="line">            vis[e[now][i].second ^ <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">            <span class="built_in">dfs</span>(e[now][i].first);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ans.<span class="built_in">push_back</span>(now);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (ll i = <span class="number">1</span>, u, v; i &lt;= m; i++) &#123;</span><br><span class="line">    cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">    e[u].<span class="built_in">push_back</span>(&#123;v, i * <span class="number">2</span>&#125;);<span class="comment">//一定要注意 2 3 是一对，4 5 是一对...</span></span><br><span class="line">    e[v].<span class="built_in">push_back</span>(&#123;u, i * <span class="number">2</span> + <span class="number">1</span>&#125;);</span><br><span class="line">    du[u]++;</span><br><span class="line">    du[v]++;</span><br><span class="line">    minn = <span class="built_in">min</span>(&#123;minn, u, v&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="dinic更新">Dinic（更新）</h1>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll, ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">2e2</span> + <span class="number">10</span>, inf = <span class="number">1e17</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">    ll to, val, rev;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ll n, m, s, t, cur[N], lvl[N];</span><br><span class="line">vector&lt;edge&gt; e[N];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">bfs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        lvl[i] = <span class="number">0</span>;</span><br><span class="line">        cur[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    queue&lt;ll&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(s);</span><br><span class="line">    lvl[s] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        ll now = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> [to, val, rev] : e[now]) &#123;</span><br><span class="line">            <span class="keyword">if</span> (val &gt; <span class="number">0</span> &amp;&amp; !lvl[to]) &#123;</span><br><span class="line">                q.<span class="built_in">push</span>(to);</span><br><span class="line">                lvl[to] = lvl[now] + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span> (to == t)</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">dfs</span><span class="params">(ll now, ll flow)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (now == t) &#123;</span><br><span class="line">        <span class="keyword">return</span> flow;</span><br><span class="line">    &#125;</span><br><span class="line">    ll res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (ll &amp;i = cur[now]; i &lt; e[now].<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">auto</span> [to, val, rev] = e[now][i];</span><br><span class="line">        <span class="keyword">if</span> (val &gt; <span class="number">0</span> &amp;&amp; lvl[to] == lvl[now] + <span class="number">1</span>) &#123;</span><br><span class="line">            ll f = <span class="built_in">dfs</span>(to, <span class="built_in">min</span>(val, flow));</span><br><span class="line">            <span class="keyword">if</span> (f == <span class="number">0</span>) &#123;</span><br><span class="line">                lvl[to] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            e[now][i].val -= f;</span><br><span class="line">            e[to][rev].val += f;</span><br><span class="line">            res += f;</span><br><span class="line">            flow -= f;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ll ans = <span class="number">0</span>;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; s &gt;&gt; t;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>, u, v, w; i &lt;= m; i++) &#123;</span><br><span class="line">        cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;</span><br><span class="line">        e[u].<span class="built_in">push_back</span>((edge)&#123;v, w, e[v].<span class="built_in">size</span>()&#125;);</span><br><span class="line">        e[v].<span class="built_in">push_back</span>((edge)&#123;u, <span class="number">0</span>, e[u].<span class="built_in">size</span>() - <span class="number">1</span>&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">bfs</span>()) &#123;</span><br><span class="line">        ans += <span class="built_in">dfs</span>(s, inf);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T;</span><br><span class="line">    T = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>ACM</category>
@@ -507,7 +567,7 @@ class="math inline">\(k-count\)</span>，则该元素在右子树中。</li>
     <url>/2025/11/07/%E6%A8%A1%E6%9D%BF%E2%80%94%E2%80%94%E5%9B%BE%E8%AE%BA/</url>
     <content><![CDATA[<h1 id="模板图论">模板——图论</h1>
 <p>Floyd 算法，SPFA 算法（慎用），Dijkstra 算法，强连通分量，Prim
-算法，Kruskal 算法，Dinic 最大流，欧拉路。</p>
+算法，Kruskal 算法，Dinic 最大流（有更新），欧拉路（有更新）。</p>
 <span id="more"></span>
 <h2 id="floyd-算法">Floyd 算法</h2>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">floyd</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">1</span>; k &lt;= n; k++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (e[i][j] &gt; e[i][k] + e[k][j])</span><br><span class="line">                    e[i][j] = e[i][k] + e[k][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -559,9 +619,9 @@ class="math inline">\((u,v)\)</span>，需要找出从 u 到 v
 的一条简单路径，使路径上所有边中边权最大值最小。最小生成树上 u 到 v
 的路径一定是 u 到 v 的最小瓶颈路之一。</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">kruskal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> num = <span class="number">0</span>, ru, rv;</span><br><span class="line">    <span class="built_in">sort</span>(e + <span class="number">1</span>, e + cnt + <span class="number">1</span>, cmp);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">        ru = ufds.<span class="built_in">find</span>(e[i].u), rv = ufds.<span class="built_in">find</span>(e[i].v);</span><br><span class="line">        <span class="keyword">if</span> (ru == rv)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        ans += e[i].len;<span class="comment">//成为最小生成树的树边</span></span><br><span class="line">        ufds.<span class="built_in">merge</span>(ru, rv);</span><br><span class="line">        <span class="keyword">if</span> (++num == n - <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="dinic-最大流">Dinic 最大流</h2>
+<h2 id="dinic-最大流有更新弃用">Dinic 最大流（有更新，弃用）</h2>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;int,int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TIII tuple<span class="string">&lt;int,int,int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"><span class="comment">//网络流(dinic)</span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">205</span>, M = <span class="number">5005</span>;</span><br><span class="line">vector&lt;TIII &gt; e[M]; <span class="comment">//点，边权，反向边编号</span></span><br><span class="line"><span class="type">int</span> lev[N], cur[N], ans; <span class="comment">//bfs分层，弧优化，最大流</span></span><br><span class="line"><span class="type">int</span> n, m, s, t;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">bfs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= n; i++)lev[i] = <span class="number">-1</span>, cur[i] = <span class="number">0</span>;</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(s);</span><br><span class="line">    lev[s] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="type">int</span> x = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> [y, w, temp2]: e[x]) &#123;</span><br><span class="line">            <span class="keyword">if</span> (lev[y] == <span class="number">-1</span> &amp;&amp; w &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                lev[y] = lev[x] + <span class="number">1</span>;</span><br><span class="line">                q.<span class="built_in">push</span>(y);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> lev[t] != <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> flow)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x == t) &#123;</span><br><span class="line">        <span class="keyword">return</span> flow;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> &amp;i = cur[x]; i &lt; e[x].<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">auto</span> &amp;[y, w, rev] = e[x][i];</span><br><span class="line">        <span class="keyword">if</span> (lev[y] == lev[x] + <span class="number">1</span> &amp;&amp; w &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="type">int</span> lim = <span class="built_in">dfs</span>(y, <span class="built_in">min</span>(flow, w));</span><br><span class="line">            <span class="keyword">if</span> (lim &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                w -= lim;</span><br><span class="line">                std::<span class="built_in">get</span>&lt;<span class="number">1</span>&gt;(e[y][rev]) += lim;</span><br><span class="line">                <span class="keyword">return</span> lim;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>), cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; s &gt;&gt; t;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="type">int</span> x, y, w;</span><br><span class="line">        cin &gt;&gt; x &gt;&gt; y &gt;&gt; w;</span><br><span class="line">        e[x].<span class="built_in">push_back</span>(&#123;y, w, e[y].<span class="built_in">size</span>()&#125;);</span><br><span class="line">        e[y].<span class="built_in">push_back</span>(&#123;x, <span class="number">0</span>, e[x].<span class="built_in">size</span>() - <span class="number">1</span>&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">bfs</span>()) &#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="type">int</span> x = <span class="built_in">dfs</span>(s, <span class="number">4e18</span>);</span><br><span class="line">            <span class="keyword">if</span> (x == <span class="number">0</span>)<span class="keyword">break</span>;</span><br><span class="line">            ans += x;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="欧拉路">欧拉路</h2>
+<h2 id="欧拉路有更新弃用">欧拉路（有更新，弃用）</h2>
 <p>我们先结合定理进行分析：</p>
 <ul>
 <li><p>如果是求有没有欧拉回路：判断是有向图还是无向图，若为有向图，所有顶点出、入度相等。若为无向图，则没有奇度顶点。</p></li>
@@ -1304,9 +1364,9 @@ class="math inline">\(a_i/a_{i+1}\)</span>
         <category>题解</category>
       </categories>
       <tags>
+        <tag>思维题</tag>
         <tag>最大公约数</tag>
         <tag>动态规划</tag>
-        <tag>思维题</tag>
         <tag>容斥</tag>
         <tag>搜索与剪枝</tag>
       </tags>
@@ -1580,10 +1640,10 @@ class="math inline">\(x\)</span>。</p>
         <category>题解</category>
       </categories>
       <tags>
-        <tag>最短路</tag>
         <tag>思维题</tag>
-        <tag>毒瘤题</tag>
+        <tag>最短路</tag>
         <tag>贪心</tag>
+        <tag>毒瘤题</tag>
         <tag>逆序对</tag>
         <tag>抽屉原理</tag>
         <tag>计数题</tag>
@@ -1695,8 +1755,8 @@ class="math inline">\(a_i\)</span> 的贡献。</p>
         <category>题解</category>
       </categories>
       <tags>
-        <tag>动态规划</tag>
         <tag>思维题</tag>
+        <tag>动态规划</tag>
         <tag>状态压缩</tag>
         <tag>单调栈</tag>
         <tag>诈骗题</tag>
@@ -2168,8 +2228,8 @@ class="math inline">\(i\)</span>，这样就能还原排列。</p>
       </categories>
       <tags>
         <tag>ACM</tag>
-        <tag>思维题</tag>
         <tag>线段树</tag>
+        <tag>思维题</tag>
       </tags>
   </entry>
   <entry>
@@ -2399,10 +2459,10 @@ f(i,j,a_i)=\sum_{k\in C} f(i-1,j-1,k)
       </categories>
       <tags>
         <tag>ACM</tag>
+        <tag>思维题</tag>
         <tag>最大公约数</tag>
         <tag>动态规划</tag>
         <tag>最短路</tag>
-        <tag>思维题</tag>
       </tags>
   </entry>
   <entry>
@@ -3501,8 +3561,8 @@ class="math inline">\(O(n^2\alpha(n))\)</span>。</p>
         <category>社团讲评</category>
       </categories>
       <tags>
-        <tag>毒瘤题</tag>
         <tag>贪心</tag>
+        <tag>毒瘤题</tag>
         <tag>暴搜</tag>
         <tag>并查集</tag>
         <tag>链表</tag>
