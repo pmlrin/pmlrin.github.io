@@ -22,24 +22,27 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"pmlrin.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.23.2","exturl":false,"sidebar":{"position":"left","width_expanded":340,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"github","dark":"github"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":300},"language":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"giscus","storage":true,"lazyload":false,"nav":null,"activeClass":"giscus"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":5,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="欢迎来到本博客！相互交流，共同进步～">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Cool Pomelo">
-<meta property="og:url" content="https://pmlrin.github.io/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/index.html">
+    <meta name="description" content="U227762 试卷排序 题目背景 期末考试临近了，yz 和 zzw 收到了来自老师的试卷关爱，但是试卷太多了，足足有 \(10^{6}\) 张，他们已经无法排好试卷了。 所以在 zzy 的建议下，他们把这个问题交给了你。 题目描述 给定一个页码总数为 \(n\) 的试卷堆，每张试卷都有一个正整数编号 \(a_i\)（保证互不相同且属于 \(1\le a_i\le n\)），现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【IDEA】试卷排序">
+<meta property="og:url" content="https://pmlrin.github.io/2026/03/26/%E3%80%90IDEA%E3%80%91%E8%AF%95%E5%8D%B7%E6%8E%92%E5%BA%8F/index.html">
 <meta property="og:site_name" content="Cool Pomelo">
-<meta property="og:description" content="欢迎来到本博客！相互交流，共同进步～">
+<meta property="og:description" content="U227762 试卷排序 题目背景 期末考试临近了，yz 和 zzw 收到了来自老师的试卷关爱，但是试卷太多了，足足有 \(10^{6}\) 张，他们已经无法排好试卷了。 所以在 zzy 的建议下，他们把这个问题交给了你。 题目描述 给定一个页码总数为 \(n\) 的试卷堆，每张试卷都有一个正整数编号 \(a_i\)（保证互不相同且属于 \(1\le a_i\le n\)），现">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-26T14:59:43.000Z">
+<meta property="article:modified_time" content="2026-03-26T15:00:39.777Z">
 <meta property="article:author" content="Pomelorin &amp; Cool-breeze">
+<meta property="article:tag" content="思维题">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://pmlrin.github.io/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/">
+<link rel="canonical" href="https://pmlrin.github.io/2026/03/26/%E3%80%90IDEA%E3%80%91%E8%AF%95%E5%8D%B7%E6%8E%92%E5%BA%8F/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"tags/二进制/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://pmlrin.github.io/2026/03/26/%E3%80%90IDEA%E3%80%91%E8%AF%95%E5%8D%B7%E6%8E%92%E5%BA%8F/","path":"2026/03/26/【IDEA】试卷排序/","title":"【IDEA】试卷排序"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>标签: 二进制 | Cool Pomelo</title>
+<title>【IDEA】试卷排序 | Cool Pomelo</title>
   
 
 
@@ -165,7 +168,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -178,6 +181,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#u227762-%E8%AF%95%E5%8D%B7%E6%8E%92%E5%BA%8F"><span class="nav-text">U227762 试卷排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E8%83%8C%E6%99%AF"><span class="nav-text">题目背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F"><span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F"><span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B-1"><span class="nav-text">输入输出样例 #1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%85%A5-1"><span class="nav-text">输入 #1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%87%BA-1"><span class="nav-text">输出 #1</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B-2"><span class="nav-text">输入输出样例 #2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%85%A5-2"><span class="nav-text">输入 #2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%87%BA-2"><span class="nav-text">输出 #2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%E6%8F%90%E7%A4%BA"><span class="nav-text">说明&#x2F;提示</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -225,51 +229,261 @@
 
     </div>
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">二进制
-          <small>标签</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://pmlrin.github.io/2026/03/26/%E3%80%90IDEA%E3%80%91%E8%AF%95%E5%8D%B7%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg,/images/avatar2.jpg">
+      <meta itemprop="name" content="Pomelorin & Cool-breeze">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cool Pomelo">
+      <meta itemprop="description" content="欢迎来到本博客！相互交流，共同进步～">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="【IDEA】试卷排序 | Cool Pomelo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【IDEA】试卷排序
         </h1>
-      </div>
 
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2025</span>
+
+      <time title="创建时间：2026-03-26 22:59:43 / 修改时间：23:00:39" itemprop="dateCreated datePublished" datetime="2026-03-26T22:59:43+08:00">2026-03-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ACM/" itemprop="url" rel="index"><span itemprop="name">ACM</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ACM/idea/" itemprop="url" rel="index"><span itemprop="name">idea</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="far fa-user"></i>
+    </span>
+    <span class="post-meta-item-text">作者</span>
+      <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <span itemprop="name"><pr>Pomelorin<pr></span>
+      </span>
+  </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="u227762-试卷排序">U227762 试卷排序</h1>
+<h2 id="题目背景">题目背景</h2>
+<p>期末考试临近了，yz 和 zzw
+收到了来自老师的<del>试卷</del>关爱，但是<strong>试卷太多了</strong>，足足有
+<span class="math inline">\(10^{6}\)</span>
+张，他们已经无法排好试卷了。</p>
+<p>所以在 zzy 的建议下，他们把这个问题交给了你。</p>
+<h2 id="题目描述">题目描述</h2>
+<p>给定一个页码总数为 <span class="math inline">\(n\)</span>
+的试卷堆，每张试卷都有一个正整数编号 <span
+class="math inline">\(a_i\)</span>（保证互不相同且属于 <span
+class="math inline">\(1\le a_i\le
+n\)</span>），现要求你将它进行排序，你有如下两种操作：</p>
+<ol type="1">
+<li><p>选定一张试卷，将之置于试卷堆顶部；</p></li>
+<li><p>选定一张试卷，将之置于试卷堆底部。</p></li>
+</ol>
+<p>但由于 yz 和 zzw 的能力不同，所以你需要分别处理。</p>
+<p>yz 希望能将试卷页码从小到大排列且操作次数最少，但只能实行操作 <span
+class="math inline">\(1\)</span> ;</p>
+<p>zzw 的希望与 yz 相同，但可以进行操作 <span
+class="math inline">\(1\)</span> 和操作 <span
+class="math inline">\(2\)</span> 。</p>
+<h2 id="输入格式">输入格式</h2>
+<p>第一行一个整数 <span class="math inline">\(n\)</span>。</p>
+<p>第二行一个字符串 <span
+class="math inline">\(s\)</span>，表示你将为谁进行试卷排序。</p>
+<p>第三行共 <span class="math inline">\(n\)</span> 个整数，分别为 <span
+class="math inline">\(a_1,a_2,\cdots,a_n\)</span>，表示试卷页码的当前状态。</p>
+<h2 id="输出格式">输出格式</h2>
+<p>输出共一行一个整数，为最少的操作次数。</p>
+<h2 id="输入输出样例-1">输入输出样例 #1</h2>
+<h3 id="输入-1">输入 #1</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">yz</span><br><span class="line">5 1 2 4 3</span><br></pre></td></tr></table></figure>
+<h3 id="输出-1">输出 #1</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4</span><br></pre></td></tr></table></figure>
+<h2 id="输入输出样例-2">输入输出样例 #2</h2>
+<h3 id="输入-2">输入 #2</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">zzw</span><br><span class="line">5 1 2 4 3</span><br></pre></td></tr></table></figure>
+<h3 id="输出-2">输出 #2</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2</span><br></pre></td></tr></table></figure>
+<h2 id="说明提示">说明/提示</h2>
+<p><strong>【数据范围】</strong></p>
+<p>对所有测试点保证 <span class="math inline">\(1 \leq n \leq
+10^{6}\)</span>，<span class="math inline">\(1 \leq a_i \leq
+n\)</span>，<span class="math inline">\(a_i\)</span> 互不相同。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">测试点</th>
+<th style="text-align: center;"><span
+class="math inline">\(n\)</span></th>
+<th style="text-align: center;"><span
+class="math inline">\(s\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(1 \sim
+2\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(=10\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(=\tt{yz}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(3 \sim
+4\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(=10^{3}\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(=\tt{yz}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(5 \sim
+8\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(=10^{6}\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(=\tt{yz}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(9 \sim
+10\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(=10\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(=\tt{zzw}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(11 \sim
+12\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(=10^{3}\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(=\tt{zzw}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(13 \sim
+20\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(=10^{6}\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(=\tt{zzw}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>【本题来源】</strong></p>
+<ul>
+<li>Idea &amp; 题面：zzw；</li>
+<li>数据：yz；</li>
+<li>标程：njy；</li>
+<li>验题：lhz；</li>
+<li>题解：zzy。</li>
+</ul>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2025-11-04T21:08:30+08:00"
-              content="2025-11-04">
-          11-04
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2025/11/04/%E4%BA%A4%E4%BA%92%E9%A2%98%E9%80%89%E7%BC%96/" itemprop="url">
-            <span itemprop="name">交互题选编</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          
 
-      
-    </header>
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>原作者： </strong>Pomelorin
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://pmlrin.github.io/2026/03/26/%E3%80%90IDEA%E3%80%91%E8%AF%95%E5%8D%B7%E6%8E%92%E5%BA%8F/" title="【IDEA】试卷排序">https://pmlrin.github.io/2026/03/26/【IDEA】试卷排序/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%80%9D%E7%BB%B4%E9%A2%98/" rel="tag"><i class="fa fa-tag"></i> 思维题</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/03/22/%E7%BD%91%E7%BB%9C%E6%B5%81%E9%A2%98%E7%9B%AE/" rel="prev" title="网络流题目">
+                  <i class="fa fa-angle-left"></i> 网络流题目
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/03/26/%E3%80%90IDEA%E3%80%91%E5%AF%BB%E6%89%BE%E4%B8%A2%E5%A4%B1%E8%91%A1%E8%90%84%E6%9F%9A/" rel="next" title="【IDEA】寻找丢失葡萄柚">
+                  【IDEA】寻找丢失葡萄柚 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-    </div>
+
+
+
+
+
+    
+  
+  <div class="comments giscus-container">
   </div>
   
   
-  
-
 </div>
   </main>
 
