@@ -30,14 +30,17 @@
 <meta property="og:description" content="F. Inversion Pairs 只含有 01? 三种字符的字符串，可以把 ? 变成 0 或 1，求逆序对最多为多少。 逆序对 贪心 填法一定是左边都填 1，右边都填 0，枚举这个分界点即可。 预处理前缀 1 个数与后缀 0 个数，先假设都填 0，之后从左向右开始填 1。贡献变化为加后面 0 的个数减前面 1 的个数。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-03T09:02:03.000Z">
-<meta property="article:modified_time" content="2026-04-07T05:40:02.688Z">
+<meta property="article:modified_time" content="2026-04-08T06:22:05.018Z">
 <meta property="article:author" content="Pomelorin &amp; Cool-breeze">
-<meta property="article:tag" content="动态规划">
-<meta property="article:tag" content="最短路">
 <meta property="article:tag" content="逆序对">
 <meta property="article:tag" content="贪心">
 <meta property="article:tag" content="计数题">
+<meta property="article:tag" content="最短路">
+<meta property="article:tag" content="动态规划">
 <meta property="article:tag" content="毒瘤题">
+<meta property="article:tag" content="数位 DP">
+<meta property="article:tag" content="Dilworth 定理">
+<meta property="article:tag" content="前缀和">
 <meta name="twitter:card" content="summary">
 
 
@@ -135,7 +138,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-tags"><a href="/tags.html" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">59</span></a></li><li class="menu-item menu-item-categories"><a href="/categories.html" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">40</span></a></li><li class="menu-item menu-item-about"><a href="/pages/about.html" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-chat"><a href="/pages/chat.html" rel="section"><i class="fa fa-comment fa-fw"></i>留言</a></li><li class="menu-item menu-item-links"><a href="/pages/links.html" rel="section"><i class="fa fa-link fa-fw"></i>链接</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-tags"><a href="/tags.html" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">61</span></a></li><li class="menu-item menu-item-categories"><a href="/categories.html" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">40</span></a></li><li class="menu-item menu-item-about"><a href="/pages/about.html" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-chat"><a href="/pages/chat.html" rel="section"><i class="fa fa-comment fa-fw"></i>留言</a></li><li class="menu-item menu-item-links"><a href="/pages/links.html" rel="section"><i class="fa fa-link fa-fw"></i>链接</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -187,7 +190,8 @@
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
             <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#f.-inversion-pairs"><span class="nav-text">F. Inversion Pairs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#h.-hututu"><span class="nav-text">H. Hututu</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#j.-sichuan-provincial-contest"><span class="nav-text">J. Sichuan Provincial
-Contest</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#a.-minimum-product"><span class="nav-text">A. Minimum Product</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E9%A2%98c.-optimal-time"><span class="nav-text">（补题）C. Optimal Time</span></a></li></ol></div>
+Contest</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#a.-minimum-product"><span class="nav-text">A. Minimum Product</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E9%A2%98c.-optimal-time"><span class="nav-text">（补题）C. Optimal Time</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E9%A2%98d.-tripartite-graph"><span class="nav-text">（补题）D. Tripartite
+Graph</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -217,7 +221,7 @@ Contest</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags.html">
-        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-count">61</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -282,7 +286,7 @@ Contest</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-07 13:40:02" itemprop="dateModified" datetime="2026-04-07T13:40:02+08:00">2026-04-07</time>
+      <time title="修改时间：2026-04-08 14:22:05" itemprop="dateModified" datetime="2026-04-08T14:22:05+08:00">2026-04-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -412,6 +416,133 @@ f(x)=\min\{f(x-1),\frac{\sum_{i\in S(x)}f(i-1)}{|S(x)|}\}+1
 <p>比赛时想要探究 <span class="math inline">\(f(x)\)</span>
 是否有后效性，发现存在后效性后想通过某种方法去掉后效性，但是一筹莫展。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll, ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll M = <span class="number">1e5</span> + <span class="number">10</span>, inf = <span class="number">1e17</span>;</span><br><span class="line"></span><br><span class="line">ll N;</span><br><span class="line"><span class="type">long</span> <span class="type">double</span> f[M];</span><br><span class="line">vector&lt;ll&gt; e[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (ll j = <span class="number">1</span>; j * j &lt;= i; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i % j == <span class="number">0</span>) &#123;</span><br><span class="line">                e[i].<span class="built_in">push_back</span>(j);</span><br><span class="line">                <span class="keyword">if</span> (j * j != i) &#123;</span><br><span class="line">                    e[i].<span class="built_in">push_back</span>(i / j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll j = i * <span class="number">2</span>; j &lt;= N; j += i) &#123;</span><br><span class="line">            e[i].<span class="built_in">push_back</span>(j);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">0</span>; i &lt;= N; i++) &#123;</span><br><span class="line">        f[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (ll k = <span class="number">1</span>; k &lt;= <span class="number">100</span>; k++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">            <span class="type">long</span> <span class="type">double</span> tmp = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> j: e[i]) &#123;</span><br><span class="line">                tmp += f[j - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            f[i] = <span class="built_in">min</span>(f[i - <span class="number">1</span>] + <span class="number">1</span>, tmp / e[i].<span class="built_in">size</span>() + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ll x;</span><br><span class="line">    cin &gt;&gt; x;</span><br><span class="line">    cout &lt;&lt; fixed &lt;&lt; <span class="built_in">setprecision</span>(<span class="number">6</span>) &lt;&lt; f[x] &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T;</span><br><span class="line">    cin &gt;&gt; N &gt;&gt; T;</span><br><span class="line">    <span class="built_in">init</span>();</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="补题d.-tripartite-graph"><pr>（补题）D. Tripartite
+Graph</pr></h1>
+<p>给定一个排列 <span class="math inline">\(a_n\)</span>，定义其生成图为
+<span class="math inline">\(n\)</span> 个节点，如果 <span
+class="math inline">\(i&lt;j\and a_i&gt;a_j\)</span>，则存在无向边 <span
+class="math inline">\((i,j)\)</span>。定义三分图为能够给所有节点染成三种颜色，使得每条无向边连接的两个节点颜色均不同。现在给定排列
+<span class="math inline">\(q_n\)</span>，问字典序大于 <span
+class="math inline">\(q_n\)</span> 的排列的生成图有几个三分图。</p>
+<p><span class="math inline">\(T=300\)</span> 个询问，<span
+class="math inline">\(1\le n\le 300\)</span>。</p>
+<details>
+<summary>
+点击查看题解
+</summary>
+<p><tag>Dilworth 定理</tag>
+图为逆序对连边，所以如果最长下降子序列长度超过 3，必然存在节点个数等于 4
+的子完全图使得无法三分染色（完全图任意节点都有连边，所以所有节点颜色必须均不相同）。而如果最长下降子序列长度不超过
+3，一定可以被三分染色。</p>
+<p>所以题意等价为寻找最长下降子序列不超过 3 的排列个数。根据 Dilworth
+定理，等价于求可划分为三个上升子序列的排列个数。</p>
+<p>判定是否可划分为三个上升子序列的方法是：令 <span
+class="math inline">\(a=b=c=0\)</span>。从 <span
+class="math inline">\(1\)</span> 至 <span
+class="math inline">\(n\)</span>，</p>
+<ul>
+<li><p>如果 <span class="math inline">\(q_i&gt;c\)</span>，则把 <span
+class="math inline">\(q_i\)</span> 赋值给 <span
+class="math inline">\(c\)</span>（安放）；</p></li>
+<li><p>否则如果 <span
+class="math inline">\(q_i&gt;b\)</span>，安放；</p></li>
+<li><p>否则如果 <span
+class="math inline">\(q_i&gt;a\)</span>，安放；</p></li>
+<li><p>否则说明不可划分（不合法）。</p></li>
+</ul>
+<p>如果最终都可安放，说明原序列可划分为三个上升子序列（合法），与此同时序列
+<span class="math inline">\(c,b,a\)</span>
+也是原序列的一个最长下降子序列。</p>
+<p><tag>动态规划</tag> 暂时不考虑大于排列 <span
+class="math inline">\(q_n\)</span> 的做法。如果考虑设 <span
+class="math inline">\(f(a,b,c)\)</span> 为最终得到的最长下降子序列为
+<span class="math inline">\(c,b,a\)</span>
+的合法排列个数，则不容易写出转移方程（不容易维护未放置的数的集合）。</p>
+<p>考虑设 <span class="math inline">\(f(u,v,w)\)</span>
+为在未放置的数中，大于 <span class="math inline">\(a\)</span> 的个数为
+<span class="math inline">\(u\)</span>，……以此类推的合法排列个数。显然
+<span class="math inline">\(u\ge v\ge w\)</span>。</p>
+<p>对于状态 <span
+class="math inline">\(f(u,v,w)\)</span>，此时未安放的数属于 <span
+class="math inline">\([a,b]\)</span> 的个数为 <span
+class="math inline">\(u-v\)</span>，<span
+class="math inline">\([b,c]\)</span> 为 <span
+class="math inline">\(v-w\)</span>，<span
+class="math inline">\([c,n]\)</span> 为 <span
+class="math inline">\(w\)</span>。分类讨论：</p>
+<ul>
+<li>接下来安放属于 <span class="math inline">\([c,n]\)</span> 的某个数
+<span class="math inline">\(c&#39;\)</span>。如果安放第 <span
+class="math inline">\(i\in[1,w]\)</span> 个（从小到大），则大于 <span
+class="math inline">\(a,b\)</span> 的个数均减一。而这个数一定安放在
+<span class="math inline">\(c\)</span>，也就是 <span
+class="math inline">\(c\)</span> 变为这个数 <span
+class="math inline">\(c&#39;\)</span>。所以大于 <span
+class="math inline">\(c&#39;\)</span> 的个数为 <span
+class="math inline">\(w-i\)</span>。所以 <span
+class="math inline">\(f(u,v,w)\)</span> 可转移到 <span
+class="math inline">\(\forall i\in[1,w],f(u-1,v-1,w-i)\)</span>。</li>
+<li>接下来安放属于 <span class="math inline">\([b,c]\)</span> 的某个数
+<span class="math inline">\(b&#39;\)</span>。类似的，可转移到 <span
+class="math inline">\(\forall i\in[1,v-w],f(u-1,v-i,w)\)</span>。</li>
+<li>接下来安放属于 <span class="math inline">\([a,b]\)</span> 的某个数
+<span
+class="math inline">\(a&#39;\)</span>。如果安放的不是第一个（最小）未安放数字，则最小未安放数字在之后一定无处安放，导致排列不合法。所以，如果
+<span class="math inline">\(u-v&gt;0\)</span>，只能转移到 <span
+class="math inline">\(f(u-1,v,w)\)</span>。</li>
+</ul>
+<p><tag>前缀和</tag> 设值域为 <span
+class="math inline">\(V\)</span>，这样转移的复杂度为 <span
+class="math inline">\(O(V^4)\)</span>，难以通过。设 <span
+class="math inline">\(g3(u,v,w)=\sum_{i=0}^w f(u,v,i)\)</span>，<span
+class="math inline">\(g2(u,v,w)=\sum_{i=0}^v
+f(u,i,w)\)</span>，通过前缀和可优化至 <span
+class="math inline">\(O(V^3)\)</span>。</p>
+<p><tag>数位 DP</tag> 接下来考虑大于排列 <span
+class="math inline">\(q_n\)</span> 的做法。利用数位 DP 的思想，从 <span
+class="math inline">\(1\)</span> 至 <span
+class="math inline">\(n\)</span>，填入 <span
+class="math inline">\(q_i\)</span> 时都可以改为填入比 <span
+class="math inline">\(q_i\)</span> 大的数字，从而使得之后填入的数字脱离
+<span class="math inline">\(q_i\)</span> 的限制。具体地：</p>
+<p>对于 <span class="math inline">\(q_n\)</span>，从 <span
+class="math inline">\(1\)</span> 至 <span
+class="math inline">\(n\)</span>，也维护 <span
+class="math inline">\(a,b,c\)</span>，同时维护对应的 <span
+class="math inline">\(u,v,w\)</span>，且令安放 <span
+class="math inline">\(q_i\)</span> 之前的 <span
+class="math inline">\(u,v,w\)</span> 值为 <span
+class="math inline">\(pu,pv,pw\)</span>。记答案为 <span
+class="math inline">\(ans\)</span>。跟上文动态规划部分很类似，</p>
+<ul>
+<li><p>如果 <span class="math inline">\(q_i\)</span> 安放在 <span
+class="math inline">\(a\)</span>，<span class="math inline">\(b\)</span>
+或 <span class="math inline">\(c\)</span>，都可以改为安放比 <span
+class="math inline">\(\max(c,q_i)\)</span> 大的某个数字，其数量为 <span
+class="math inline">\(w\)</span>。</p>
+<p><span class="math inline">\(\forall i\in[1,w],ans\gets
+ans+f(pu-1,pv-1,w-i)\)</span></p></li>
+<li><p>如果 <span class="math inline">\(q_i\)</span> 安放在 <span
+class="math inline">\(a\)</span> 或 <span
+class="math inline">\(b\)</span>，都可以改为安放比 <span
+class="math inline">\(\max(b,q_i)\)</span> 大并且比 <span
+class="math inline">\(c\)</span> 小的某个数字，其数量为 <span
+class="math inline">\(v-w\)</span>。</p>
+<p><span class="math inline">\(\forall i\in[1,v-w],ans\gets
+ans+f(pu-1,v-i,pw)\)</span></p></li>
+<li><p>如果 <span class="math inline">\(q_i\)</span> 安放在 <span
+class="math inline">\(a\)</span>，不能改为比 <span
+class="math inline">\(q_i\)</span> 大的数字，否则 <span
+class="math inline">\(q_i\)</span>
+在之后一定无处安放，导致排列不合法，此步不可转移。</p>
+<p><span class="math inline">\(ans\gets ans+0\)</span></p></li>
+</ul>
+<p>这一部分时间复杂度为 <span
+class="math inline">\(O(n^2)\)</span>。</p>
+<p>总时间复杂度为 <span
+class="math inline">\(O(V^3+Tn^2)\)</span>，可以通过。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll, ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">300</span> + <span class="number">10</span>, inf = <span class="number">1e17</span>, mod = <span class="number">998244353</span>;</span><br><span class="line"></span><br><span class="line">ll n, a[N], f[N][N][N], g3[N][N][N], g2[N][N][N];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">dfs</span><span class="params">(ll u, ll v, ll w)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (f[u][v][w]) &#123;</span><br><span class="line">        <span class="keyword">return</span> f[u][v][w];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (u == <span class="number">0</span> &amp;&amp; v == <span class="number">0</span> &amp;&amp; w == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> f[u][v][w] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ll ret = <span class="number">0</span>;</span><br><span class="line">    ll f1 = u - v, f2 = v - w, f3 = w;</span><br><span class="line">    ll i = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= f3; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (g3[u - <span class="number">1</span>][v - <span class="number">1</span>][w - i]) &#123;</span><br><span class="line">            ret = (ret + g3[u - <span class="number">1</span>][v - <span class="number">1</span>][w - i]) % mod;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ret = (ret + <span class="built_in">dfs</span>(u - <span class="number">1</span>, v - <span class="number">1</span>, w - i)) % mod;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (; i &gt;= <span class="number">1</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">if</span> (w - i &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">            g3[u - <span class="number">1</span>][v - <span class="number">1</span>][w - i] = (f[u - <span class="number">1</span>][v - <span class="number">1</span>][w - i] + g3[u - <span class="number">1</span>][v - <span class="number">1</span>][w - i - <span class="number">1</span>]) % mod;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (w - i == <span class="number">0</span>) &#123;</span><br><span class="line">            g3[u - <span class="number">1</span>][v - <span class="number">1</span>][w - i] = f[u - <span class="number">1</span>][v - <span class="number">1</span>][w - i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= f2; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (g2[u - <span class="number">1</span>][v - i][w]) &#123;</span><br><span class="line">            ret = (ret + g2[u - <span class="number">1</span>][v - i][w]) % mod;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ret = (ret + <span class="built_in">dfs</span>(u - <span class="number">1</span>, v - i, w)) % mod;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (; i &gt;= <span class="number">1</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">if</span> (v - i &gt;= w + <span class="number">1</span>) &#123;</span><br><span class="line">            g2[u - <span class="number">1</span>][v - i][w] = (f[u - <span class="number">1</span>][v - i][w] + g2[u - <span class="number">1</span>][v - i - <span class="number">1</span>][w]) % mod;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (v - i == w) &#123;</span><br><span class="line">            g2[u - <span class="number">1</span>][v - i][w] = f[u - <span class="number">1</span>][v - i][w];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (f1 &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">        ret = (ret + <span class="built_in">dfs</span>(u - <span class="number">1</span>, v, w)) % mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f[u][v][w] = ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ll ans = <span class="number">0</span>;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    ll pu = n, pv = n, pw = n;</span><br><span class="line">    ll n1 = <span class="number">0</span>, n2 = <span class="number">0</span>, n3 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (a[i] &gt; n3) &#123;</span><br><span class="line">            n3 = a[i];</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (a[i] &gt; n2) &#123;</span><br><span class="line">            n2 = a[i];</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (a[i] &gt; n1) &#123;</span><br><span class="line">            n1 = a[i];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ll u = <span class="number">0</span>, v = <span class="number">0</span>, w = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (ll j = i + <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (a[j] &gt; n3) &#123;</span><br><span class="line">                u++, v++, w++;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (a[j] &gt; n2) &#123;</span><br><span class="line">                u++, v++;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (a[j] &gt; n1) &#123;</span><br><span class="line">                u++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ll f1 = u - v, f2 = v - w, f3 = w;</span><br><span class="line">        <span class="keyword">if</span> (a[i] == n3 || a[i] == n2 || a[i] == n1) &#123;</span><br><span class="line">            <span class="keyword">for</span> (ll j = <span class="number">1</span>; j &lt;= f3; j++) &#123;</span><br><span class="line">                ans = (ans + f[pu - <span class="number">1</span>][pv - <span class="number">1</span>][w - j]) % mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (a[i] == n2 || a[i] == n1) &#123;</span><br><span class="line">            <span class="keyword">for</span> (ll j = <span class="number">1</span>; j &lt;= f2; j++) &#123;</span><br><span class="line">                ans = (ans + f[pu - <span class="number">1</span>][v - j][pw]) % mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        pu = u, pv = v, pw = w;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">300</span>, <span class="number">300</span>, <span class="number">300</span>);</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</details>
 
     </div>
 
@@ -438,12 +569,15 @@ f(x)=\min\{f(x-1),\frac{\sum_{i\in S(x)}f(i-1)}{|S(x)|}\}+1
 </div>
 
           <div class="post-tags">
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"><i class="fa fa-tag"></i> 动态规划</a>
-              <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="tag"><i class="fa fa-tag"></i> 最短路</a>
               <a href="/tags/%E9%80%86%E5%BA%8F%E5%AF%B9/" rel="tag"><i class="fa fa-tag"></i> 逆序对</a>
               <a href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag"><i class="fa fa-tag"></i> 贪心</a>
               <a href="/tags/%E8%AE%A1%E6%95%B0%E9%A2%98/" rel="tag"><i class="fa fa-tag"></i> 计数题</a>
+              <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="tag"><i class="fa fa-tag"></i> 最短路</a>
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"><i class="fa fa-tag"></i> 动态规划</a>
               <a href="/tags/%E6%AF%92%E7%98%A4%E9%A2%98/" rel="tag"><i class="fa fa-tag"></i> 毒瘤题</a>
+              <a href="/tags/%E6%95%B0%E4%BD%8D-DP/" rel="tag"><i class="fa fa-tag"></i> 数位 DP</a>
+              <a href="/tags/Dilworth-%E5%AE%9A%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> Dilworth 定理</a>
+              <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" rel="tag"><i class="fa fa-tag"></i> 前缀和</a>
           </div>
 
         
