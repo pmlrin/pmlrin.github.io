@@ -30,13 +30,13 @@
 <meta property="og:description" content="F. Inversion Pairs 只含有 01? 三种字符的字符串，可以把 ? 变成 0 或 1，求逆序对最多为多少。 逆序对 贪心 填法一定是左边都填 1，右边都填 0，枚举这个分界点即可。 预处理前缀 1 个数与后缀 0 个数，先假设都填 0，之后从左向右开始填 1。贡献变化为加后面 0 的个数减前面 1 的个数。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-03T09:02:03.000Z">
-<meta property="article:modified_time" content="2026-04-08T06:22:05.018Z">
+<meta property="article:modified_time" content="2026-04-08T06:28:41.700Z">
 <meta property="article:author" content="Pomelorin &amp; Cool-breeze">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="最短路">
 <meta property="article:tag" content="逆序对">
 <meta property="article:tag" content="贪心">
 <meta property="article:tag" content="计数题">
-<meta property="article:tag" content="最短路">
-<meta property="article:tag" content="动态规划">
 <meta property="article:tag" content="毒瘤题">
 <meta property="article:tag" content="数位 DP">
 <meta property="article:tag" content="Dilworth 定理">
@@ -286,7 +286,7 @@ Graph</span></a></li></ol></div>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-08 14:22:05" itemprop="dateModified" datetime="2026-04-08T14:22:05+08:00">2026-04-08</time>
+      <time title="修改时间：2026-04-08 14:28:41" itemprop="dateModified" datetime="2026-04-08T14:28:41+08:00">2026-04-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -420,7 +420,8 @@ f(x)=\min\{f(x-1),\frac{\sum_{i\in S(x)}f(i-1)}{|S(x)|}\}+1
 Graph</pr></h1>
 <p>给定一个排列 <span class="math inline">\(a_n\)</span>，定义其生成图为
 <span class="math inline">\(n\)</span> 个节点，如果 <span
-class="math inline">\(i&lt;j\and a_i&gt;a_j\)</span>，则存在无向边 <span
+class="math inline">\(i&lt;j\land a_i&gt;a_j\)</span>，则存在无向边
+<span
 class="math inline">\((i,j)\)</span>。定义三分图为能够给所有节点染成三种颜色，使得每条无向边连接的两个节点颜色均不同。现在给定排列
 <span class="math inline">\(q_n\)</span>，问字典序大于 <span
 class="math inline">\(q_n\)</span> 的排列的生成图有几个三分图。</p>
@@ -441,14 +442,12 @@ class="math inline">\(a=b=c=0\)</span>。从 <span
 class="math inline">\(1\)</span> 至 <span
 class="math inline">\(n\)</span>，</p>
 <ul>
-<li><p>如果 <span class="math inline">\(q_i&gt;c\)</span>，则把 <span
+<li>如果 <span class="math inline">\(q_i&gt;c\)</span>，则把 <span
 class="math inline">\(q_i\)</span> 赋值给 <span
-class="math inline">\(c\)</span>（安放）；</p></li>
-<li><p>否则如果 <span
-class="math inline">\(q_i&gt;b\)</span>，安放；</p></li>
-<li><p>否则如果 <span
-class="math inline">\(q_i&gt;a\)</span>，安放；</p></li>
-<li><p>否则说明不可划分（不合法）。</p></li>
+class="math inline">\(c\)</span>（安放）；</li>
+<li>否则如果 <span class="math inline">\(q_i&gt;b\)</span>，安放；</li>
+<li>否则如果 <span class="math inline">\(q_i&gt;a\)</span>，安放；</li>
+<li>否则说明不可划分（不合法）。</li>
 </ul>
 <p>如果最终都可安放，说明原序列可划分为三个上升子序列（合法），与此同时序列
 <span class="math inline">\(c,b,a\)</span>
@@ -469,7 +468,7 @@ class="math inline">\(u-v\)</span>，<span
 class="math inline">\([b,c]\)</span> 为 <span
 class="math inline">\(v-w\)</span>，<span
 class="math inline">\([c,n]\)</span> 为 <span
-class="math inline">\(w\)</span>。分类讨论：</p>
+class="math inline">\(w\)</span>。分类讨论接下来的三种情况：</p>
 <ul>
 <li>接下来安放属于 <span class="math inline">\([c,n]\)</span> 的某个数
 <span class="math inline">\(c&#39;\)</span>。如果安放第 <span
@@ -515,27 +514,25 @@ class="math inline">\(u,v,w\)</span> 值为 <span
 class="math inline">\(pu,pv,pw\)</span>。记答案为 <span
 class="math inline">\(ans\)</span>。跟上文动态规划部分很类似，</p>
 <ul>
-<li><p>如果 <span class="math inline">\(q_i\)</span> 安放在 <span
+<li>如果 <span class="math inline">\(q_i\)</span> 安放在 <span
 class="math inline">\(a\)</span>，<span class="math inline">\(b\)</span>
 或 <span class="math inline">\(c\)</span>，都可以改为安放比 <span
 class="math inline">\(\max(c,q_i)\)</span> 大的某个数字，其数量为 <span
-class="math inline">\(w\)</span>。</p>
-<p><span class="math inline">\(\forall i\in[1,w],ans\gets
-ans+f(pu-1,pv-1,w-i)\)</span></p></li>
-<li><p>如果 <span class="math inline">\(q_i\)</span> 安放在 <span
+class="math inline">\(w\)</span>。 <span class="math inline">\(\forall
+i\in[1,w],ans\gets ans+f(pu-1,pv-1,w-i)\)</span></li>
+<li>如果 <span class="math inline">\(q_i\)</span> 安放在 <span
 class="math inline">\(a\)</span> 或 <span
 class="math inline">\(b\)</span>，都可以改为安放比 <span
 class="math inline">\(\max(b,q_i)\)</span> 大并且比 <span
 class="math inline">\(c\)</span> 小的某个数字，其数量为 <span
-class="math inline">\(v-w\)</span>。</p>
-<p><span class="math inline">\(\forall i\in[1,v-w],ans\gets
-ans+f(pu-1,v-i,pw)\)</span></p></li>
-<li><p>如果 <span class="math inline">\(q_i\)</span> 安放在 <span
+class="math inline">\(v-w\)</span>。 <span class="math inline">\(\forall
+i\in[1,v-w],ans\gets ans+f(pu-1,v-i,pw)\)</span></li>
+<li>如果 <span class="math inline">\(q_i\)</span> 安放在 <span
 class="math inline">\(a\)</span>，不能改为比 <span
 class="math inline">\(q_i\)</span> 大的数字，否则 <span
 class="math inline">\(q_i\)</span>
-在之后一定无处安放，导致排列不合法，此步不可转移。</p>
-<p><span class="math inline">\(ans\gets ans+0\)</span></p></li>
+在之后一定无处安放，导致排列不合法，此步不可转移。 <span
+class="math inline">\(ans\gets ans+0\)</span></li>
 </ul>
 <p>这一部分时间复杂度为 <span
 class="math inline">\(O(n^2)\)</span>。</p>
@@ -569,11 +566,11 @@ class="math inline">\(O(V^3+Tn^2)\)</span>，可以通过。</p>
 </div>
 
           <div class="post-tags">
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"><i class="fa fa-tag"></i> 动态规划</a>
+              <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="tag"><i class="fa fa-tag"></i> 最短路</a>
               <a href="/tags/%E9%80%86%E5%BA%8F%E5%AF%B9/" rel="tag"><i class="fa fa-tag"></i> 逆序对</a>
               <a href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag"><i class="fa fa-tag"></i> 贪心</a>
               <a href="/tags/%E8%AE%A1%E6%95%B0%E9%A2%98/" rel="tag"><i class="fa fa-tag"></i> 计数题</a>
-              <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="tag"><i class="fa fa-tag"></i> 最短路</a>
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"><i class="fa fa-tag"></i> 动态规划</a>
               <a href="/tags/%E6%AF%92%E7%98%A4%E9%A2%98/" rel="tag"><i class="fa fa-tag"></i> 毒瘤题</a>
               <a href="/tags/%E6%95%B0%E4%BD%8D-DP/" rel="tag"><i class="fa fa-tag"></i> 数位 DP</a>
               <a href="/tags/Dilworth-%E5%AE%9A%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> Dilworth 定理</a>
