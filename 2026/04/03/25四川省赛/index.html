@@ -30,7 +30,7 @@
 <meta property="og:description" content="F. Inversion Pairs 只含有 01? 三种字符的字符串，可以把 ? 变成 0 或 1，求逆序对最多为多少。 逆序对 贪心 填法一定是左边都填 1，右边都填 0，枚举这个分界点即可。 预处理前缀 1 个数与后缀 0 个数，先假设都填 0，之后从左向右开始填 1。贡献变化为加后面 0 的个数减前面 1 的个数。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-03T09:02:03.000Z">
-<meta property="article:modified_time" content="2026-04-08T06:38:46.356Z">
+<meta property="article:modified_time" content="2026-04-09T04:25:46.023Z">
 <meta property="article:author" content="Pomelorin &amp; Cool-breeze">
 <meta property="article:tag" content="动态规划">
 <meta property="article:tag" content="最短路">
@@ -286,7 +286,7 @@ Graph</span></a></li></ol></div>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-08 14:38:46" itemprop="dateModified" datetime="2026-04-08T14:38:46+08:00">2026-04-08</time>
+      <time title="修改时间：2026-04-09 12:25:46" itemprop="dateModified" datetime="2026-04-09T12:25:46+08:00">2026-04-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -497,41 +497,40 @@ class="math inline">\(g3(u,v,w)=\sum_{i=0}^w f(u,v,i)\)</span>，<span
 class="math inline">\(g2(u,v,w)=\sum_{i=0}^v
 f(u,i,w)\)</span>，通过前缀和可优化至 <span
 class="math inline">\(O(V^3)\)</span>。</p>
-<p><tag>数位 DP</tag> 接下来考虑大于排列 <span
-class="math inline">\(q_n\)</span> 的做法。利用数位 DP 的思想，从 <span
-class="math inline">\(1\)</span> 至 <span
-class="math inline">\(n\)</span>，填入 <span
-class="math inline">\(q_i\)</span> 时都可以改为填入比 <span
-class="math inline">\(q_i\)</span> 大的数字，从而使得之后填入的数字脱离
-<span class="math inline">\(q_i\)</span> 的限制。具体地：</p>
-<p>对于 <span class="math inline">\(q_n\)</span>，从 <span
-class="math inline">\(1\)</span> 至 <span
-class="math inline">\(n\)</span>，也维护 <span
-class="math inline">\(a,b,c\)</span>，同时维护对应的 <span
-class="math inline">\(u,v,w\)</span>，且令安放 <span
-class="math inline">\(q_i\)</span> 之前的 <span
-class="math inline">\(u,v,w\)</span> 值为 <span
-class="math inline">\(pu,pv,pw\)</span>。记答案为 <span
+<p><tag>数位 DP</tag> 现在我们求出了所有的 <span
+class="math inline">\(f(u,v,w)\)</span>。接下来考虑大于排列 <span
+class="math inline">\(q_n\)</span> 的做法。利用数位 DP 的思想，可以枚举
+<span class="math inline">\(q_n\)</span> 的前缀 <span
+class="math inline">\(q[1:i],i\in[0,n]\)</span>。</p>
+<p>对于每个前缀 <span class="math inline">\(q[1:i]\)</span>，其长度为
+<span class="math inline">\(i\)</span>。如果在 <span
+class="math inline">\(q[1:i]\)</span> 的末尾穿插一个比 <span
+class="math inline">\(q_{i+1}\)</span> 大的数字，那么长度为 <span
+class="math inline">\(n-i-1\)</span> 的后缀就可以任取了。维护每个前缀的
+<span class="math inline">\(a_i,b_i,c_i\)</span>，同时维护对应的 <span
+class="math inline">\(u_i,v_i,w_i\)</span>。记答案为 <span
 class="math inline">\(ans\)</span>。跟上文动态规划部分很类似，</p>
 <ul>
-<li>如果 <span class="math inline">\(q_i\)</span> 安放在 <span
-class="math inline">\(a\)</span>，<span class="math inline">\(b\)</span>
-或 <span class="math inline">\(c\)</span>，都可以改为安放比 <span
-class="math inline">\(\max(c,q_i)\)</span> 大的某个数字，其数量为 <span
-class="math inline">\(w\)</span>。 <span class="math inline">\(\forall
-i\in[1,w],ans\gets ans+f(pu-1,pv-1,w-i)\)</span></li>
-<li>如果 <span class="math inline">\(q_i\)</span> 安放在 <span
-class="math inline">\(a\)</span> 或 <span
-class="math inline">\(b\)</span>，都可以改为安放比 <span
-class="math inline">\(\max(b,q_i)\)</span> 大并且比 <span
-class="math inline">\(c\)</span> 小的某个数字，其数量为 <span
-class="math inline">\(v-w\)</span>。 <span class="math inline">\(\forall
-i\in[1,v-w],ans\gets ans+f(pu-1,v-i,pw)\)</span></li>
-<li>如果 <span class="math inline">\(q_i\)</span> 安放在 <span
-class="math inline">\(a\)</span>，不能改为安放比 <span
-class="math inline">\(\max(a,q_i)\)</span> 大并且比 <span
-class="math inline">\(b\)</span> 小的数字，否则 <span
-class="math inline">\(q_i\)</span>
+<li>如果 <span class="math inline">\(q_{i+1}=a_{i+1}\lor
+q_{i+1}=b_{i+1}\lor q_{i+1}=c_{i+1}\)</span>，<span
+class="math inline">\(q[1:i]\)</span> 的末尾可以穿插一个比 <span
+class="math inline">\(\max(c_{i+1},q_{i+1})\)</span>
+大的某个数字，其数量为 <span class="math inline">\(w_{i+1}\)</span>。
+<span class="math inline">\(\forall j\in[1,w_{i+1}],ans\gets
+ans+f(u_i-1,v_i-1,w_{i+1}-j)\)</span></li>
+<li>如果 <span class="math inline">\(q_{i+1}=a_{i+1}\lor
+q_{i+1}=b_{i+1}\)</span>，<span class="math inline">\(q[1:i]\)</span>
+的末尾可以穿插一个比 <span
+class="math inline">\(\max(b_{i+1},q_{i+1})\)</span> 大并且比 <span
+class="math inline">\(c_{i+1}\)</span> 小的某个数字，其数量为 <span
+class="math inline">\(v_{i+1}-w_{i+1}\)</span>。 <span
+class="math inline">\(\forall j\in[1,v_{i+1}-w_{i+1}],ans\gets
+ans+f(u_i-1,v_{i+1}-j,w_i)\)</span></li>
+<li>如果 <span
+class="math inline">\(q_{i+1}=a_{i+1}\)</span>，不能改为安放比 <span
+class="math inline">\(\max(a_{i+1},q_{i+1})\)</span> 大并且比 <span
+class="math inline">\(b_{i+1}\)</span> 小的某个数字，否则 <span
+class="math inline">\(q_{i+1}\)</span>
 在之后一定无处安放，导致排列不合法，此步不可转移。 <span
 class="math inline">\(ans\gets ans+0\)</span></li>
 </ul>
