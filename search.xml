@@ -84,6 +84,7 @@ class="math inline">\(0 \leq v \lt 2^{60}\)</span>。</li>
 class="math inline">\(b = y\)</span>，则 gsh 获胜；否则，AI 获胜。</li>
 </ul>
 <p>请你判断 gsh 是否必胜，若必胜，输出 Yes，否则输出 No。</p>
+<span id="more"></span>
 <p><tag>博弈论</tag> 如果 <span
 class="math inline">\(a=x,b=y\)</span>，gsh 获胜。如果 <span
 class="math inline">\(a,b\)</span> 其中一个等于 <span
@@ -96,7 +97,7 @@ class="math inline">\(x,y\)</span> 才能获胜。否则 AI
 <span class="math inline">\(n\times n\)</span>
 的矩阵。矩阵中，所有的数字与它上下左右相邻的四个数字都互质，并且矩阵中的数都不超过
 <span class="math inline">\(n^2 + 40n\)</span>。</p>
-<p><tag>构造题<tag> <tag>最大公约数</tag>
+<p><tag>构造题</tag> <tag>最大公约数</tag>
 注意到：大小上相邻的两个数必定互质，<span
 class="math inline">\(kp+c,(k+1)p+c\)</span> 互质，其中 <span
 class="math inline">\(p\)</span> 是质数，<span
@@ -143,8 +144,8 @@ class="math inline">\(\text{sum}\times x&lt;y\)</span>，说明可以用 sum
         <category>VP 记录</category>
       </categories>
       <tags>
-        <tag>最大公约数</tag>
         <tag>思维题</tag>
+        <tag>最大公约数</tag>
         <tag>博弈论</tag>
         <tag>构造题</tag>
         <tag>二进制</tag>
@@ -2236,9 +2237,9 @@ class="math inline">\(a_i/a_{i+1}\)</span>
         <category>题解</category>
       </categories>
       <tags>
+        <tag>思维题</tag>
         <tag>最大公约数</tag>
         <tag>动态规划</tag>
-        <tag>思维题</tag>
         <tag>容斥</tag>
         <tag>搜索与剪枝</tag>
       </tags>
@@ -2512,8 +2513,8 @@ class="math inline">\(x\)</span>。</p>
         <category>题解</category>
       </categories>
       <tags>
-        <tag>最短路</tag>
         <tag>思维题</tag>
+        <tag>最短路</tag>
         <tag>逆序对</tag>
         <tag>贪心</tag>
         <tag>计数题</tag>
@@ -2627,8 +2628,8 @@ class="math inline">\(a_i\)</span> 的贡献。</p>
         <category>题解</category>
       </categories>
       <tags>
-        <tag>动态规划</tag>
         <tag>思维题</tag>
+        <tag>动态规划</tag>
         <tag>状态压缩</tag>
         <tag>单调栈</tag>
         <tag>诈骗题</tag>
@@ -2931,9 +2932,9 @@ class="math inline">\(0\)</span> 的位置。</li>
       </categories>
       <tags>
         <tag>思维题</tag>
-        <tag>构造题</tag>
         <tag>贪心</tag>
         <tag>前缀和</tag>
+        <tag>构造题</tag>
         <tag>中位数</tag>
       </tags>
   </entry>
@@ -3100,8 +3101,8 @@ class="math inline">\(i\)</span>，这样就能还原排列。</p>
       </categories>
       <tags>
         <tag>ACM</tag>
-        <tag>思维题</tag>
         <tag>线段树</tag>
+        <tag>思维题</tag>
       </tags>
   </entry>
   <entry>
@@ -3331,10 +3332,10 @@ f(i,j,a_i)=\sum_{k\in C} f(i-1,j-1,k)
       </categories>
       <tags>
         <tag>ACM</tag>
+        <tag>思维题</tag>
         <tag>最大公约数</tag>
         <tag>动态规划</tag>
         <tag>最短路</tag>
-        <tag>思维题</tag>
       </tags>
   </entry>
   <entry>
@@ -4457,8 +4458,8 @@ href="https://fastly.jsdelivr.net/gh/yz-hs/PicGo/%E8%B4%AA%E5%90%83%E8%9B%87%5BC
         <category>社团讲评</category>
       </categories>
       <tags>
-        <tag>博弈论</tag>
         <tag>毒瘤题</tag>
+        <tag>博弈论</tag>
         <tag>模拟</tag>
         <tag>队列</tag>
       </tags>
