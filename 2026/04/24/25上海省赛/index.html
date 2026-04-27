@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Roboto+Mono:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/6.0.5/fancybox/fancybox.css" integrity="sha256-uTcjoMD6rPt4OyV3Rs02Slxl0BJGMNVKAm/1eYPt2go=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"pmlrin.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.23.2","exturl":false,"sidebar":{"position":"left","width_expanded":340,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"github","dark":"github"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":300},"language":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"giscus","storage":true,"lazyload":false,"nav":null,"activeClass":"giscus"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":5,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="D. 与或博弈 博弈规则如下：  gsh 和 AI 轮流操作，gsh 先手。 他们操作两个非负整数 \(a\) 和 \(b\)，gsh 的目标是将其变为目标非负整数 \(x\) 和 \(y\)，而 AI 需要阻止 gsh 达成目标。 gsh 在自己的回合可以执行以下两种操作之一：  \(a :&#x3D; a \mathbin{\&amp;} v\)（按位与某个非负整数 \(v\)）。 \">
+<meta property="og:type" content="article">
+<meta property="og:title" content="25上海省赛">
+<meta property="og:url" content="https://pmlrin.github.io/2026/04/24/25%E4%B8%8A%E6%B5%B7%E7%9C%81%E8%B5%9B/index.html">
+<meta property="og:site_name" content="Cool Pomelo">
+<meta property="og:description" content="D. 与或博弈 博弈规则如下：  gsh 和 AI 轮流操作，gsh 先手。 他们操作两个非负整数 \(a\) 和 \(b\)，gsh 的目标是将其变为目标非负整数 \(x\) 和 \(y\)，而 AI 需要阻止 gsh 达成目标。 gsh 在自己的回合可以执行以下两种操作之一：  \(a :&#x3D; a \mathbin{\&amp;} v\)（按位与某个非负整数 \(v\)）。 \">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-04-24T10:41:53.000Z">
+<meta property="article:modified_time" content="2026-04-27T10:42:13.227Z">
+<meta property="article:author" content="Pomelorin &amp; Cool-breeze">
+<meta property="article:tag" content="最大公约数">
+<meta property="article:tag" content="思维题">
+<meta property="article:tag" content="博弈论">
+<meta property="article:tag" content="构造题">
+<meta property="article:tag" content="二进制">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://pmlrin.github.io/2026/04/24/25%E4%B8%8A%E6%B5%B7%E7%9C%81%E8%B5%9B/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://pmlrin.github.io/2026/04/24/25%E4%B8%8A%E6%B5%B7%E7%9C%81%E8%B5%9B/","path":"2026/04/24/25上海省赛/","title":"25上海省赛"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>25上海省赛 | Cool Pomelo</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/6.0.5/fancybox/fancybox.umd.js" integrity="sha256-UiSieVaV/DXce2LW7QH+o77w+AIoAvSCPBkezriZ2DQ=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/6.1.3/pangu.umd.js" integrity="sha256-erngBMP3zzoIM6eqQ8dmrReh2vqCRgWmORroIfVoDlE=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/bookmark.js" defer></script><script src="/js/pjax.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.3.1/pdfobject.min.js","integrity":"sha256-jI72I8ZLVflVOisZIOaLvRew3tyvzeu6aZXFm7P7dEo="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js" defer></script>
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.7.0/mermaid.min.js","integrity":"sha256-4+IKDqhZ/sXjc8Wtl2/MsxI4e0s1KpEVdbEP7V/Lz8U="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.5.0/wavedrom.min.js","integrity":"sha256-INLAoJc6quTNfiMWkGZniYO2cxE8mHpddnLow1m6RFs="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.5.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js" defer></script>
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+  <script src="/js/third-party/pace.js" defer></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Cool Pomelo</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Per aspera ad astra. 循此苦旅，以达天际。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-tags"><a href="/tags.html" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">60</span></a></li><li class="menu-item menu-item-categories"><a href="/categories.html" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">41</span></a></li><li class="menu-item menu-item-about"><a href="/pages/about.html" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-chat"><a href="/pages/chat.html" rel="section"><i class="fa fa-comment fa-fw"></i>留言</a></li><li class="menu-item menu-item-links"><a href="/pages/links.html" rel="section"><i class="fa fa-link fa-fw"></i>链接</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#d.-%E4%B8%8E%E6%88%96%E5%8D%9A%E5%BC%88"><span class="nav-text">D. 与或博弈</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#g.-%E7%9F%A9%E9%98%B5"><span class="nav-text">G. 矩阵</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#m.-%E9%AD%94%E6%B3%95%E4%BD%BF%E8%80%83%E6%A0%B8"><span class="nav-text">M. 魔法使考核</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <div style="display: flex;">
+        <img class="site-author-image" itemprop="image" alt="Pomelorin & Cool-breeze"
+          src="/images/avatar.jpg" style="justify-content: space-around;">
+        <img class="site-author-image" itemprop="image" alt="Pomelorin & Cool-breeze"
+          src="/images/avatar2.jpg" style="justify-content: space-around;">
+    </div>
+  <p class="site-author-name" itemprop="name">Pomelorin & Cool-breeze</p>
+  <div class="site-description" itemprop="description">欢迎来到本博客！相互交流，共同进步～</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories.html">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags.html">
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+<div class="quote-wrapper animated">
+  <blockquote class="blockquote-center" id="hitokoto"></blockquote>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://pmlrin.github.io/2026/04/24/25%E4%B8%8A%E6%B5%B7%E7%9C%81%E8%B5%9B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg,/images/avatar2.jpg">
+      <meta itemprop="name" content="Pomelorin & Cool-breeze">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cool Pomelo">
+      <meta itemprop="description" content="欢迎来到本博客！相互交流，共同进步～">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="25上海省赛 | Cool Pomelo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          25上海省赛
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-04-24 18:41:53" itemprop="dateCreated datePublished" datetime="2026-04-24T18:41:53+08:00">2026-04-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-04-27 18:42:13" itemprop="dateModified" datetime="2026-04-27T18:42:13+08:00">2026-04-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ACM/" itemprop="url" rel="index"><span itemprop="name">ACM</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ACM/VP-%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">VP 记录</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="far fa-user"></i>
+    </span>
+    <span class="post-meta-item-text">作者</span>
+      <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <span itemprop="name"><pr>Pomelorin<pr></span>
+      </span>
+        ，
+      <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <span itemprop="name"><cb>Cool-breeze<cb></span>
+      </span>
+  </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="d.-与或博弈"><pr>D. 与或博弈</pr></h1>
+<p>博弈规则如下：</p>
+<ul>
+<li>gsh 和 AI 轮流操作，gsh 先手。</li>
+<li>他们操作两个非负整数 <span class="math inline">\(a\)</span> 和 <span
+class="math inline">\(b\)</span>，gsh 的目标是将其变为目标非负整数 <span
+class="math inline">\(x\)</span> 和 <span
+class="math inline">\(y\)</span>，而 AI 需要阻止 gsh 达成目标。</li>
+<li>gsh 在自己的回合可以执行以下两种操作之一：
+<ol type="1">
+<li><span class="math inline">\(a := a \mathbin{\&amp;}
+v\)</span>（按位与某个非负整数 <span
+class="math inline">\(v\)</span>）。</li>
+<li><span class="math inline">\(b := b \mathbin{|}
+v\)</span>（按位或某个非负整数 <span
+class="math inline">\(v\)</span>）。</li>
+</ol></li>
+<li>AI 在自己的回合可以执行以下两种操作之一：
+<ol type="1">
+<li><span class="math inline">\(a := a \mathbin{|}
+v\)</span>（按位或某个非负整数 <span
+class="math inline">\(v\)</span>）。</li>
+<li><span class="math inline">\(b := b \mathbin{\&amp;}
+v\)</span>（按位与某个非负整数 <span
+class="math inline">\(v\)</span>）。</li>
+</ol></li>
+<li>允许选择的 <span class="math inline">\(v\)</span> 满足 <span
+class="math inline">\(0 \leq v \lt 2^{60}\)</span>。</li>
+<li>双方都足够聪明，并且都会采取最优策略以赢得游戏。</li>
+<li>若在 <span class="math inline">\(10^{100}\)</span>
+回合内，存在某一时刻 <span class="math inline">\(a = x\)</span> 且 <span
+class="math inline">\(b = y\)</span>，则 gsh 获胜；否则，AI 获胜。</li>
+</ul>
+<p>请你判断 gsh 是否必胜，若必胜，输出 Yes，否则输出 No。</p>
+<p><tag>博弈论</tag> 如果 <span
+class="math inline">\(a=x,b=y\)</span>，gsh 获胜。如果 <span
+class="math inline">\(a,b\)</span> 其中一个等于 <span
+class="math inline">\(x,y\)</span>，则另一个需要可以一步变成 <span
+class="math inline">\(x,y\)</span> 才能获胜。否则 AI
+可以一直阻止，无法获胜。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll, ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">0</span>, inf = <span class="number">1e17</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ll a, b, x, y;</span><br><span class="line">    cin &gt;&gt; a &gt;&gt; b &gt;&gt; x &gt;&gt; y;</span><br><span class="line">    <span class="keyword">if</span> (a == x &amp;&amp; b == y) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Yes&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (a == x &amp;&amp; (b | y) == y) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Yes&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (b == y &amp;&amp; (a &amp; x) == x) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Yes&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;No&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T = <span class="number">1</span>;</span><br><span class="line">    cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="g.-矩阵"><pr>G. 矩阵</pr></h1>
+<p>给定一个正整数 <span class="math inline">\(n\)</span>，你需要构造一个
+<span class="math inline">\(n\times n\)</span>
+的矩阵。矩阵中，所有的数字与它上下左右相邻的四个数字都互质，并且矩阵中的数都不超过
+<span class="math inline">\(n^2 + 40n\)</span>。</p>
+<p><tag>构造题<tag> <tag>最大公约数</tag>
+注意到：大小上相邻的两个数必定互质，<span
+class="math inline">\(kp+c,(k+1)p+c\)</span> 互质，其中 <span
+class="math inline">\(p\)</span> 是质数，<span
+class="math inline">\(c&lt;p\)</span>。所以构造方法为：设第一个大于
+<span class="math inline">\(n\)</span> 的质数为 <span
+class="math inline">\(p\)</span>，则 <span
+class="math inline">\(a_{i,j}=i+p(j-1)\)</span>。经过打表验证数字不会超过
+<span class="math inline">\(n^2+40n\)</span>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> ll N = <span class="number">3000</span>;</span><br><span class="line"></span><br><span class="line">ll isNotP[N];</span><br><span class="line">vector&lt;ll&gt; primes;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	isNotP[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (ll i = <span class="number">2</span>; i &lt;= <span class="number">2600</span>; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (!isNotP[i]) &#123;</span><br><span class="line">			primes.<span class="built_in">push_back</span>(i);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">auto</span> j : primes) &#123;</span><br><span class="line">			<span class="keyword">if</span> (i * j &gt; <span class="number">2600</span>) &#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			isNotP[i * j] = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span> (i &amp; j == <span class="number">0</span>) &#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> __() &#123;</span><br><span class="line">	ll n;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	ll p = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> i : primes) &#123;</span><br><span class="line">		<span class="keyword">if</span> (n &lt; i) &#123;</span><br><span class="line">			p = i;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">		<span class="keyword">for</span> (ll j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">			cout &lt;&lt; i + p * (j - <span class="number">1</span>) &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		cout &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	<span class="type">int</span> T = <span class="number">1</span>;</span><br><span class="line">	<span class="comment">// cin &gt;&gt; T;</span></span><br><span class="line">	<span class="built_in">init</span>();</span><br><span class="line">	<span class="keyword">while</span> (T--) __();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">6,262,505 - 2504*(2503-2477+1)</span></span><br><span class="line"><span class="comment">6,234,609</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h1 id="m.-魔法使考核"><pr>M. 魔法使考核</pr></h1>
+<p>初始时数组元素为 <span
+class="math inline">\(0\)</span>，要在若干次操作后使得第 <span
+class="math inline">\(i\in[1,n]\)</span> 个元素最终等于 <span
+class="math inline">\(a_i\)</span>。</p>
+<ul>
+<li>将任意一个元素增加 <span class="math inline">\(1\)</span>，消耗
+<span class="math inline">\(x\)</span> 点体力。</li>
+<li>选择任意区间 <span class="math inline">\([l,r]\)</span>，将第 <span
+class="math inline">\(l\)</span> 个到第 <span
+class="math inline">\(r\)</span> 个共 <span
+class="math inline">\(r-l+1\)</span> 个元素的值翻倍，消耗 <span
+class="math inline">\(y\)</span> 点体力。</li>
+</ul>
+<p>算出最少用多少体力可以完成。</p>
+<p><tag>思维题</tag> <tag>二进制<tag> 可以想到操作 2
+最优是每次都选择区间 <span
+class="math inline">\([1,n]\)</span>。因为可以设想把数字二进制分解，其中
+<span class="math inline">\(1\)</span> 的地方一定是进行了操作
+1。把二进制串“右对齐”，操作 2
+的次数就至多为“最长的二进制串的长度”次。之后，例如对于数字 2
+来讲，如果进行两次操作 1 体力小于先操作 1 再操作 2，可以用操作 1
+代替操作 2，减少操作 2 次数。</p>
+<p>最后思路是：从高到低枚举二进制位，<span
+class="math inline">\(n\)</span> 个元素一起考虑，维护变量 sum
+模拟操作过程。如果某个数字当前位为 <span
+class="math inline">\(1\)</span>，说明必定进行操作 1，sum
+加一。之后考虑操作 2（翻倍操作）：如果 <span
+class="math inline">\(\text{sum}\times x&lt;y\)</span>，说明可以用 sum
+次操作 1 代替一次操作 2。之后 sum 翻倍。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll, ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">0</span>, inf = <span class="number">1e17</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">getBit</span><span class="params">(ll x, ll p)</span> </span>&#123; <span class="keyword">return</span> ((x &gt;&gt; (p - <span class="number">1</span>)) &amp; <span class="number">1</span>); &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ll n, x, y, sum = <span class="number">0</span>, ans = <span class="number">0</span>;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; x &gt;&gt; y;</span><br><span class="line">    ll a[n + <span class="number">10</span>];</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">32</span>; i &gt;= <span class="number">1</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">for</span> (ll j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">            ans += <span class="built_in">getBit</span>(a[j], i) * x;</span><br><span class="line">            sum += <span class="built_in">getBit</span>(a[j], i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (sum &gt; <span class="number">0</span> &amp;&amp; i != <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (sum &gt; y) &#123;</span><br><span class="line">                ans += y;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sum * x &gt; y) &#123;</span><br><span class="line">                ans += y;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                ans += sum * x;</span><br><span class="line">            &#125;</span><br><span class="line">            sum *= <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; (ll) ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>原作者： </strong>Pomelorin,Cool-breeze
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://pmlrin.github.io/2026/04/24/25%E4%B8%8A%E6%B5%B7%E7%9C%81%E8%B5%9B/" title="25上海省赛">https://pmlrin.github.io/2026/04/24/25上海省赛/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0/" rel="tag"><i class="fa fa-tag"></i> 最大公约数</a>
+              <a href="/tags/%E6%80%9D%E7%BB%B4%E9%A2%98/" rel="tag"><i class="fa fa-tag"></i> 思维题</a>
+              <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag"><i class="fa fa-tag"></i> 博弈论</a>
+              <a href="/tags/%E6%9E%84%E9%80%A0%E9%A2%98/" rel="tag"><i class="fa fa-tag"></i> 构造题</a>
+              <a href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/" rel="tag"><i class="fa fa-tag"></i> 二进制</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/04/03/25%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%B5%9B/" rel="prev" title="25四川省赛">
+                  <i class="fa fa-angle-left"></i> 25四川省赛
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  
+  <div class="comments giscus-container">
+  </div>
+  
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Pomelorin & Cool-breeze</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/cooI-breeze" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="giscus" type="application/json">{"enable":true,"repo":"pmlrin/pmlrin.github.io","repo_id":"R_kgDOPWW0aQ","category":"Announcements","category_id":"DIC_kwDOPWW0ac4Ctx6y","mapping":"pathname","strict":0,"reactions_enabled":1,"emit_metadata":1,"theme":"light","lang":"zh-CN","crossorigin":"anonymous","input_position":"bottom","loading":"lazy"}</script>
+
+<script>
+document.addEventListener('page:loaded', () => {
+  if (!CONFIG.page.comments) return;
+
+  NexT.utils.loadComments('.giscus-container')
+    .then(() => NexT.utils.getScript('https://giscus.app/client.js', {
+      attributes: {
+        async                   : true,
+        crossOrigin             : 'anonymous',
+        'data-repo'             : CONFIG.giscus.repo,
+        'data-repo-id'          : CONFIG.giscus.repo_id,
+        'data-category'         : CONFIG.giscus.category,
+        'data-category-id'      : CONFIG.giscus.category_id,
+        'data-mapping'          : CONFIG.giscus.mapping,
+        'data-strict'           : CONFIG.giscus.strict,
+        'data-reactions-enabled': CONFIG.giscus.reactions_enabled,
+        'data-emit-metadata'    : CONFIG.giscus.emit_metadata,
+        'data-theme'            : CONFIG.giscus.theme,
+        'data-lang'             : CONFIG.giscus.lang,
+        'data-input-position'   : CONFIG.giscus.input_position,
+        'data-loading'          : CONFIG.giscus.loading
+      },
+      parentNode: document.querySelector('.giscus-container')
+    }));
+});
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="/js/chaffle.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.chaffle').chaffle();
+  });
+</script>
+
+<script>
+  window.addEventListener('pjax:success', () => {
+    document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+      $(document).ready(function() {
+        $('.chaffle').chaffle();
+      });
+    });
+  });
+</script>
+
+<script>
+  const link = document.getElementsByClassName('github-corner')[0];
+  const octo_arm = document.getElementsByClassName('octo-arm')[0];
+  const octo_body = document.getElementsByClassName('octo-body')[0];
+  const octo_back = octo_arm.previousElementSibling;
+  const states = [
+      {
+        color: "#CC43E3",
+        href: "https://github.com/cooI-breeze",
+      },
+      {
+        color: "#FF98E0",
+        href: "https://github.com/pmlrin",
+      },
+  ];
+  const preColor = octo_back.getAttribute("fill");
+  octo_back.style.transition = "0.5s";
+  let currentState = 0;
+  octo_back.addEventListener('mouseenter', function() {
+    currentState = (currentState + 1) % states.length;
+    link.href = states[currentState].href;
+    octo_back.setAttribute("fill", states[currentState].color);
+  });
+  octo_back.addEventListener('mouseleave', function() {
+    octo_back.setAttribute("fill", preColor);
+  });
+</script>
+
+<script>
+  fetch('https://v1.hitokoto.cn')
+    .then(function (res){return res.json();})
+    .then(function (data) {
+      $("#hitokoto").html("<div class='hi-inner'><div style='text-align: left'>"+data.hitokoto+"</div><div style='text-align: right;'>——"+data.from+"</div></div>");
+    })
+    .catch(function (err) {console.error(err);})
+</script>
+
+<img src="/images/logo.png" class="right-bottom-logo">
+</body>
+</html>
