@@ -30,7 +30,7 @@
 <meta property="og:description" content="模板——数学类 快速幂，质数线性筛，质因数分解，欧几里得（gcd），扩展欧几里得（exgcd），求欧拉函数 \(\varphi(x)\)，欧拉定理，扩展欧拉定理，中国剩余定理（CRT），在任意模意义下的逆元，同余最短路，组合数，Lucas 定理，卡特兰数，递推求逆元，拉格朗日插值，康托展开，高斯消元，矩阵快速幂。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-11-06T06:02:43.000Z">
-<meta property="article:modified_time" content="2025-11-06T09:37:31.404Z">
+<meta property="article:modified_time" content="2026-09-26T18:21:29.171Z">
 <meta property="article:author" content="Pomelorin &amp; Cool-breeze">
 <meta name="twitter:card" content="summary">
 
@@ -267,9 +267,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2025-11-06 14:02:43 / 修改时间：17:37:31" itemprop="dateCreated datePublished" datetime="2025-11-06T14:02:43+08:00">2025-11-06</time>
+      <time title="创建时间：2025-11-06 14:02:43" itemprop="dateCreated datePublished" datetime="2025-11-06T14:02:43+08:00">2025-11-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-09-27 02:21:29" itemprop="dateModified" datetime="2026-09-27T02:21:29+08:00">2026-09-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -374,8 +380,9 @@ class="math inline">\(p\)</span>
 的数」的问题时可以使用同余最短路的方法。</p>
 <p>同余最短路利用同余来构造一些状态，可以达到优化空间复杂度的目的。</p>
 <p>类比差分约束方法，利用同余构造的这些状态可以看作单源最短路中的点。同余最短路的状态转移通常是这样的
-<span class="math inline">\(f(i+y) = f(i) + y\)</span>，类似单源最短路中
-<span class="math inline">\(f(v) = f(u) +edge(u,v)\)</span>。</p>
+<span class="math inline">\(f((i+y)\bmod n) = f(i) +
+y\)</span>，类似单源最短路中 <span class="math inline">\(f(v) = f(u)
++edge(u,v)\)</span>。</p>
 <blockquote>
 <p>给定 <span class="math inline">\(x，y，z，h\)</span>，对于 <span
 class="math inline">\(k \in [1,h]\)</span>，有多少个 <span
@@ -384,15 +391,19 @@ class="math inline">\(ax+by+cz=k\)</span>。（<span
 class="math inline">\(0\leq a,b,c\)</span>，<span
 class="math inline">\(1\le x,y,z\le 10^5\)</span>，<span
 class="math inline">\(h\le 2^{63}-1\)</span>）</p>
-<p>不妨假设 <span class="math inline">\(x &lt; y &lt; z\)</span>。</p>
+<p>不妨假设 <span class="math inline">\(x &lt; y &lt;
+z\)</span>。（选取此处的 <span
+class="math inline">\(x\)</span>，这样可以尽量减小空间复杂度）</p>
 <p>令 <span class="math inline">\(d_i\)</span> 为只通过 <span
-class="math inline">\(x\)</span> 和 <span
-class="math inline">\(y\)</span>，需满足 <span
+class="math inline">\(y\)</span> 和 <span
+class="math inline">\(z\)</span>，需满足 <span
 class="math inline">\(p\bmod x = i\)</span> 能够达到的最低楼层 <span
-class="math inline">\(p\)</span>，即 <span
-class="math inline">\(x\)</span> 和 <span
-class="math inline">\(y\)</span> 操作后能得到的模 <span
-class="math inline">\(x\)</span> 下与 <span
+class="math inline">\(p\)</span>（因为求出最低楼层 <span
+class="math inline">\(p\)</span>，则 <span
+class="math inline">\(p+ax\)</span>
+全都可以到达，减小空间复杂度的关键性质，这样拼凑出 <span
+class="math inline">\(ax+by+cz\)</span>），即 <span
+class="math inline">\(p=by+cz\)</span> 与 <span
 class="math inline">\(i\)</span>
 同余的最小数，用来计算该同余类满足条件的数个数。</p>
 <p>可以得到两个状态：</p>
@@ -402,15 +413,13 @@ x\)</span></p></li>
 <li><p><span class="math inline">\(i \xrightarrow{z} (i+z) \bmod
 x\)</span></p></li>
 </ul>
-<p>注意通常选取一组 <span class="math inline">\(a_i\)</span>
-中最小的那个数对它取模，也就是此处的 <span
-class="math inline">\(x\)</span>，这样可以尽量减小空间复杂度（剩余系最小）。</p>
 <p>那么实际上相当于执行了最短路中的建边操作：</p>
 <p><code>add(i, (i+y) % x, y)</code></p>
 <p><code>add(i, (i+z) % x, z)</code></p>
 <p>接下来只需要求出 <span class="math inline">\(d_0, d_1, d_2, \dots,
-d_{x-1}\)</span>，只需要跑一次最短路就可求出相应的 <span
-class="math inline">\(d_i\)</span>。</p>
+d_{x-1}\)</span>，只需要跑一次最短路就可求出。</p>
+<p>加 <span class="math inline">\(a\)</span>
+不改变余数，所以是自环，只会让数字变大，不会让某个余数第一次变得可达，因此可以忽略。这就是压缩的关键。</p>
 </blockquote>
 <h2 id="lucas-定理">Lucas 定理</h2>
 <p>含有组合数模板。</p>
