@@ -127,7 +127,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-tags"><a href="/tags.html" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">60</span></a></li><li class="menu-item menu-item-categories"><a href="/categories.html" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">42</span></a></li><li class="menu-item menu-item-about"><a href="/pages/about.html" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-chat"><a href="/pages/chat.html" rel="section"><i class="fa fa-comment fa-fw"></i>留言</a></li><li class="menu-item menu-item-links"><a href="/pages/links.html" rel="section"><i class="fa fa-link fa-fw"></i>链接</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-tags"><a href="/tags.html" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">60</span></a></li><li class="menu-item menu-item-categories"><a href="/categories.html" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">43</span></a></li><li class="menu-item menu-item-about"><a href="/pages/about.html" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-chat"><a href="/pages/chat.html" rel="section"><i class="fa fa-comment fa-fw"></i>留言</a></li><li class="menu-item menu-item-links"><a href="/pages/links.html" rel="section"><i class="fa fa-link fa-fw"></i>链接</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -196,7 +196,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -227,6 +227,113 @@
 
     <div class="main-inner index posts-expand">
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://pmlrin.github.io/2026/02/04/%E7%BA%BF%E6%AE%B5%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg,/images/avatar2.jpg">
+      <meta itemprop="name" content="Pomelorin & Cool-breeze">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cool Pomelo">
+      <meta itemprop="description" content="欢迎来到本博客！相互交流，共同进步～">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Cool Pomelo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/02/04/%E7%BA%BF%E6%AE%B5%E6%A0%91/" class="post-title-link" itemprop="url">线段树</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-02-04 09:14:17" itemprop="dateCreated datePublished" datetime="2026-02-04T09:14:17+08:00">2026-02-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-03-22 15:49:00" itemprop="dateModified" datetime="2026-03-22T15:49:00+08:00">2026-03-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OI/%E6%A8%A1%E6%9D%BF/" itemprop="url" rel="index"><span itemprop="name">模板</span></a>
+        </span>
+    </span>
+
+  
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="far fa-user"></i>
+    </span>
+    <span class="post-meta-item-text">作者</span>
+      <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <span itemprop="name"><pr>Pomelorin<pr></span>
+      </span>
+  </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="简介">简介</h1>
+<p>线段树，是用来存放给定区间内对应信息的一种数据结构，是一种二叉搜索树。可用来处理数组相应的单点、区间修改操作，也可以进行区间最值、区间和等的查询。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/02/04/%E7%BA%BF%E6%AE%B5%E6%A0%91/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+      <hr></hr>
     
 
 
@@ -496,7 +603,7 @@ class="math inline">\(O(\log n)\)</span>。</p>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-09-28 15:23:29" itemprop="dateModified" datetime="2026-09-28T15:23:29+08:00">2026-09-28</time>
+      <time title="修改时间：2026-09-30 09:43:23" itemprop="dateModified" datetime="2026-09-30T09:43:23+08:00">2026-09-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -532,10 +639,9 @@ class="math inline">\(O(\log n)\)</span>。</p>
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="模板杂项">模板——杂项</h1>
-<p>KMP，LCA，SG 函数，二进制相关，数位
-DP，费马平方和定理，对抗搜索，神秘康托展开，cout
-输出流控制，三分（整数三分，实数三分），upper_bound
-相关，树的一些性质，点分治，CDQ 分治，莫队，DFS 序与欧拉序。</p>
+<p>KMP，SG 函数，二进制相关，数位 DP，对抗搜索，神秘康托展开，cout
+输出流控制，三分（整数三分，实数三分），upper_bound 相关，CDQ
+分治，莫队。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2025/11/06/%E6%A8%A1%E6%9D%BF%E2%80%94%E2%80%94%E6%9D%82%E9%A1%B9/#more" rel="contents">
@@ -606,7 +712,7 @@ DP，费马平方和定理，对抗搜索，神秘康托展开，cout
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-09-17 08:27:02" itemprop="dateModified" datetime="2026-09-17T08:27:02+08:00">2026-09-17</time>
+      <time title="修改时间：2026-09-30 09:45:59" itemprop="dateModified" datetime="2026-09-30T09:45:59+08:00">2026-09-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -642,8 +748,7 @@ DP，费马平方和定理，对抗搜索，神秘康托展开，cout
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="模板数据结构">模板——数据结构</h1>
-<p>ST 表，Trie 树，并查集，笛卡尔树，树上启发式合并，Kruskal
-重构树，Bitset，线性基，链表。</p>
+<p>ST 表，Trie 树，并查集，Bitset，线性基，链表。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2025/11/06/%E6%A8%A1%E6%9D%BF%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/#more" rel="contents">
@@ -678,7 +783,7 @@ DP，费马平方和定理，对抗搜索，神秘康托展开，cout
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://pmlrin.github.io/2025/11/06/%E6%A8%A1%E6%9D%BF%E2%80%94%E2%80%94%E6%95%B0%E5%AD%A6%E7%B1%BB/">
+    <link itemprop="mainEntityOfPage" href="https://pmlrin.github.io/2025/11/06/%E6%A8%A1%E6%9D%BF%E2%80%94%E2%80%94%E6%95%B0%E5%AD%A6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg,/images/avatar2.jpg">
@@ -696,7 +801,7 @@ DP，费马平方和定理，对抗搜索，神秘康托展开，cout
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/11/06/%E6%A8%A1%E6%9D%BF%E2%80%94%E2%80%94%E6%95%B0%E5%AD%A6%E7%B1%BB/" class="post-title-link" itemprop="url">模板——数学类</a>
+          <a href="/2025/11/06/%E6%A8%A1%E6%9D%BF%E2%80%94%E2%80%94%E6%95%B0%E5%AD%A6/" class="post-title-link" itemprop="url">模板——数学类</a>
         </h2>
 
         <div class="post-meta-container">
@@ -714,7 +819,7 @@ DP，费马平方和定理，对抗搜索，神秘康托展开，cout
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-09-27 02:21:29" itemprop="dateModified" datetime="2026-09-27T02:21:29+08:00">2026-09-27</time>
+      <time title="修改时间：2026-09-30 10:12:43" itemprop="dateModified" datetime="2026-09-30T10:12:43+08:00">2026-09-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -749,14 +854,14 @@ DP，费马平方和定理，对抗搜索，神秘康托展开，cout
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="模板数学类">模板——数学类</h1>
+          <h1 id="模板数学">模板——数学</h1>
 <p>快速幂，质数线性筛，<strong>质</strong>因数分解，欧几里得（gcd），扩展欧几里得（exgcd），求欧拉函数
 <span
 class="math inline">\(\varphi(x)\)</span>，欧拉定理，扩展欧拉定理，中国剩余定理（CRT），在任意模意义下的逆元，同余最短路，组合数，Lucas
-定理，卡特兰数，递推求逆元，拉格朗日插值，康托展开，高斯消元，矩阵快速幂。</p>
+定理，卡特兰数，递推求逆元，拉格朗日插值，康托展开，高斯消元，矩阵快速幂，费马平方和定理。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2025/11/06/%E6%A8%A1%E6%9D%BF%E2%80%94%E2%80%94%E6%95%B0%E5%AD%A6%E7%B1%BB/#more" rel="contents">
+              <a class="btn" href="/2025/11/06/%E6%A8%A1%E6%9D%BF%E2%80%94%E2%80%94%E6%95%B0%E5%AD%A6/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1225,124 +1330,6 @@ class="math inline">\(10^5\)</span>。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2025/09/03/25%E6%9A%91%E6%8E%92%E4%BD%8D1/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-      <hr></hr>
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://pmlrin.github.io/2025/09/02/CF%E9%A2%98%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg,/images/avatar2.jpg">
-      <meta itemprop="name" content="Pomelorin & Cool-breeze">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cool Pomelo">
-      <meta itemprop="description" content="欢迎来到本博客！相互交流，共同进步～">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Cool Pomelo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/09/02/CF%E9%A2%98%E8%A7%A3/" class="post-title-link" itemprop="url">CF题解</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2025-09-02 22:29:14" itemprop="dateCreated datePublished" datetime="2025-09-02T22:29:14+08:00">2025-09-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-10-11 23:13:37" itemprop="dateModified" datetime="2025-10-11T23:13:37+08:00">2025-10-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ACM/" itemprop="url" rel="index"><span itemprop="name">ACM</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ACM/%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">题解</span></a>
-        </span>
-    </span>
-
-  
-  <span class="post-meta-item">
-    <span class="post-meta-item-icon">
-      <i class="far fa-user"></i>
-    </span>
-    <span class="post-meta-item-text">作者</span>
-      <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <span itemprop="name"><pr>Pomelorin<pr></span>
-      </span>
-        ，
-      <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <span itemprop="name"><cb>Cool-breeze<cb></span>
-      </span>
-  </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="g.-omg-graph"><pr>G. Omg Graph</pr></h1>
-<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2117/problem/G"
-class="uri">https://codeforces.com/contest/2117/problem/G</a></p>
-<p>给定无向带权连通图，定义一条路径的花费为：路径经过的边中，边权最大值
-+ 最小值。求从 <span class="math inline">\(1\)</span> 到 <span
-class="math inline">\(n\)</span>
-路径中的最小花费（注意不一定是简单路径）。</p>
-<p><span
-class="math inline">\(2≤n≤2⋅10^5,n−1≤m≤\min(2⋅10^5,n(n−1)/2),1≤u,v≤n,1≤w≤10^9\)</span></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/09/02/CF%E9%A2%98%E8%A7%A3/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
