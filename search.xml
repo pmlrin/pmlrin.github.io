@@ -739,10 +739,10 @@ class="math inline">\(\text{sum}\times x&lt;y\)</span>，说明可以用 sum
         <category>VP 记录</category>
       </categories>
       <tags>
-        <tag>思维题</tag>
-        <tag>最大公约数</tag>
         <tag>博弈论</tag>
         <tag>构造题</tag>
+        <tag>最大公约数</tag>
+        <tag>思维题</tag>
         <tag>二进制</tag>
       </tags>
   </entry>
@@ -2934,8 +2934,8 @@ class="math inline">\(a_i/a_{i+1}\)</span>
         <category>题解</category>
       </categories>
       <tags>
-        <tag>思维题</tag>
         <tag>最大公约数</tag>
+        <tag>思维题</tag>
         <tag>动态规划</tag>
         <tag>容斥</tag>
         <tag>搜索与剪枝</tag>
@@ -3628,10 +3628,10 @@ class="math inline">\(0\)</span> 的位置。</li>
         <category>题解</category>
       </categories>
       <tags>
+        <tag>构造题</tag>
         <tag>思维题</tag>
         <tag>贪心</tag>
         <tag>前缀和</tag>
-        <tag>构造题</tag>
         <tag>中位数</tag>
       </tags>
   </entry>
@@ -3797,9 +3797,9 @@ class="math inline">\(i\)</span>，这样就能还原排列。</p>
         <category>题解</category>
       </categories>
       <tags>
+        <tag>思维题</tag>
         <tag>ACM</tag>
         <tag>线段树</tag>
-        <tag>思维题</tag>
       </tags>
   </entry>
   <entry>
@@ -4028,9 +4028,9 @@ f(i,j,a_i)=\sum_{k\in C} f(i-1,j-1,k)
         <category>题解</category>
       </categories>
       <tags>
-        <tag>ACM</tag>
-        <tag>思维题</tag>
         <tag>最大公约数</tag>
+        <tag>思维题</tag>
+        <tag>ACM</tag>
         <tag>动态规划</tag>
         <tag>最短路</tag>
       </tags>
@@ -5155,8 +5155,8 @@ href="https://fastly.jsdelivr.net/gh/yz-hs/PicGo/%E8%B4%AA%E5%90%83%E8%9B%87%5BC
         <category>社团讲评</category>
       </categories>
       <tags>
-        <tag>毒瘤题</tag>
         <tag>博弈论</tag>
+        <tag>毒瘤题</tag>
         <tag>模拟</tag>
         <tag>队列</tag>
       </tags>
