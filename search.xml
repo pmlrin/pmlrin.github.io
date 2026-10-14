@@ -48,6 +48,200 @@ Why Blog“三段论”来自 yelog，并非原创。
 ]]></content>
   </entry>
   <entry>
+    <title>26沈阳icpc</title>
+    <url>/2026/10/13/26%E6%B2%88%E9%98%B3icpc/</url>
+    <content><![CDATA[<h1 id="b.-出-bug-的绘画软件i">B. 出 Bug 的绘画软件I</h1>
+<h2 id="题意简述">题意简述</h2>
+<p>画布由若干有序图层组成，每层是 <span class="math inline">\(n\times
+m\)</span> 的像素网格。像素值 <span class="math inline">\(0\)</span>
+表示透明，<span class="math inline">\(1\sim nm\)</span>
+表示不同颜色。某位置的合成可见值为所有图层中最上层非透明像素的值；若所有图层在该位置都透明，则可见值为
+<span class="math inline">\(0\)</span>。</p>
+<p>初始没有图层。可以任意次执行： -
+免费在最上方新建图层，初始化为全为颜色 <span
+class="math inline">\(c\)</span> 的常量层（<span
+class="math inline">\(1\le c\le nm\)</span>），或全透明层； - 花费 <span
+class="math inline">\(a\)</span> 将任意图层中任意单个像素涂成颜色 <span
+class="math inline">\(c\)</span>； - 花费 <span
+class="math inline">\(b\)</span> 将任意图层中任意单个像素变为透明。</p>
+<p>给定目标可见矩阵 <span
+class="math inline">\(p_{i,j}\)</span>，求使最终合成图像等于目标图像的最小总花费。</p>
+<h2 id="数据范围">数据范围</h2>
+<p><span class="math inline">\(1\le T\le 10^5\)</span>，<span
+class="math inline">\(1\le n,m\le 500\)</span>，<span
+class="math inline">\(1\le a,b\le 10^6\)</span>，<span
+class="math inline">\(0\le p_{i,j}\le nm\)</span>，且所有测试用例的
+<span class="math inline">\(\sum nm\le 10^6\)</span>。</p>
+<span id="more"></span>
+<h2 id="题解">题解</h2>
+<p><tag>贪心</tag>
+对于每种颜色，要么在透明图层上只用画笔工具，要么在纯色图层上只用橡皮工具。图层摆放为：顶层为透明，下面为若干纯色。</p>
+<p>设某种非透明色颜色数为 <span
+class="math inline">\(c\)</span>，则使用画笔代价为 <span
+class="math inline">\(ac\)</span>，使用橡皮代价为 <span
+class="math inline">\(bc(k-1)\)</span>，<span
+class="math inline">\(k\)</span> 为纯色图层从上到下的序号。透明色 <span
+class="math inline">\(c_0\)</span> 单独考虑，代价为 <span
+class="math inline">\(c_0l\)</span>，<span
+class="math inline">\(l\)</span> 为纯色图层个数。</p>
+<p>问题转化为，给颜色数组 <span class="math inline">\(c\)</span>
+分配代价，使得代价最小。假设 <span class="math inline">\(4b\)</span>
+刚好大于 <span class="math inline">\(a\)</span>，查看代价数组：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">a a a a a a a a <span class="number">0</span></span><br><span class="line"><span class="number">0</span> a a a a a a a c0</span><br><span class="line"><span class="number">0</span> b a a a a a a <span class="number">2</span>c0</span><br><span class="line"><span class="number">0</span> b <span class="number">2</span>b a a a a a <span class="number">3</span>c0</span><br><span class="line"><span class="number">0</span> b <span class="number">2</span>b <span class="number">3</span>b a a a a <span class="number">4</span>c0</span><br><span class="line"><span class="number">0</span> b <span class="number">2</span>b <span class="number">3</span>b a a a <span class="number">4</span>b <span class="number">5</span>c0</span><br><span class="line"><span class="number">0</span> b <span class="number">2</span>b <span class="number">3</span>b a a <span class="number">4</span>b <span class="number">5</span>b <span class="number">6</span>c0</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>显然，出现 <span class="math inline">\(4b\)</span>
+及以上的代价是不优秀的，所以代价数组前缀为 <span
+class="math inline">\(bk\)</span>，后缀为 <span
+class="math inline">\(a\)</span>。颜色数组乘代价数组，倒序之积最小，枚举代价数组分界点计算代价即可。</p>
+<h1 id="a.-平方王国">A. 平方王国</h1>
+<h2 id="题意简述-1">题意简述</h2>
+<p>在 Square Kingdom 中有 <span class="math inline">\(n\)</span>
+个居民，编号为 <span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(n\)</span>。第 <span
+class="math inline">\(i\)</span> 个居民的石柱高度为 <span
+class="math inline">\((i+b/a)^2\)</span>。任意两个居民之间建一条梯子，梯子长度为两根石柱高度差的绝对值。共有
+<span class="math inline">\(\frac{n(n-1)}2\)</span> 条梯子。</p>
+<p>给定 <span
+class="math inline">\(n,k,a,b\)</span>，求所有梯子按长度升序排列（含重复）后的第
+<span class="math inline">\(k\)</span>
+条梯子的长度。该长度可以表示为最简分数 <span
+class="math inline">\(\frac{p}{q}\)</span>，输出 <span
+class="math inline">\(p\)</span> 和 <span
+class="math inline">\(q\)</span>。</p>
+<h2 id="数据范围-1">数据范围</h2>
+<p><span class="math inline">\(2\le n\le 10^{12}\)</span>，<span
+class="math inline">\(1\le k\le
+\min\left(\frac{n(n-1)}2,10^{12}\right)\)</span>，<span
+class="math inline">\(1\le a\le 10^6\)</span>，<span
+class="math inline">\(0\le b\le 10^{12}\)</span>。</p>
+<p>输出两个整数 <span class="math inline">\(p,q\)</span>，满足 <span
+class="math inline">\(p\ge 0\)</span>，<span class="math inline">\(q\ge
+1\)</span>，且 <span class="math inline">\(\gcd(p,q)=1\)</span>。</p>
+<h2 id="题解-1">题解</h2>
+<p><tag>二分</tag> <tag>二分答案</tag> 考虑二分答案： <span
+class="math display">\[
+(i+b/a)^2-(j+b/a)^2=(i+j+2b/a)(i-j)\le mid/a
+\]</span> 设 <span class="math inline">\(i-j=d\)</span>，则上式为 <span
+class="math inline">\(i\le(mid-2bd+ad^2)/2ad\)</span>，与此同时 <span
+class="math inline">\(i\in[1+d,n]\)</span>。而 <span
+class="math inline">\(d\)</span> 枚举上界是 <span
+class="math inline">\(O(\sqrt k)\)</span>。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">__int128_t</span> l128;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll, ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">0</span>, inf = <span class="number">1e17</span>;</span><br><span class="line"></span><br><span class="line">ll n, k, a, b;</span><br><span class="line"></span><br><span class="line"><span class="function">l128 <span class="title">mygcd</span><span class="params">(l128 a, l128 b)</span> </span>&#123; <span class="keyword">return</span> b ? <span class="built_in">mygcd</span>(b, a % b) : a; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function">l128 <span class="title">check</span><span class="params">(l128 x)</span> </span>&#123;</span><br><span class="line">    l128 res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (l128 i = <span class="number">1</span>; i &lt;= <span class="number">2e6</span>; i++) &#123;</span><br><span class="line">        l128 r = <span class="built_in">min</span>((l128)n, (x - <span class="number">2</span> * b * i + a * i * i) / <span class="number">2</span> / a / i);</span><br><span class="line">        l128 l = <span class="number">1</span> + i;</span><br><span class="line">        res += <span class="built_in">max</span>(r - l + <span class="number">1</span>, (l128)<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; k &gt;&gt; a &gt;&gt; b;</span><br><span class="line">    l128 g = <span class="built_in">mygcd</span>(a, b);</span><br><span class="line">    a /= g, b /= g;</span><br><span class="line">    l128 l = <span class="number">1</span>, r = <span class="number">5e18</span>, ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (l &lt;= r) &#123;</span><br><span class="line">        l128 mid = (l + r) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">check</span>(mid) &lt; k) &#123;</span><br><span class="line">            l = mid + <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            r = mid - <span class="number">1</span>;</span><br><span class="line">            ans = mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    g = <span class="built_in">mygcd</span>(ans, a);</span><br><span class="line">    ans /= g, a /= g;</span><br><span class="line">    cout &lt;&lt; (ll)ans &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; (ll)a &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// cin &gt;&gt; T;</span></span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="k.-接力跳">K. 接力跳</h1>
+<h2 id="题意简述-2">题意简述</h2>
+<p>有 <span class="math inline">\(n\)</span> 只青蛙，编号 <span
+class="math inline">\(1\sim n\)</span>，初始位置 <span
+class="math inline">\(P_i\)</span> 两两不同。从青蛙 <span
+class="math inline">\(s\)</span> 开始被刺激。当青蛙 <span
+class="math inline">\(i\)</span> 被刺激时，它可以选择：</p>
+<ul>
+<li>选择另一只青蛙 <span class="math inline">\(j\)</span>（<span
+class="math inline">\(j\ne i\)</span>），立即跳到当前位置关于青蛙 <span
+class="math inline">\(j\)</span> 当前所在点的反射点，即新位置为 <span
+class="math inline">\(2P_j-P_i\)</span>；随后青蛙 <span
+class="math inline">\(j\)</span> 成为下一个且唯一被刺激的青蛙；</li>
+<li>或停在原地，此时所有跳跃结束。</li>
+</ul>
+<p>一只青蛙可能被多次刺激。最终所有青蛙到达位置 <span
+class="math inline">\(Q_i\)</span>，且 <span
+class="math inline">\(Q_i\)</span>
+两两不同。设最后被刺激并选择停下的青蛙编号为 <span
+class="math inline">\(t\)</span>，求 <span
+class="math inline">\(t\)</span>。</p>
+<h2 id="数据范围-2">数据范围</h2>
+<p><span class="math inline">\(2\le n\le 10^5\)</span>，<span
+class="math inline">\(1\le s\le n\)</span>，坐标范围 <span
+class="math inline">\(-10^9\le px_i,py_i,qx_i,qy_i\le
+10^9\)</span>。所有初始位置 <span class="math inline">\(P_i\)</span>
+两两不同，所有最终位置 <span class="math inline">\(Q_i\)</span>
+也两两不同。保证对应一个刺激次数不超过 <span
+class="math inline">\(2\times 10^5\)</span> 的合法过程。</p>
+<h2 id="题解-2">题解</h2>
+<p><tag>思维题</tag> 构造不变量。假设当前被刺激的是青蛙 <span
+class="math inline">\(i\)</span>，它选择跳向青蛙 <span
+class="math inline">\(j\)</span>。跳跃前，青蛙 <span
+class="math inline">\(i\)</span> 的位置为 <span
+class="math inline">\(R_i\)</span>，青蛙 <span
+class="math inline">\(j\)</span> 的位置为 <span
+class="math inline">\(R_j\)</span>。</p>
+<p>根据中心对称的定义，跳跃后青蛙 <span class="math inline">\(i\)</span>
+的新位置是</p>
+<p><span class="math display">\[
+R_i&#39;=2R_j-R_i
+\]</span></p>
+<p>与此同时，下一只被刺激的青蛙变成了 <span
+class="math inline">\(j\)</span>。记跳跃前所有青蛙的位置之和为</p>
+<p><span class="math display">\[
+S=\sum_{k=1}^{n}R_k
+\]</span></p>
+<p>跳跃后只有青蛙 <span class="math inline">\(i\)</span>
+的位置发生变化，因此</p>
+<p><span class="math display">\[
+\begin{aligned}
+S&#39;&amp;=S-R_i+R_i&#39;\\
+&amp;=S-R_i+(2R_j-R_i)\\
+&amp;=S+2R_j-2R_i
+\end{aligned}
+\]</span></p>
+<p>设 <span class="math display">\[
+\boxed{\Phi=\sum_{k=1}^{n}R_k-2R_x}
+\]</span></p>
+<p>跳跃后的不变量为 <span class="math display">\[
+\begin{aligned}
+\Phi&#39;&amp;=S&#39;-2R_j\\
+&amp;=S+2R_j-2R_i-2R_j\\
+&amp;=S-2R_i\\
+&amp;=\Phi
+\end{aligned}
+\]</span></p>
+<p>因此</p>
+<p><span class="math display">\[
+\boxed{\Phi&#39;=\Phi}
+\]</span></p>
+<p>无论发生多少次跳跃，这个不变量始终保持不变。</p>
+<h1 id="f.-友谊地久天长">F. 友谊地久天长</h1>
+<h2 id="题意简述-3">题意简述</h2>
+<p>给定一个简单连通无向图，有 <span class="math inline">\(n\)</span>
+个顶点、<span class="math inline">\(m\)</span> 条边，Alice 和 Bob
+分别从两个不同顶点 <span class="math inline">\(x,y\)</span>
+出发。需要为每条无向边确定方向，将其变为有向图。之后两人按轮同时移动：若当前顶点有出边，则各自任意选择一条出边走；若没有出边，则停在原地。要求无论他们每轮如何选择，在任何一轮结束时都不会位于同一顶点。若存在这样的定向，输出
+<code>Yes</code> 并给出 <span class="math inline">\(m\)</span>
+条有向边；否则输出 <code>No</code>。</p>
+<h2 id="数据范围-3">数据范围</h2>
+<p><span class="math inline">\(1\le T\le 1000\)</span>，<span
+class="math inline">\(2\le n\le 300\)</span>，<span
+class="math inline">\(n-1\le m\le \frac{n(n-1)}2\)</span>，<span
+class="math inline">\(1\le x,y\le n\)</span>，<span
+class="math inline">\(x\ne y\)</span>。图连通，无自环、无重边。<span
+class="math inline">\(n&gt;30\)</span> 的测试用例至多一个。</p>
+]]></content>
+      <categories>
+        <category>ACM</category>
+        <category>VP 记录</category>
+      </categories>
+      <tags>
+        <tag>思维题</tag>
+        <tag>贪心</tag>
+        <tag>二分</tag>
+        <tag>二分答案</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模板——补充</title>
+    <url>/2026/10/13/%E6%A8%A1%E6%9D%BF%E2%80%94%E2%80%94%E8%A1%A5%E5%85%85/</url>
+    <content><![CDATA[<h1 id="模板补充">模板——补充</h1>
+<p>数论分块。</p>
+<h2 id="数论分块">数论分块</h2>
+<p>求 <span class="math inline">\(\sum_{i=1}^n \lfloor
+n/i\rfloor\)</span>，时间复杂度为 <span class="math inline">\(O(\sqrt
+n)\)</span>。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">H</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">  <span class="type">long</span> <span class="type">long</span> res = <span class="number">0</span>;  <span class="comment">// 储存结果</span></span><br><span class="line">  <span class="type">int</span> l = <span class="number">1</span>, r;       <span class="comment">// 块左端点与右端点</span></span><br><span class="line">  <span class="keyword">while</span> (l &lt;= n) &#123;</span><br><span class="line">    r = n / (n / l);  <span class="comment">// 计算当前块的右端点</span></span><br><span class="line">    <span class="comment">// 累加这一块的贡献到结果中。乘上 1LL 防止溢出</span></span><br><span class="line">    res += <span class="number">1LL</span> * (r - l + <span class="number">1</span>) * (n / l);</span><br><span class="line">    l = r + <span class="number">1</span>;  <span class="comment">// 左端点移到下一块</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>ACM</category>
+        <category>模板</category>
+      </categories>
+  </entry>
+  <entry>
     <title>模板——树上算法</title>
     <url>/2026/09/30/%E6%A8%A1%E6%9D%BF%E2%80%94%E2%80%94%E6%A0%91%E4%B8%8A%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<h1 id="模板树上算法">模板——树上算法</h1>
@@ -637,9 +831,9 @@ class="math inline">\(n\)</span>
         <tag>最短路</tag>
         <tag>思维题</tag>
         <tag>贪心</tag>
-        <tag>数学</tag>
         <tag>二分</tag>
         <tag>二分答案</tag>
+        <tag>数学</tag>
       </tags>
   </entry>
   <entry>
@@ -1880,7 +2074,7 @@ class="math inline">\(k-count\)</span>，则该元素在右子树中。</li>
     <content><![CDATA[<h1 id="模板图论">模板——图论</h1>
 <p>Floyd 算法，SPFA 算法（慎用），Dijkstra 算法，Tarjan 算法，Prim
 算法，Kruskal 算法，欧拉路，Dinic（最大流/最小割），
-Dinic（费用流）。</p>
+Dinic（费用流），2-SAT，最小环。</p>
 <span id="more"></span>
 <h2 id="floyd-算法">Floyd 算法</h2>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">floyd</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">1</span>; k &lt;= n; k++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (e[i][j] &gt; e[i][k] + e[k][j])</span><br><span class="line">                    e[i][j] = e[i][k] + e[k][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1967,6 +2161,12 @@ class="math inline">\((u,v)\)</span>，需要找出从 u 到 v
 <h2 id="dinic费用流">Dinic（费用流）</h2>
 <p>直接把 BFS 改为 SPFA 即可。</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll, ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">5e3</span> + <span class="number">10</span>, inf = <span class="number">1e17</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">    ll to, val, rev, cost;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ll dinicn, m, s, t, cur[N], lvl[N], vis[N], maxFlow = <span class="number">0</span>, minCost = <span class="number">0</span>;</span><br><span class="line">vector&lt;edge&gt; e[N];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">bfs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= dinicn; i++) &#123;</span><br><span class="line">        lvl[i] = inf;</span><br><span class="line">        cur[i] = <span class="number">0</span>;</span><br><span class="line">        vis[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    queue&lt;ll&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(s);</span><br><span class="line">    lvl[s] = <span class="number">0</span>;</span><br><span class="line">    vis[s] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        ll now = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        vis[now] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> [to, val, rev, cost] : e[now]) &#123;</span><br><span class="line">            <span class="keyword">if</span> (val &gt; <span class="number">0</span> &amp;&amp; lvl[to] &gt; lvl[now] + cost) &#123;</span><br><span class="line">                lvl[to] = lvl[now] + cost;</span><br><span class="line">                <span class="keyword">if</span> (!vis[to]) &#123;</span><br><span class="line">                    q.<span class="built_in">push</span>(to);</span><br><span class="line">                    vis[to] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (lvl[t] == inf) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">dfs</span><span class="params">(ll now, ll flow)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (now == t) &#123;</span><br><span class="line">        <span class="keyword">return</span> flow;</span><br><span class="line">    &#125;</span><br><span class="line">    vis[now] = <span class="number">1</span>;</span><br><span class="line">    ll res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (ll &amp;i = cur[now]; i &lt; e[now].<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">auto</span> [to, val, rev, cost] = e[now][i];</span><br><span class="line">        <span class="keyword">if</span> (!vis[to] &amp;&amp; val &gt; <span class="number">0</span> &amp;&amp; lvl[to] == lvl[now] + cost) &#123;</span><br><span class="line">            ll f = <span class="built_in">dfs</span>(to, <span class="built_in">min</span>(val, flow));</span><br><span class="line">            <span class="keyword">if</span> (f == <span class="number">0</span>) &#123;</span><br><span class="line">                lvl[to] = inf;</span><br><span class="line">            &#125;</span><br><span class="line">            e[now][i].val -= f;</span><br><span class="line">            e[to][rev].val += f;</span><br><span class="line">            res += f;</span><br><span class="line">            flow -= f;</span><br><span class="line">            minCost += f * cost;</span><br><span class="line">            <span class="keyword">if</span> (flow == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> res;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    vis[now] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(ll a, ll b, ll c, ll cost)</span> </span>&#123;</span><br><span class="line">    e[a].<span class="built_in">push_back</span>((edge)&#123;b, c, e[b].<span class="built_in">size</span>(), cost&#125;);</span><br><span class="line">    e[b].<span class="built_in">push_back</span>((edge)&#123;a, <span class="number">0</span>, e[a].<span class="built_in">size</span>() - <span class="number">1</span>, -cost&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    maxFlow = minCost = <span class="number">0</span>;</span><br><span class="line">    cin &gt;&gt; dinicn &gt;&gt; m &gt;&gt; s &gt;&gt; t;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>, u, v, w, c; i &lt;= m; i++) &#123;</span><br><span class="line">        cin &gt;&gt; u &gt;&gt; v &gt;&gt; w &gt;&gt; c;</span><br><span class="line">        <span class="built_in">add</span>(u, v, w, c);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">bfs</span>()) &#123;</span><br><span class="line">        maxFlow += <span class="built_in">dfs</span>(s, inf);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; maxFlow &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; minCost &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T;</span><br><span class="line">    T = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="sat">2-SAT</h2>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PII pair<span class="string">&lt;ll, ll&gt;</span></span></span><br><span class="line"><span class="type">const</span> ll N = <span class="number">3e6</span> + <span class="number">39</span>;</span><br><span class="line"></span><br><span class="line">ll n, m;</span><br><span class="line">ll dfn[N], low[N], ins[N], stk[N], num = <span class="number">0</span>, top = <span class="number">0</span>, scc = <span class="number">0</span>, bel[N];</span><br><span class="line">ll val[N];</span><br><span class="line">vector&lt;ll&gt; e[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(ll u)</span> </span>&#123;</span><br><span class="line">    dfn[u] = low[u] = (++num);</span><br><span class="line">    ins[u] = <span class="number">1</span>, stk[++top] = u;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> v : e[u]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!dfn[v])</span><br><span class="line">            <span class="built_in">tarjan</span>(v), low[u] = <span class="built_in">min</span>(low[u], low[v]);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (ins[v])</span><br><span class="line">            low[u] = <span class="built_in">min</span>(low[u], dfn[v]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (dfn[u] == low[u]) &#123;</span><br><span class="line">        scc++;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            ll tmp = stk[top];</span><br><span class="line">            bel[tmp] = scc;</span><br><span class="line">            ins[tmp] = <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">while</span> (u != stk[top--]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 节点：2*i 表示 x_i=true，2*i+1 表示 x_i=false</span></span><br><span class="line"><span class="comment">// 添加子句：(x_i == vi) OR (x_j == vj)</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(ll i, ll vi, ll j, ll vj)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> u = <span class="number">2</span> * i + (vi ? <span class="number">0</span> : <span class="number">1</span>); <span class="comment">// vi=true -&gt; 2*i, false -&gt; 2*i+1</span></span><br><span class="line">    <span class="type">int</span> v = <span class="number">2</span> * j + (vj ? <span class="number">0</span> : <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// (u OR v) &lt;=&gt; (!u -&gt; v) AND (!v -&gt; u)</span></span><br><span class="line">    e[u ^ <span class="number">1</span>].<span class="built_in">push_back</span>(v);</span><br><span class="line">    e[v ^ <span class="number">1</span>].<span class="built_in">push_back</span>(u);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ll ans = <span class="number">1</span>;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>, x, a, y, b; i &lt;= m; i++) &#123;</span><br><span class="line">        cin &gt;&gt; x &gt;&gt; a &gt;&gt; y &gt;&gt; b;</span><br><span class="line">        <span class="built_in">add</span>(x, a, y, b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">2</span>; i &lt;= <span class="number">2</span> * n + <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!dfn[i]) &#123;</span><br><span class="line">            <span class="built_in">tarjan</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (bel[<span class="number">2</span> * i] == bel[<span class="number">2</span> * i + <span class="number">1</span>]) &#123;</span><br><span class="line">            ans = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 本 Tarjan 实现中：bel 编号越小，SCC 在缩点 DAG 中越靠后</span></span><br><span class="line">        <span class="comment">// 选择拓扑序靠后的文字为真，所以真节点编号小则 x_i 为真</span></span><br><span class="line">        val[i] = (bel[<span class="number">2</span> * i] &lt; bel[<span class="number">2</span> * i + <span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (ans == <span class="number">0</span>) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;IMPOSSIBLE\n&quot;</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;POSSIBLE\n&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            cout &lt;&lt; val[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    cout.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    ll T = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="最小环">最小环</h2>
+<p><span class="math inline">\(O(n^3)\)</span> Floyd：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 图的点数为 n</span></span><br><span class="line"><span class="type">int</span> val[MAXN + <span class="number">1</span>][MAXN + <span class="number">1</span>];  <span class="comment">// 原图的邻接矩阵</span></span><br><span class="line"><span class="type">int</span> cnt, path[MAXN + <span class="number">5</span>];      <span class="comment">// 记录最小环的路径和长度</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">get_path</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> v)</span> </span>&#123;  <span class="comment">// 获得 u 到 v 之间的路径</span></span><br><span class="line">  <span class="keyword">if</span> (pos[u][v] == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="type">int</span> k = pos[u][v];</span><br><span class="line">  <span class="built_in">get_path</span>(u, k);</span><br><span class="line">  path[++cnt] = k;</span><br><span class="line">  <span class="built_in">get_path</span>(k, v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Floyd</span><span class="params">(<span class="type">const</span> <span class="type">int</span> &amp;n)</span> </span>&#123;</span><br><span class="line">  <span class="type">static</span> <span class="type">int</span> dis[MAXN + <span class="number">1</span>][MAXN + <span class="number">1</span>];  <span class="comment">// 最短路矩阵</span></span><br><span class="line">  <span class="type">static</span> <span class="type">int</span> pos[MAXN + <span class="number">1</span>][MAXN + <span class="number">1</span>];</span><br><span class="line">  <span class="built_in">memcpy</span>(dis, val, <span class="built_in">sizeof</span>(val));</span><br><span class="line">  <span class="built_in">memset</span>(pos, <span class="number">0</span>, <span class="built_in">sizeof</span>(pos));</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">1</span>; k &lt;= n; ++k) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; k; ++i)</span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt; i; ++j)</span><br><span class="line">        <span class="keyword">if</span> (ans &gt;</span><br><span class="line">            (<span class="type">long</span> <span class="type">long</span>)val[i][k] + val[k][j] + dis[i][j]) &#123;  <span class="comment">// 发现了更短的环</span></span><br><span class="line">          <span class="comment">// 由于这里保证了 j&lt;i&lt;k，所以三个点不同，不会出现零环．</span></span><br><span class="line">          ans = val[i][k] + val[k][j] + dis[i][j], cnt = <span class="number">0</span>;</span><br><span class="line">          path[++cnt] = i, path[++cnt] = k,</span><br><span class="line">          path[++cnt] = j;  <span class="comment">// 依次加入 i,k,j 三点</span></span><br><span class="line">          <span class="built_in">get_path</span>(j, i);   <span class="comment">// 加入 j 到 i 的路径</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)  <span class="comment">// 正常 Floyd 更新最短路</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n; ++j) &#123;</span><br><span class="line">        <span class="keyword">if</span> (dis[i][j] &gt; dis[i][k] + dis[k][j]) &#123;</span><br><span class="line">          dis[i][j] = dis[i][k] + dis[k][j];</span><br><span class="line">          pos[i][j] = k;  <span class="comment">// 当前路径可以由 k 更新得到</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以枚举所有边，断边跑最短路寻找。</p>
 ]]></content>
       <categories>
         <category>ACM</category>
